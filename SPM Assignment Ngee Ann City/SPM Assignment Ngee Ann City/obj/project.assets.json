@@ -8,19 +8,24 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\lauyh\\.nuget\\packages\\": {}
+    "C:\\Users\\limze\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
+      "projectUniqueName": "C:\\Ngee ann poly\\Year 2 sem 1\\SPM\\Assignment\\SPM_Assignment_NgeeAnnCity\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
       "projectName": "SPM Assignment Ngee Ann City",
-      "projectPath": "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
-      "packagesPath": "C:\\Users\\lauyh\\.nuget\\packages\\",
-      "outputPath": "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\obj\\",
+      "projectPath": "C:\\Ngee ann poly\\Year 2 sem 1\\SPM\\Assignment\\SPM_Assignment_NgeeAnnCity\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
+      "packagesPath": "C:\\Users\\limze\\.nuget\\packages\\",
+      "outputPath": "C:\\Ngee ann poly\\Year 2 sem 1\\SPM\\Assignment\\SPM_Assignment_NgeeAnnCity\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\lauyh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\limze\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -61,7 +66,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

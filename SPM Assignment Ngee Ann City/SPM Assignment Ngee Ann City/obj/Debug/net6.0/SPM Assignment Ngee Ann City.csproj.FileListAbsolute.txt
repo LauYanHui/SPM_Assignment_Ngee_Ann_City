@@ -1,0 +1,15 @@
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.exe
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.deps.json
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.runtimeconfig.json
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.dll
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.pdb
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.csproj.AssemblyReference.cache
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.GeneratedMSBuildEditorConfig.editorconfig
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.AssemblyInfoInputs.cache
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.AssemblyInfo.cs
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.csproj.CoreCompileInputs.cache
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.dll
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\refint\SPM Assignment Ngee Ann City.dll
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.pdb
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.genruntimeconfig.cache
+C:\Ngee ann poly\Year 2 sem 1\SPM\Assignment\SPM_Assignment_NgeeAnnCity\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\ref\SPM Assignment Ngee Ann City.dll

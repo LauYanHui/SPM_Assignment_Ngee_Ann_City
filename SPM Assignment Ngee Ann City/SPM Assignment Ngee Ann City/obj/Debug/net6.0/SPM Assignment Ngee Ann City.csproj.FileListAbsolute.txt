@@ -1,0 +1,14 @@
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.GeneratedMSBuildEditorConfig.editorconfig
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.AssemblyInfoInputs.cache
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.AssemblyInfo.cs
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.csproj.CoreCompileInputs.cache
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.exe
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.deps.json
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.runtimeconfig.json
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.dll
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.pdb
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.dll
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\refint\SPM Assignment Ngee Ann City.dll
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.pdb
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.genruntimeconfig.cache
+E:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\ref\SPM Assignment Ngee Ann City.dll

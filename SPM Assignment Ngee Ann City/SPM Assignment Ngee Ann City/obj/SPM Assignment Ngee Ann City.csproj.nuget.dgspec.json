@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj": {}
+    "C:\\Users\\baoxu\\source\\repos\\SPM_Assignment_Ngee_Ann_City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj": {}
   },
   "projects": {
-    "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj": {
+    "C:\\Users\\baoxu\\source\\repos\\SPM_Assignment_Ngee_Ann_City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
+        "projectUniqueName": "C:\\Users\\baoxu\\source\\repos\\SPM_Assignment_Ngee_Ann_City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
         "projectName": "SPM Assignment Ngee Ann City",
-        "projectPath": "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
-        "packagesPath": "C:\\Users\\lauyh\\.nuget\\packages\\",
-        "outputPath": "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\obj\\",
+        "projectPath": "C:\\Users\\baoxu\\source\\repos\\SPM_Assignment_Ngee_Ann_City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
+        "packagesPath": "C:\\Users\\baoxu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\baoxu\\source\\repos\\SPM_Assignment_Ngee_Ann_City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lauyh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\baoxu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SPM_Assignment_Ngee_Ann_City
 {
-    class User
+    class User : IComparable<User>
     {
         private String name;
         public String Name { get; set; }
@@ -36,6 +36,17 @@ namespace SPM_Assignment_Ngee_Ann_City
         public override string ToString()
         {
             return "Name: " + Name + "\tEmail: " + Email + "\tPoints: " + Points;
+        }
+
+        interface IComparable<User>
+        {
+            int CompareTo(User obj);
+        }
+
+        public int CompareTo(User u)
+        {
+            //Sorted descending
+            return u.Points.CompareTo(Points);
         }
 
     }

@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 public abstract class Building
 {
     public int X { get; set; }

@@ -1,0 +1,14 @@
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.exe
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.deps.json
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.runtimeconfig.json
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.dll
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.pdb
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.GeneratedMSBuildEditorConfig.editorconfig
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.AssemblyInfoInputs.cache
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.AssemblyInfo.cs
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.csproj.CoreCompileInputs.cache
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.dll
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\refint\SPM Assignment Ngee Ann City.dll
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.pdb
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.genruntimeconfig.cache
+D:\Ngee Ann Poly\SPM\Git Repo\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\ref\SPM Assignment Ngee Ann City.dll

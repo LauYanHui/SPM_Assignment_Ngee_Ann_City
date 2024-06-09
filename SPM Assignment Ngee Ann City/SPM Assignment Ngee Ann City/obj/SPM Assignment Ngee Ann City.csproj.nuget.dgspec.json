@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj": {}
+    "D:\\Ngee Ann Poly\\SPM\\Git Repo\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj": {}
   },
   "projects": {
-    "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj": {
+    "D:\\Ngee Ann Poly\\SPM\\Git Repo\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
+        "projectUniqueName": "D:\\Ngee Ann Poly\\SPM\\Git Repo\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
         "projectName": "SPM Assignment Ngee Ann City",
-        "projectPath": "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
-        "packagesPath": "C:\\Users\\lauyh\\.nuget\\packages\\",
-        "outputPath": "E:\\School\\Y2S1\\SPM\\Assignment FINAL\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\obj\\",
+        "projectPath": "D:\\Ngee Ann Poly\\SPM\\Git Repo\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City.csproj",
+        "packagesPath": "C:\\Users\\HoloGems\\.nuget\\packages\\",
+        "outputPath": "D:\\Ngee Ann Poly\\SPM\\Git Repo\\SPM Assignment Ngee Ann City\\SPM Assignment Ngee Ann City\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lauyh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HoloGems\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -55,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

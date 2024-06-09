@@ -8,4 +8,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="D:\Ngee Ann Poly\SPM\Git Repo\Classes.cs" Link="Classes.cs" />
+  </ItemGroup>
+
 </Project>

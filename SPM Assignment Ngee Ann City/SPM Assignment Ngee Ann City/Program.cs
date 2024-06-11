@@ -1,5 +1,30 @@
 ﻿//SPM Assignment
-char[] arr = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+using SPM_Assignment_Ngee_Ann_City;
+
+
+Console.Write("Enter grid size: ");
+int size = Convert.ToInt32(Console.ReadLine());
+Grid newGrid = new Grid(size);
+newGrid.PrintGrid();
+for (int i = 0; i < 1; i++)
+{
+    Console.Write("Enter type of building: ");
+    char buildingType = char.Parse(Console.ReadLine());
+    Console.Write("Enter row coordinate: ");
+    char rowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
+    Console.Write("Enter column coordinate: ");
+    int col = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
+
+    newGrid.AddBuilding(buildingType, rowLetter, col);
+    
+    newGrid.PrintGrid();
+}
+Console.Write("Enter row coordinate: ");
+char DrowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
+Console.Write("Enter column coordinate: ");
+int Dcol = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
+newGrid.RemoveBuilding(DrowLetter,Dcol);
+newGrid.PrintGrid();
 void displayMenu()// display menu
 {
     Console.WriteLine("[1] Start New Arcade Mode");
@@ -34,7 +59,7 @@ void displayrulesFreeplay()
 }
 displayrulesFreeplay();
 
-
+/*
 char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
 Console.Write(" ");
 Console.WriteLine("    " + string.Join("   ", letters)); // Print the letters with spaces and dashes
@@ -60,10 +85,9 @@ for (int i = 0; i < 20; i++)
 {
     grid.Add(new List<char>(new char[20])); // Initialize each row with empty characters
 }
-
-//Console.Write("Enter a coordinate: ");
-//string userInput = Console.ReadLine();
-//input(userInput);
+Console.Write("Enter a coordinate: ");
+string userInput = Console.ReadLine();
+input(userInput);
 void input(string input)
 {
     string userInput = input;
@@ -97,5 +121,7 @@ void input(string input)
         Console.WriteLine("  +" + new string('-', 4 * letters.Length - 1) + "+");
     }
 }
+(char, int)[,] newgrid = new (char, int)[20, 20];
+*/
 
 

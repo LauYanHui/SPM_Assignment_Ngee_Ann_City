@@ -62,5 +62,25 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
             }
         }
+        public void ExportGridToCSV()
+        {
+            char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
+            Console.Write(',');
+            for(int i = 0;i<Number;i++)
+            {
+                Console.Write(letters[i] + (i < Number - 1 ? "," : ""));
+            }
+            Console.WriteLine();
+            for(int i = 0;i<Number;i++)
+            {
+                Console.Write((i + 1) + ",");
+                for(int j = 0;j<Number;j++)
+                {
+                    Console.Write(grid[i, j] + (j < Number - 1 ? "," : ""));
+                }
+                Console.WriteLine();
+            }
+        }
+
     }
 }

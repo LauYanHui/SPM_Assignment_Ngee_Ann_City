@@ -1,11 +1,12 @@
 ﻿//SPM Assignment
 using SPM_Assignment_Ngee_Ann_City;
 
-
+//grid creation
 Console.Write("Enter grid size: ");
 int size = Convert.ToInt32(Console.ReadLine());
 Grid newGrid = new Grid(size);
 newGrid.PrintGrid();
+/* Loop to add building
 for (int i = 0; i < 1; i++)
 {
     Console.Write("Enter type of building: ");
@@ -19,12 +20,40 @@ for (int i = 0; i < 1; i++)
     
     newGrid.PrintGrid();
 }
+*/
+// introduce classes to the grid
+displayBuildingTypes();
+Console.Write("Enter the building type: ");
+int option = Convert.ToInt32(Console.ReadLine());
+if (option == 1)
+{
+    Console.Write("Enter row coordinate: ");
+    char rowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
+    Console.Write("Enter column coordinate: ");
+    int col = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
+    Residential r = new Residential(rowLetter, col);
+    newGrid.AddBuilding(r.type, rowLetter, col);
+    newGrid.PrintGrid();
+}
+else if (option == 2)
+{
+    Console.Write("Enter row coordinate: ");
+    char rowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
+    Console.Write("Enter column coordinate: ");
+    int col = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
+    Industry i = new Industry(rowLetter, col);
+    newGrid.AddBuilding(i.type, rowLetter, col);
+    newGrid.PrintGrid();
+}
+//newGrid.ExportGridToCSV();
+/* To remove Building
 Console.Write("Enter row coordinate: ");
 char DrowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
 Console.Write("Enter column coordinate: ");
 int Dcol = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
 newGrid.RemoveBuilding(DrowLetter,Dcol);
 newGrid.PrintGrid();
+*/
 void displayMenu()// display menu
 {
     Console.WriteLine("[1] Start New Arcade Mode");
@@ -57,7 +86,16 @@ void displayrulesFreeplay()
     Console.WriteLine("A building is adjacent to another building if they are connected via the same road. The scoring of the\r\nbuilding is the same as that in Arcade mode.\n");
     Console.WriteLine("Profit and upkeep cost of the 5 types of buildings:\r\n• Residential (R): Each residential building generates 1 coin per turn. Each cluster of residential\r\nbuildings (must be immediately next to each other) requires 1 coin per turn to upkeep.\r\n• Industry (I): Each industry generates 2 coins per turn and cost 1 coin per turn to upkeep.\r\n• Commercial (C): Each commercial generates 3 coins per turn and cost 2 coins per turn to upkeep.\r\n• Park (O): Each park costs 1 coin to upkeep.\r\n• Road (*): Each unconnected road segment costs 1 coin to upkeep.\n");
 }
-displayrulesFreeplay();
+//displayrulesFreeplay();
+
+void displayBuildingTypes()
+{
+    Console.WriteLine("[1] Residential building");
+    Console.WriteLine("[2] Industrial building");
+    Console.WriteLine("[3] Commercial building");
+    Console.WriteLine("[4] Park");
+    Console.WriteLine("[5] Road");
+}
 
 /*
 char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();

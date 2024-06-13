@@ -2,10 +2,15 @@
 using SPM_Assignment_Ngee_Ann_City;
 
 //grid creation
-Console.Write("Enter grid size: ");
-int size = Convert.ToInt32(Console.ReadLine());
-Grid newGrid = new Grid(size);
-newGrid.PrintGrid();
+Grid createGrid()
+{
+    Console.Write("Enter grid size: ");
+    int size = Convert.ToInt32(Console.ReadLine());
+    Grid newGrid = new Grid(size);
+    newGrid.PrintGrid();
+    return newGrid;
+}
+
 /* Loop to add building
 for (int i = 0; i < 1; i++)
 {
@@ -22,30 +27,46 @@ for (int i = 0; i < 1; i++)
 }
 */
 // introduce classes to the grid
-displayBuildingTypes();
-Console.Write("Enter the building type: ");
-int option = Convert.ToInt32(Console.ReadLine());
-if (option == 1)
+void addBuilding(Grid newGrid)
 {
+    displayBuildingTypes();
+    Console.Write("Enter the building type: ");
+    int option = Convert.ToInt32(Console.ReadLine());
     Console.Write("Enter row coordinate: ");
     char rowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
     Console.Write("Enter column coordinate: ");
     int col = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
-    Residential r = new Residential(rowLetter, col);
-    newGrid.AddBuilding(r.type, rowLetter, col);
+    if (option == 1)
+    {
+
+        Residential r = new Residential(rowLetter, col);
+        newGrid.AddBuilding(r.type, rowLetter, col);
+    }
+    else if (option == 2)
+    {
+        Industry i = new Industry(rowLetter, col);
+        newGrid.AddBuilding(i.type, rowLetter, col);
+    }
+    else if (option == 3)
+    {
+        Commercial c = new Commercial(rowLetter, col);
+        newGrid.AddBuilding(c.type, rowLetter, col);
+    }
+    else if (option == 4)
+    {
+        Park p = new Park(rowLetter, col);
+        newGrid.AddBuilding(p.type, rowLetter, col);
+    }
+    else if (option == 5)
+    {
+        Road road = new Road(rowLetter, col);
+        newGrid.AddBuilding(road.type, rowLetter, col);
+    }
+    else Console.WriteLine("Invalid input. ");
     newGrid.PrintGrid();
 }
-else if (option == 2)
-{
-    Console.Write("Enter row coordinate: ");
-    char rowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
-    Console.Write("Enter column coordinate: ");
-    int col = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
-    Industry i = new Industry(rowLetter, col);
-    newGrid.AddBuilding(i.type, rowLetter, col);
-    newGrid.PrintGrid();
-}
-newGrid.ExportGridToCSV();
+Grid newGrid = createGrid();
+addBuilding(newGrid);
 //newGrid.ExportGridToCSV();
 /* To remove Building
 Console.Write("Enter row coordinate: ");
@@ -63,6 +84,7 @@ void displayMenu()// display menu
     Console.WriteLine("[4] Display High Score");
     Console.WriteLine("[0] Exit Game");
 }
+
 void displayintro()
 {
     Console.WriteLine("Ngee Ann city building game is a city-building game.");

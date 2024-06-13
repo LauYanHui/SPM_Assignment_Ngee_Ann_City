@@ -45,6 +45,7 @@ else if (option == 2)
     newGrid.AddBuilding(i.type, rowLetter, col);
     newGrid.PrintGrid();
 }
+newGrid.ExportGridToCSV();
 //newGrid.ExportGridToCSV();
 /* To remove Building
 Console.Write("Enter row coordinate: ");

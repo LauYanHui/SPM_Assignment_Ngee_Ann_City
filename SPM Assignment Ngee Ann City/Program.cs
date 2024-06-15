@@ -66,9 +66,66 @@ void addBuilding(Grid newGrid)
     else Console.WriteLine("Invalid input. ");
     newGrid.PrintGrid();
 }
+
+void ImportSavedGameArcade(Grid grid)
+{
+    char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
+    List<string> game_temp = new List<string>();
+    List<List<String>> game_dataFinal = new List<List<String>>();
+    using (StreamReader sr = new StreamReader("saved_game_data_arcade.csv"))
+    {
+        string? s = sr.ReadLine();
+        if (s != null)
+        {
+            //Console.WriteLine(s);
+            game_temp.Add(s);
+        }
+        while ((s = sr.ReadLine()) != null)
+        {
+            //Console.WriteLine(s);
+            game_temp.Add(s);
+        }
+    }
+
+    foreach (string s in game_temp)
+    {
+        List<string> game_data = new List<string>();
+        string[] temp = new string[] { };
+        temp = s.Split(",");
+        int count = 0;
+        foreach (string s1 in temp)
+        {
+            game_data.Add(s1);
+            //Console.WriteLine(s1);
+        }
+        game_dataFinal.Add(game_data);
+    }
+    //Console.WriteLine(game_dataFinal[19].Count);
+
+    for (int i = 0; i < game_dataFinal.Count; i++)
+    {
+        for (int j = 0; j < game_dataFinal[i].Count; j++)
+        {
+            string data = game_dataFinal[i][j];
+            //Console.WriteLine(game_dataFinal[i][j]);
+            if (data != " ")
+            {
+                char[] dataChar  = data.ToCharArray();
+                grid.AddBuilding(dataChar[0], letters[j], i);
+                Console.WriteLine(String.Format("{0}    {1}    {2}", data, i.ToString(), j.ToString()));
+            }
+        }
+    }
+    
+    
+}
+
+
 Grid grid = new Grid(20);
+ImportSavedGameArcade(grid);
 //Grid grid = createGrid();
 //addBuilding(newGrid);
+/*
 grid.AddBuilding('R', 'A', 0);
 grid.AddBuilding('I', 'B', 1);
 grid.AddBuilding('R', 'C', 2);
@@ -83,9 +140,12 @@ grid.AddBuilding('O', 'B', 3);
 grid.AddBuilding('*', 'A', 4);
 grid.AddBuilding('*', 'A', 5);
 grid.AddBuilding('*', 'A', 6);
-grid.AddBuilding('*', 'A', 7);
-grid.calculateAllPoints();
+grid.AddBuilding('*', 'A', 7);*/
+//grid.calculateAllPoints();
 grid.PrintGrid();
+//grid.ExportGridToCSV();
+
+
 
 //newGrid.ExportGridToCSV();
 /* To remove Building
@@ -180,9 +240,5 @@ void DisplayLeaderboard()
     }
     Console.WriteLine("--------------------------------");
 }
-DisplayLeaderboard();
+//DisplayLeaderboard();
 
-
-// TESTING COMMMIT BRACNH PULL REQUEST
-//TESTING COMMIT BRANCH PULL REQUEST #2
-//TESTING COMMIT BRANCH PULL REQUEST #3

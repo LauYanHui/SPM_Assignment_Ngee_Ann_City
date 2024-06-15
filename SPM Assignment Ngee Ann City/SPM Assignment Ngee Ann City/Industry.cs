@@ -55,5 +55,9 @@ namespace SPM_Assignment_Ngee_Ann_City
             int points = totalIndustries;
             Console.WriteLine($"Industry building at {this.row}{this.col+1} has {points} points based on total industry buildings.");
         }
+        public override void calculateCointsFP()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

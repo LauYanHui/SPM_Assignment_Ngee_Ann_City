@@ -23,6 +23,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         
         public abstract void calculatePoints(int buildings);
         public abstract void calculateCoins();
+        public abstract void calculateCointsFP();
     }
     
 }

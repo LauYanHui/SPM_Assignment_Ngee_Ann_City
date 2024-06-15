@@ -54,5 +54,9 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             throw new NotImplementedException(); 
         }
+        public override void calculateCointsFP()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -87,5 +87,9 @@ namespace SPM_Assignment_Ngee_Ann_City
 
             Console.WriteLine($"Commercial building at {this.row}{this.col+1} has {points} points based on adjacent commercial buildings.");
         }
+        public override void calculateCointsFP()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

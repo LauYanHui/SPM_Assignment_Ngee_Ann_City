@@ -42,5 +42,10 @@ namespace SPM_Assignment_Ngee_Ann_City
 
             Console.WriteLine($"Road at {this.row}{this.col+1} has {points} points based on connected roads in the same row.");
         }
+        public override void calculateCointsFP()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

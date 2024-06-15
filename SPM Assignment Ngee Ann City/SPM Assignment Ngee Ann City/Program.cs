@@ -58,7 +58,7 @@ void DisplayLeaderboard()
     }
     Console.WriteLine("--------------------------------");
 }
-//DisplayLeaderboard();
+DisplayLeaderboard();
 
 
 void displayrulesArcade()

@@ -1,5 +1,6 @@
 ﻿//SPM Assignment
 using SPM_Assignment_Ngee_Ann_City;
+using System.Drawing;
 
 //grid creation
 Grid createGrid()
@@ -39,34 +40,53 @@ void addBuilding(Grid newGrid)
     if (option == 1)
     {
 
-        Residential r = new Residential(rowLetter, col);
+        Residential r = new Residential(rowLetter, col,newGrid);
         newGrid.AddBuilding(r.type, rowLetter, col);
     }
     else if (option == 2)
     {
-        Industry i = new Industry(rowLetter, col);
+        Industry i = new Industry(rowLetter, col, newGrid);
         newGrid.AddBuilding(i.type, rowLetter, col);
     }
     else if (option == 3)
     {
-        Commercial c = new Commercial(rowLetter, col);
+        Commercial c = new Commercial(rowLetter, col, newGrid);
         newGrid.AddBuilding(c.type, rowLetter, col);
     }
     else if (option == 4)
     {
-        Park p = new Park(rowLetter, col);
+        Park p = new Park(rowLetter, col, newGrid);
         newGrid.AddBuilding(p.type, rowLetter, col);
     }
     else if (option == 5)
     {
-        Road road = new Road(rowLetter, col);
+        Road road = new Road(rowLetter, col, newGrid);
         newGrid.AddBuilding(road.type, rowLetter, col);
     }
     else Console.WriteLine("Invalid input. ");
     newGrid.PrintGrid();
 }
-Grid newGrid = createGrid();
-addBuilding(newGrid);
+Grid grid = new Grid(20);
+//Grid grid = createGrid();
+//addBuilding(newGrid);
+grid.AddBuilding('R', 'A', 0);
+grid.AddBuilding('I', 'B', 1);
+grid.AddBuilding('R', 'C', 2);
+grid.AddBuilding('I', 'D', 3);
+grid.AddBuilding('R', 'E', 4);
+grid.AddBuilding('C', 'A', 1);
+grid.AddBuilding('C', 'A', 2);
+grid.AddBuilding('C', 'A', 3);
+grid.AddBuilding('O', 'B', 0);
+grid.AddBuilding('O', 'B', 2);
+grid.AddBuilding('O', 'B', 3);
+grid.AddBuilding('*', 'A', 4);
+grid.AddBuilding('*', 'A', 5);
+grid.AddBuilding('*', 'A', 6);
+grid.AddBuilding('*', 'A', 7);
+grid.calculateAllPoints();
+grid.PrintGrid();
+
 //newGrid.ExportGridToCSV();
 /* To remove Building
 Console.Write("Enter row coordinate: ");

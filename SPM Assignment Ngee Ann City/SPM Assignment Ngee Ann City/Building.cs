@@ -11,14 +11,17 @@ namespace SPM_Assignment_Ngee_Ann_City
         public char type { get; set; }
         public char row { get; set; }
         public int col { get; set; }
-        public Building(char type,char row, int col)
+        protected Grid grid { get; set; }   
+        public Building(char type,char row, int col, Grid grid)
         {
             this.type = type;
             this.row = row;
             this.col = col;
+            this.grid = grid;
         }
         public Building() { }
-        public abstract void calculatePoint();
+        
+        public abstract void calculatePoints(int buildings);
         public abstract void calculateCoins();
     }
     

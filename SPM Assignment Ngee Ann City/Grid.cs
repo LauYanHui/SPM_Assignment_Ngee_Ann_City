@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,15 @@ namespace SPM_Assignment_Ngee_Ann_City
 {
     class Grid
     {
-        public int Number { get; set; } // Change property name to PascalCase
+        public int coins { get; set; }
+        public int Number { get; set; } 
 
-        private char[,] grid; // Change to char[,] for simplicity
+        private char[,] grid; 
         private List<Building> Buildings;
 
         public Grid(int number)
         {
+            coins = 16;
             Number = number;
             grid = new char[number, number]; // Initialize the grid
             Buildings = new List<Building>();
@@ -46,35 +49,93 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             return grid[row, col];
         }
-
-        public void AddBuilding(char buildingType, char rowLetter, int col)
+        private bool IsConnectedToExistingBuilding(int row, int col)
         {
-            int row = rowLetter - 'A'; // Convert letter to corresponding numeric row index
-            grid[col, row] = buildingType; // Place the building type at the specified coordinates
-            if (buildingType == 'R')
+            if (Buildings.Count == 0)
             {
-                Buildings.Add(new Residential(rowLetter, col, this));
-            }
-            else if (buildingType == 'I')
-            {
-                Buildings.Add(new Industry(rowLetter, col, this));
-            }
-            else if (buildingType == 'C')
-            {
-                Buildings.Add(new Commercial(rowLetter, col, this));
-            }
-            else if (buildingType == 'O')
-            {
-                Buildings.Add(new Park(rowLetter, col, this));
-            }
-            else if (buildingType == '*')
-            {
-                Buildings.Add(new Road(rowLetter, col, this));
+                return true; // First building can be placed anywhere
             }
 
+            // Define all eight directions
+            int[][] directions = new int[][]
+            {
+                new int[] {-1, 0},  // up
+                new int[] {1, 0},   // down
+                new int[] {0, -1},  // left
+                new int[] {0, 1},   // right
+                new int[] {-1, -1}, // top left
+                new int[] {-1, 1},  // top right
+                new int[] {1, -1},  // bottom left
+                new int[] {1, 1}    // bottom right
+            };
+
+            foreach (var dir in directions)
+            {
+                int newRow = row + dir[0];
+                int newCol = col + dir[1];
+
+                if (newRow >= 0 && newRow < Number && newCol >= 0 && newCol < Number && grid[newCol, newRow] != ' ')
+                {
+                    return true; // Found adjacent existing building
+                }
+            }
+
+            return false; // No adjacent existing building
         }
 
-        public void RemoveBuilding( char rowLetter, int col)
+        public bool AddBuilding(char buildingType, char rowLetter, int col)
+        {
+            int row = rowLetter - 'A';
+
+            if (grid[col, row] != ' ')
+            {
+                Console.WriteLine("Error: Building already exists at this location.");
+                return false;
+            }
+
+            if (!IsConnectedToExistingBuilding(row, col))
+            {
+                Console.WriteLine("Error: Building must be placed adjacent to an existing building.");
+                return false;
+            }
+
+            // Place the building
+            grid[col, row] = buildingType;
+
+            // Create the building object and add to list
+            Building newBuilding = null;
+            switch (buildingType)
+            {
+                case 'R':
+                    newBuilding = new Residential(rowLetter, col, this);
+                    break;
+                case 'I':
+                    newBuilding = new Industry(rowLetter, col, this);
+                    break;
+                case 'C':
+                    newBuilding = new Commercial(rowLetter, col, this);
+                    break;
+                case 'O':
+                    newBuilding = new Park(rowLetter, col, this);
+                    break;
+                case '*':
+                    newBuilding = new Road(rowLetter, col, this);
+                    break;
+            }
+
+            if (newBuilding != null)
+            {
+                Buildings.Add(newBuilding);
+                coins--; // Deduct one coin for placing a building
+                return true; // Building added successfully
+            }
+            else
+            {
+                return false; // Error in building type
+            }
+        }
+
+        public void RemoveBuilding(char rowLetter, int col)
         {
             int row = rowLetter - 'A';
             grid[col, row] = ' ';
@@ -94,14 +155,6 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public void ExportGridToCSV()
         {
-            //char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
-            //Console.Write(',');
-            /*
-            for(int i = 0;i<Number;i++)
-            {
-                Console.Write(letters[i] + (i < Number - 1 ? "," : ""));
-            }
-            */
             Console.WriteLine();
             for(int i = 0;i<Number;i++)
             {
@@ -113,10 +166,11 @@ namespace SPM_Assignment_Ngee_Ann_City
                 Console.WriteLine();
             }
         }
-        public void calculateAllPoints()
+        public int calculateAllPoints()
         {
             int industryCount = 0;
-            int test = 0;
+            int test = 0;//variable for methods not needing parameter.
+            int points = 0;
             foreach (var building in Buildings)
             {
                 
@@ -129,24 +183,47 @@ namespace SPM_Assignment_Ngee_Ann_City
             {
                 if (building is Residential residential)
                 {
-                    residential.calculatePoints(test);
+                    points += residential.calculatePoints(test);
                 }
                 else if (building is Industry industry)
                 {
-                    industry.calculatePoints(industryCount);
+                    points += industry.calculatePoints(industryCount);
                 }
                 else if (building is Commercial commercial)
                 {
-                    commercial.calculatePoints(test);
+                    points += commercial.calculatePoints(test);
                 }
                 else if (building is Road road)
                 {
-                    road.calculatePoints(test);
+                    points += road.calculatePoints(test);
                 }
                 else if (building is Park park)
                 {
-                    park.calculatePoints(test);
+                    points += park.calculatePoints(test);
                 }
+            }
+            return points;
+        }
+        public void Deductcoins(int amount)
+        {
+            if (amount <= coins)
+            {
+                coins -= amount;
+            }
+            else
+            {
+                Console.WriteLine("Not enough coins.");
+            }
+        }
+        public int GetCoins()
+        {
+            return coins;
+        }
+        public void GenerateCoins()
+        {
+            foreach (var building in Buildings)
+            {
+                coins += building.generateCoins();
             }
         }
 

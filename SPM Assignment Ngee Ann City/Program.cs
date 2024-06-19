@@ -1,5 +1,6 @@
 ﻿//SPM Assignment
 using SPM_Assignment_Ngee_Ann_City;
+using System;
 using System.Drawing;
 
 //grid creation
@@ -37,35 +38,32 @@ void addBuilding(Grid newGrid)
     char rowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
     Console.Write("Enter column coordinate: ");
     int col = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
-    if (option == 1)
+    Building building = null;
+    switch (option)
     {
-
-        Residential r = new Residential(rowLetter, col,newGrid);
-        newGrid.AddBuilding(r.type, rowLetter, col);
+        case 1:
+            building = new Residential(rowLetter, col, newGrid);
+            break;
+        case 2:
+            building = new Industry(rowLetter, col, newGrid);
+            break;
+        case 3:
+            building = new Commercial(rowLetter, col, newGrid);
+            break;
+        case 4:
+            building = new Park(rowLetter, col, newGrid);
+            break;
+        case 5:
+            building = new Road(rowLetter, col, newGrid);
+            break;
+        default:
+            Console.WriteLine("Invalid input.");
+            return;
     }
-    else if (option == 2)
-    {
-        Industry i = new Industry(rowLetter, col, newGrid);
-        newGrid.AddBuilding(i.type, rowLetter, col);
-    }
-    else if (option == 3)
-    {
-        Commercial c = new Commercial(rowLetter, col, newGrid);
-        newGrid.AddBuilding(c.type, rowLetter, col);
-    }
-    else if (option == 4)
-    {
-        Park p = new Park(rowLetter, col, newGrid);
-        newGrid.AddBuilding(p.type, rowLetter, col);
-    }
-    else if (option == 5)
-    {
-        Road road = new Road(rowLetter, col, newGrid);
-        newGrid.AddBuilding(road.type, rowLetter, col);
-    }
-    else Console.WriteLine("Invalid input. ");
+    newGrid.AddBuilding(building.type, rowLetter, col);
     newGrid.PrintGrid();
 }
+/*
 Grid grid = new Grid(20);
 //Grid grid = createGrid();
 //addBuilding(newGrid);
@@ -86,7 +84,7 @@ grid.AddBuilding('*', 'A', 6);
 grid.AddBuilding('*', 'A', 7);
 grid.calculateAllPoints();
 grid.PrintGrid();
-
+*/
 //newGrid.ExportGridToCSV();
 /* To remove Building
 Console.Write("Enter row coordinate: ");
@@ -139,6 +137,11 @@ void displayBuildingTypes()
     Console.WriteLine("[4] Park");
     Console.WriteLine("[5] Road");
 }
+void arcadeModeMenu()
+{
+    Console.WriteLine("[1] Add Building. ");
+    Console.WriteLine("[2] Remove Building. ");
+}
 
 void DisplayLeaderboard()
 {
@@ -180,8 +183,111 @@ void DisplayLeaderboard()
     }
     Console.WriteLine("--------------------------------");
 }
-DisplayLeaderboard();
+//DisplayLeaderboard();
+Building GetRandomBuilding()
+{
+    Random random = new Random();
+    int buildingType = random.Next(1, 6); // Generates a number between 1 and 5
+    switch (buildingType)
+    {
+        case 1:
+            return new Residential(' ', -1, null); // Placeholder values for now
+        case 2:
+            return new Industry(' ', -1, null);
+        case 3:
+            return new Commercial(' ', -1, null);
+        case 4:
+            return new Park(' ', -1, null);
+        case 5:
+            return new Road(' ', -1, null);
+        default:
+            throw new Exception("Invalid building type generated.");
+    }
+}
 
+void AddBuilding(Grid newGrid)
+{
+    Building building1 = GetRandomBuilding();
+    Building building2 = GetRandomBuilding();
+
+    Console.WriteLine("Choose a building to construct:");
+    Console.WriteLine($"[1] {building1.type}");
+    Console.WriteLine($"[2] {building2.type}");
+    Console.Write("Enter the building option: ");
+    int option = Convert.ToInt32(Console.ReadLine());
+
+    Building selectedBuilding;
+    if (option == 1)
+    {
+        selectedBuilding = building1;
+    }
+    else if (option == 2)
+    {
+        selectedBuilding = building2;
+    }
+    else
+    {
+        Console.WriteLine("Invalid input.");
+        return;
+    }
+    newGrid.PrintGrid();
+    Console.Write("Enter row coordinate: ");
+    char rowLetter = char.ToUpper(Console.ReadLine()[0]);
+    Console.Write("Enter column coordinate: ");
+    int col = Convert.ToInt32(Console.ReadLine()) - 1;
+
+    selectedBuilding.row = rowLetter;
+    selectedBuilding.col = col;
+    newGrid.AddBuilding(selectedBuilding.type, rowLetter, col);
+    newGrid.PrintGrid();
+}
+void removeBuilding(Grid newgrid)
+{
+    Console.Write("Enter row: ");
+    char row = Convert.ToChar(Console.ReadLine().ToUpper());
+    Console.Write("Enter column: ");
+    int col = Convert.ToInt32(Console.ReadLine()) - 1;
+    newgrid.RemoveBuilding(row, col);
+    newgrid.PrintGrid();
+}
+
+
+void Arcademode()
+{
+    Console.WriteLine("START ARCADE MODE\n");
+    displayrulesArcade();
+    int coins = 16;
+    int points = 0;
+    Grid AGrid = new Grid(20);
+    while (coins > 0)
+    {
+        arcadeModeMenu();
+        Console.Write("Enter option: ");
+        int option = Convert.ToInt32(Console.ReadLine());
+        switch (option)
+        {
+            case 1:
+                AddBuilding(AGrid);
+                break;
+            case 2:
+                removeBuilding(AGrid);
+                break;
+            case 3:
+                AGrid.ExportGridToCSV();
+                break;
+            default:
+                Console.WriteLine("ERROR OPTION");
+                break;
+        }
+        AGrid.GenerateCoins(); // Update coins from buildings
+        points = AGrid.calculateAllPoints();
+        //AGrid.PrintGrid();
+        Console.WriteLine("POINTS: "+ points);
+        Console.WriteLine("COINS: "+ AGrid.GetCoins());
+    }
+    
+}
+Arcademode();
 
 // TESTING COMMMIT BRACNH PULL REQUEST
 //TESTING COMMIT BRANCH PULL REQUEST #2

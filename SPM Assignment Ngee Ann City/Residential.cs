@@ -12,8 +12,10 @@ namespace SPM_Assignment_Ngee_Ann_City
         public Residential(char row,int col, Grid grid) : base('R', row,col, grid)
         {
         }
-        public override void calculateCoins()
+        public override int calculateCoins()
         {
+            throw new NotImplementedException();
+            /*
             int rowIndex = this.row - 'A';
             int colIndex = this.col;
 
@@ -55,10 +57,13 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                 }
             }
+            coins += generateCoins();
+
 
             Console.WriteLine($"Residential building at {this.row}{this.col+1} generates {coins} coins based on adjacent buildings.");
+            */
         }
-        public override void calculatePoints(int buildings)
+        public override int calculatePoints(int buildings)
         {
             // Convert row letter to index
             int rowIndex = this.row - 'A';
@@ -126,12 +131,14 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                 }
             }
-
-            Console.WriteLine($"Residential building at {this.row}{this.col+1} has {points} points based on adjacent buildings.");
+            return points;
+            //Console.WriteLine($"Residential building at {this.row}{this.col+1} has {points} points based on adjacent buildings.");
         }
         public override void calculateCointsFP()
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

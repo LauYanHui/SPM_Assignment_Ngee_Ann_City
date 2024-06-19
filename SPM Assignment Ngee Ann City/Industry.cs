@@ -13,7 +13,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
 
         }
-        public override void calculateCoins()
+        public override int calculateCoins()
         {
             int rowIndex = this.row - 'A';
             int colIndex = this.col;
@@ -47,13 +47,14 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                 }
             }
-
-            Console.WriteLine($"Industry building at {this.row}{this.col+1} generates {coins} coins based on adjacent residential buildings.");
+            return coins += generateCoins();
+            //Console.WriteLine($"Industry building at {this.row}{this.col+1} generates {coins} coins based on adjacent residential buildings.");
         }
-        public override void calculatePoints(int totalIndustries)
+        public override int calculatePoints(int totalIndustries)
         {
             int points = totalIndustries;
-            Console.WriteLine($"Industry building at {this.row}{this.col+1} has {points} points based on total industry buildings.");
+            return points;
+            //Console.WriteLine($"Industry building at {this.row}{this.col+1} has {points} points based on total industry buildings.");
         }
         public override void calculateCointsFP()
         {

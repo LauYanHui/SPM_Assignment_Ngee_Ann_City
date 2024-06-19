@@ -13,11 +13,11 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
 
         }
-        public override void calculateCoins()
+        public override int calculateCoins()
         {
             throw new NotImplementedException();
         }
-        public override void calculatePoints(int buildings)
+        public override int calculatePoints(int buildings)
         {
             int rowIndex = this.row - 'A';
             int colIndex = this.col;
@@ -39,8 +39,8 @@ namespace SPM_Assignment_Ngee_Ann_City
                 points++;
                 rightCol++;
             }
-
-            Console.WriteLine($"Road at {this.row}{this.col+1} has {points} points based on connected roads in the same row.");
+            return points;
+            //Console.WriteLine($"Road at {this.row}{this.col+1} has {points} points based on connected roads in the same row.");
         }
         public override void calculateCointsFP()
         {

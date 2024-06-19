@@ -13,7 +13,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
 
         }
-        public override void calculatePoints(int buildings)
+        public override int calculatePoints(int buildings)
         {
             int rowIndex = this.row - 'A';
             int colIndex = this.col;
@@ -47,10 +47,10 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                 }
             }
-
-            Console.WriteLine($"Park building at {this.row}{this.col + 1} has {points} points based on adjacent park buildings.");
+            return points;
+            //Console.WriteLine($"Park building at {this.row}{this.col + 1} has {points} points based on adjacent park buildings.");
         }
-        public override void calculateCoins()
+        public override int calculateCoins()
         {
             throw new NotImplementedException(); 
         }

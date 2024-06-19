@@ -156,15 +156,22 @@ namespace SPM_Assignment_Ngee_Ann_City
         public void ExportGridToCSV()
         {
             Console.WriteLine();
-            for(int i = 0;i<Number;i++)
+            using (StreamWriter sw = new StreamWriter("saved_game_data_arcade.csv", false))
             {
-                //Console.Write((i + 1) + ",");
-                for(int j = 0;j<Number;j++)
+                for (int i = 0; i < Number; i++)
                 {
-                    Console.Write(grid[i, j] + (j < Number - 1 ? "," : ""));
+                    //Console.Write((i + 1) + ",");
+                    for (int j = 0; j < Number; j++)
+                    {
+                        Console.Write(grid[i, j] + (j < Number - 1 ? "," : ""));
+                        sw.Write(grid[i, j] + (j < Number - 1 ? "," : ""));
+                    }
+                    Console.WriteLine();
+                    sw.WriteLine();
                 }
-                Console.WriteLine();
+
             }
+                
         }
         public int calculateAllPoints()
         {

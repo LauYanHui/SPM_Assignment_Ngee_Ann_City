@@ -63,10 +63,12 @@ void addBuilding(Grid newGrid)
     newGrid.AddBuilding(building.type, rowLetter, col);
     newGrid.PrintGrid();
 }
-/*
+
 Grid grid = new Grid(20);
+ImportSavedGameArcade(grid);
 //Grid grid = createGrid();
 //addBuilding(newGrid);
+/*
 grid.AddBuilding('R', 'A', 0);
 grid.AddBuilding('I', 'B', 1);
 grid.AddBuilding('R', 'C', 2);
@@ -81,10 +83,10 @@ grid.AddBuilding('O', 'B', 3);
 grid.AddBuilding('*', 'A', 4);
 grid.AddBuilding('*', 'A', 5);
 grid.AddBuilding('*', 'A', 6);
-grid.AddBuilding('*', 'A', 7);
-grid.calculateAllPoints();
+grid.AddBuilding('*', 'A', 7);*/
+//grid.calculateAllPoints();
 grid.PrintGrid();
-*/
+
 //newGrid.ExportGridToCSV();
 /* To remove Building
 Console.Write("Enter row coordinate: ");
@@ -184,6 +186,7 @@ void DisplayLeaderboard()
     Console.WriteLine("--------------------------------");
 }
 //DisplayLeaderboard();
+
 Building GetRandomBuilding()
 {
     Random random = new Random();
@@ -288,7 +291,3 @@ void Arcademode()
     
 }
 Arcademode();
-
-// TESTING COMMMIT BRACNH PULL REQUEST
-//TESTING COMMIT BRANCH PULL REQUEST #2
-//TESTING COMMIT BRANCH PULL REQUEST #3

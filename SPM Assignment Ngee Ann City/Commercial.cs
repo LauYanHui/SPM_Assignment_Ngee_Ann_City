@@ -47,8 +47,8 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                 }
             }
+            Console.WriteLine(coins);
             return coins += generateCoins();
-            //Console.WriteLine($"Commercial building at {this.row}{this.col+1} generates {coins} coins based on adjacent residential buildings.");
         }
         public override int calculatePoints(int number)
         {

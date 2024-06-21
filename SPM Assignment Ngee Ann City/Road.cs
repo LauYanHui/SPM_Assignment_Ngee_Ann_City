@@ -15,7 +15,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public override int calculateCoins()
         {
-            throw new NotImplementedException();
+            return 0;
         }
         public override int calculatePoints(int buildings)
         {

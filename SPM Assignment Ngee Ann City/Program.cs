@@ -60,12 +60,13 @@ void addBuilding(Grid newGrid)
             Console.WriteLine("Invalid input.");
             return;
     }
-    newGrid.AddBuilding(building.type, rowLetter, col);
+    newGrid.AddBuilding(building.type, rowLetter, col,false);
     newGrid.PrintGrid();
 }
 
+
 Grid grid = new Grid(20);
-ImportSavedGameArcade(grid);
+//ImportSavedGameArcade(grid);
 //Grid grid = createGrid();
 //addBuilding(newGrid);
 /*
@@ -208,6 +209,7 @@ Building GetRandomBuilding()
     }
 }
 
+
 void AddBuilding(Grid newGrid)
 {
     Building building1 = GetRandomBuilding();
@@ -241,7 +243,7 @@ void AddBuilding(Grid newGrid)
 
     selectedBuilding.row = rowLetter;
     selectedBuilding.col = col;
-    newGrid.AddBuilding(selectedBuilding.type, rowLetter, col);
+    newGrid.AddBuilding(selectedBuilding.type, rowLetter, col,false);
     newGrid.PrintGrid();
 }
 void removeBuilding(Grid newgrid)
@@ -260,7 +262,7 @@ void Arcademode()
     Console.WriteLine("START ARCADE MODE\n");
     displayrulesArcade();
     int coins = 16;
-    int points = 0;
+    int points;
     Grid AGrid = new Grid(20);
     while (coins > 0)
     {
@@ -277,17 +279,18 @@ void Arcademode()
                 break;
             case 3:
                 AGrid.ExportGridToCSV();
+                AGrid.ImportSavedGameArcade(AGrid);
                 break;
             default:
                 Console.WriteLine("ERROR OPTION");
                 break;
         }
-        AGrid.GenerateCoins(); // Update coins from buildings
+        //AGrid.GenerateCoins(); // Update coins from buildings
         points = AGrid.calculateAllPoints();
         //AGrid.PrintGrid();
         Console.WriteLine("POINTS: "+ points);
+        //int totalcoins = coins + AGrid.GetCoins();
         Console.WriteLine("COINS: "+ AGrid.GetCoins());
     }
-    
 }
 Arcademode();

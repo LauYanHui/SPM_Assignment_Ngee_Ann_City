@@ -335,10 +335,22 @@ void Arcademode()
 {
     Console.WriteLine("START ARCADE MODE\n");
     displayrulesArcade();
-    //int coins = 5;
+    Grid AGrid;
+    if (import == true)
+    {
+        AGrid = new Grid(20);
+        AGrid.ImportSavedGameArcade(AGrid);
+        AGrid.PrintGrid();
+    }
+    else
+    {
+        AGrid = new Grid(20);
+    }
+
+    int coins = 16;
     int points = 0;
-    Grid AGrid = new Grid(20);
-    while (AGrid.GetCoins() > 0 || AGrid.Buildings.Count >= 400)
+    bool requestExit = false;
+    while (coins > 0 || !requestExit || AGrid.Buildings.Count > 400 )
     {
         arcadeModeMenu();
         Console.Write("Enter option: ");

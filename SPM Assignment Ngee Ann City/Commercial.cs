@@ -43,6 +43,7 @@ namespace SPM_Assignment_Ngee_Ann_City
 
                     if (adjacentCell == 'R')
                     {
+                        //Console.WriteLine("test");
                         coins += 1;
                     }
                 }
@@ -91,5 +92,6 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             throw new NotImplementedException();
         }
+        
     }
 }

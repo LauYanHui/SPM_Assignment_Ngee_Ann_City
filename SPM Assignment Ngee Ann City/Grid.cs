@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SPM_Assignment_Ngee_Ann_City
 {
@@ -12,8 +13,13 @@ namespace SPM_Assignment_Ngee_Ann_City
         public int coins { get; set; }
         public int Number { get; set; } 
 
+
         private char[,] grid;
         private List<Building> Buildings;
+
+        private char[,] grid; 
+        private  List<Building> Buildings;
+
 
         public Grid(int number)
         {
@@ -49,9 +55,9 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             return grid[row, col];
         }
-        private bool IsConnectedToExistingBuilding(int row, int col)
+        private bool IsConnectedToExistingBuilding(int row, int col,bool import)
         {
-            if (Buildings.Count == 0)
+            if (Buildings.Count == 0 || import)
             {
                 return true; // First building can be placed anywhere
             }
@@ -83,16 +89,18 @@ namespace SPM_Assignment_Ngee_Ann_City
             return false; // No adjacent existing building
         }
 
-        public bool AddBuilding(char buildingType, char rowLetter, int col)
+        public bool AddBuilding(char buildingType, char rowLetter, int col, bool import)
         {
             int row = rowLetter - 'A';
+
             if (grid[col, row] != ' ' && import == false)
             {
                 Console.WriteLine("Error: Building already exists at this location.");
                 return false;
             }
 
-            if (!IsConnectedToExistingBuilding(row, col))
+
+            if (!IsConnectedToExistingBuilding(row, col,import))
             {
                 Console.WriteLine("Error: Building must be placed adjacent to an existing building.");
                 return false;
@@ -126,20 +134,31 @@ namespace SPM_Assignment_Ngee_Ann_City
             {
                 Buildings.Add(newBuilding);
                 coins--; // Deduct one coin for placing a building
+                coins = coins += newBuilding.calculateCoins();
                 return true; // Building added successfully
             }
             else
             {
                 return false; // Error in building type
             }
+            
         }
 
         public void RemoveBuilding(char rowLetter, int col)
         {
             int row = rowLetter - 'A';
+
+            // Check if there is a building at the specified location
+            if (grid[col, row] == ' ')
+            {
+                Console.WriteLine("There is no building at this location.");
+                return;
+            }
+
             grid[col, row] = ' ';
             Buildings.RemoveAll(r => r.row == rowLetter && r.col == col);
-
+            coins--;
+            Console.WriteLine("Building removed successfully.");
         }
 
         private void InitializeGrid()
@@ -175,7 +194,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         public int calculateAllPoints()
         {
             int industryCount = 0;
-            int test = 0;//variable for methods not needing parameter.
+            int test = 0;
             int points = 0;
             foreach (var building in Buildings)
             {
@@ -227,11 +246,66 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public void GenerateCoins()
         {
-            foreach (var building in Buildings)
+            //Console.WriteLine("test1");
+            foreach (Building building in Buildings)
             {
-                coins += building.generateCoins();
+                coins += building.calculateCoins();
             }
         }
+        public Grid ImportSavedGameArcade(Grid grid)
+        {
+            char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
+            List<string> game_temp = new List<string>();
+            List<List<String>> game_dataFinal = new List<List<String>>();
+            using (StreamReader sr = new StreamReader("saved_game_data_arcade.csv"))
+            {
+                string? s = sr.ReadLine();
+                if (s != null)
+                {
+                    //Console.WriteLine(s);
+                    game_temp.Add(s);
+                }
+                while ((s = sr.ReadLine()) != null)
+                {
+                    //Console.WriteLine(s);
+                    game_temp.Add(s);
+                }
+            }
 
+            foreach (string s in game_temp)
+            {
+                List<string> game_data = new List<string>();
+                string[] temp = new string[] { };
+                temp = s.Split(",");
+                int count = 0;
+                foreach (string s1 in temp)
+                {
+                    game_data.Add(s1);
+                    //Console.WriteLine(s1);
+                }
+                game_dataFinal.Add(game_data);
+            }
+            //Console.WriteLine(game_dataFinal[19].Count);
+
+            for (int i = 0; i < game_dataFinal.Count; i++)
+            {
+                for (int j = 0; j < game_dataFinal[i].Count; j++)
+                {
+                    string data = game_dataFinal[i][j];
+                    //Console.WriteLine(game_dataFinal[i][j]);
+                    if (data != " ")
+                    {
+                        char[] dataChar = data.ToCharArray();
+                        grid.AddBuilding(dataChar[0], letters[j], i,true);
+                        //Console.WriteLine(String.Format("{0}    {1}    {2}", data, i.ToString(), j.ToString()));
+                    }
+                }
+            }
+            return grid;
+        }
+        public List<Building> getlist()
+        {
+            return Buildings;
+        }
     }
 }

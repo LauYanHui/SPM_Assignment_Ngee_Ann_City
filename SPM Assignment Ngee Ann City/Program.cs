@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Net.Sockets;
 using System.Reflection.Metadata.Ecma335;
+using System.Xml.Serialization;
 
 //grid creation
 Grid createGrid()
@@ -327,21 +328,33 @@ void removeBuilding(Grid newgrid)
 }
 
 
-void Arcademode()
+void Arcademode(bool import)
 {
     Console.WriteLine("START ARCADE MODE\n");
     displayrulesArcade();
+    Grid AGrid;
+    if (import == true)
+    {
+        AGrid = new Grid(20);
+        AGrid.ImportSavedGameArcade(AGrid);
+        AGrid.PrintGrid();
+    }
+    else
+    {
+        AGrid = new Grid(20);
+    }
+   
     int coins = 16;
     int points = 0;
-    Grid AGrid = new Grid(20);
-    while (coins > 0)
+    bool requestExit = false;
+    while (coins > 0 && !requestExit)
     {
         arcadeModeMenu();
         Console.Write("Enter option: ");
         while (true)
         {
             int option = Convert.ToInt32(Console.ReadLine());
-            if (option != 1 && option != 2)
+            if (option != 1 && option != 2 && option != 0)
             {
                 Console.WriteLine("Invalid option. Please try again");
                 continue;
@@ -352,11 +365,11 @@ void Arcademode()
                     AddBuilding(AGrid);
                     break;
                 case 2:
-                    
                     removeBuilding(AGrid);
                     break;
                 case 0:
                     AGrid.ExportGridToCSV();
+                    requestExit = true;
                     break;
                 default:
                     Console.WriteLine("ERROR OPTION");
@@ -364,26 +377,35 @@ void Arcademode()
             }
             break;
         }
-        //AGrid.GenerateCoins(); // Update coins from buildings
-        points = AGrid.calculateAllPoints();
-        //AGrid.PrintGrid();
-        Console.WriteLine("POINTS: "+ points);
-        coins = AGrid.GetCoins();
-        //int totalcoins = coins + AGrid.GetCoins();
-        Console.WriteLine("COINS: "+ AGrid.GetCoins());
+        if (!requestExit)
+        {
+            //AGrid.GenerateCoins(); // Update coins from buildings
+            points = AGrid.calculateAllPoints();
+            //AGrid.PrintGrid();
+            Console.WriteLine("POINTS: " + points);
+            coins = AGrid.GetCoins();
+            //int totalcoins = coins + AGrid.GetCoins();
+            Console.WriteLine("COINS: " + AGrid.GetCoins());
+        }
     }
-    if (coins == 0)
+    if (requestExit)
+    {
+        Console.WriteLine("GAME SAVED AND EXITED");
+        return;
+    }
+    else
     {
         Console.WriteLine("GAME ENDED");
         Console.WriteLine("Points: " + points);
     }
-    
+
 }
 void game()
 {
-    displayMenu();
-    while (true)
+    bool exit = false;
+    while (!exit)
     {
+        displayMenu();
         Console.Write("Enter a option: ");
         int option = Convert.ToInt32(Console.ReadLine());
         if (option > 5 || option < 0)
@@ -394,7 +416,13 @@ void game()
         switch (option)
         {
             case 1:
-                Arcademode();
+                Arcademode(false);
+                break;
+            case 3:
+                Arcademode(true);
+                break;
+            case 0:
+                exit = true;
                 break;
             default:
                 Console.WriteLine("ERROR OPTION");

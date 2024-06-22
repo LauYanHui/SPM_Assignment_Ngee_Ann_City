@@ -248,7 +248,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 coins += building.calculateCoins();
             }
         }
-        public void ImportSavedGameArcade(Grid grid)
+        public Grid ImportSavedGameArcade(Grid grid)
         {
             char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
             List<string> game_temp = new List<string>();
@@ -297,6 +297,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                 }
             }
+            return grid;
         }
         public List<Building> getlist()
         {

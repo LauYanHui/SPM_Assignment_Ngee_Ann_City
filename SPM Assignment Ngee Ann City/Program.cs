@@ -66,6 +66,59 @@ void addBuilding(Grid newGrid)
     newGrid.AddBuilding(building.type, rowLetter, col,false);
     newGrid.PrintGrid();
 }
+void ImportSavedGameArcade(Grid grid)
+{
+    char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
+    List<string> game_temp = new List<string>();
+    List<List<String>> game_dataFinal = new List<List<String>>();
+    using (StreamReader sr = new StreamReader("saved_game_data_arcade.csv"))
+    {
+        string? s = sr.ReadLine();
+        if (s != null)
+        {
+            //Console.WriteLine(s);
+            game_temp.Add(s);
+        }
+        while ((s = sr.ReadLine()) != null)
+        {
+            //Console.WriteLine(s);
+            game_temp.Add(s);
+        }
+    }
+
+    foreach (string s in game_temp)
+    {
+        List<string> game_data = new List<string>();
+        string[] temp = new string[] { };
+        temp = s.Split(",");
+        int count = 0;
+        foreach (string s1 in temp)
+        {
+            game_data.Add(s1);
+            //Console.WriteLine(s1);
+        }
+        game_dataFinal.Add(game_data);
+    }
+    //Console.WriteLine(game_dataFinal[19].Count);
+
+    for (int i = 0; i < game_dataFinal.Count; i++)
+    {
+        for (int j = 0; j < game_dataFinal[i].Count; j++)
+        {
+            string data = game_dataFinal[i][j];
+            //Console.WriteLine(game_dataFinal[i][j]);
+            if (data != " ")
+            {
+                char[] dataChar = data.ToCharArray();
+                grid.AddBuilding(dataChar[0], letters[j], i);
+                Console.WriteLine(String.Format("{0}    {1}    {2}", data, i.ToString(), j.ToString()));
+            }
+        }
+    }
+
+
+}
+
 
 
 Grid grid = new Grid(20);
@@ -150,22 +203,46 @@ void arcadeModeMenu()
     Console.WriteLine("[2] Remove Building. ");
     Console.WriteLine("[0] Save and leave game.");
 }
+void AddToLeaderboardCSV(List<User> user_array)
+{
+    using (StreamWriter sw = new StreamWriter("leaderboard.csv", false))
+    {
+        foreach(User user in user_array)
+        {
+            sw.WriteLine(user.Name + ',' + user.Points);
+        }
+    }
+}
+List<User> ReadLeaderboardCSV()
+{
+    List<User> user_list =new List<User>();
+    using (StreamReader sr = new StreamReader("leaderboard.csv"))
+    {
+        string? s;
+        while((s = sr.ReadLine())!= null)
+        {
+            string[] data = s.Split(",");
+            user_list.Add(new User(data[0], Convert.ToInt32(data[1])));
 
+        }
+    }
+        return user_list;
+}
 void DisplayLeaderboard()
 {
     Console.WriteLine("Leaderboard" + "\n");
 
     SortedDictionary<User, int> userDict = new SortedDictionary<User, int>();
-    User user0 = new User("test12120", "password0", false, 0);
-    User user1 = new User("test1", "password1", false, 20);
-    User user2 = new User("test2", "password2", false, 90);
-    User user3 = new User("test3", "password3", false, 100);
-    User user4 = new User("test4", "password4", false, 50);
-    User user5 = new User("test5", "password5", false, 60);
-    User user6 = new User("test6", "password6", false, 70);
-    User user7 = new User("test7", "password7", false, 75);
-    User user8 = new User("test8", "password8", false, 10);
-    User user9 = new User("test9", "password9", false, 30);
+    User user0 = new User("test12120", 0);
+    User user1 = new User("test1", 20);
+    User user2 = new User("test2", 90);
+    User user3 = new User("test3", 100);
+    User user4 = new User("test4", 50);
+    User user5 = new User("test5", 60);
+    User user6 = new User("test6", 70);
+    User user7 = new User("test7", 75);
+    User user8 = new User("test8", 10);
+    User user9 = new User("test9", 30);
 
 
 
@@ -191,7 +268,6 @@ void DisplayLeaderboard()
     }
     Console.WriteLine("--------------------------------");
 }
-//DisplayLeaderboard();
 
 Building GetRandomBuilding()
 {
@@ -343,7 +419,7 @@ void Arcademode(bool import)
     {
         AGrid = new Grid(20);
     }
-   
+
     int coins = 16;
     int points = 0;
     bool requestExit = false;
@@ -429,6 +505,43 @@ void game()
                 break;
         }
     }
+
+    if (AGrid.GetCoins() <= 0 || AGrid.Buildings.Count >= 400)
+    {
+        List<User> user_list = ReadLeaderboardCSV();
+        user_list.Sort();
+        if(user_list.Count <10)
+        {
+            if (user_list[user_list.Count - 1].Points < points)
+            {
+                Console.WriteLine("You have made it to the top 10.");
+                Console.Write("Please enter your name to enter: ");
+                string name = Console.ReadLine();
+                User new_user = new User(name, points);
+                user_list.Add(new_user);
+                user_list.Sort();
+                AddToLeaderboardCSV(user_list);
+            }
+        }
+        else // user_list.count >= 11
+        {
+            if (user_list[9].Points < points)
+            {
+                Console.WriteLine("You have made it to the top 10.");
+                Console.Write("Please enter your name to enter: ");
+                string name = Console.ReadLine();
+                User new_user = new User(name, points);
+                user_list.Add(new_user);
+                user_list.Sort();
+                user_list.RemoveAt(10);
+                AddToLeaderboardCSV(user_list);
+            }
+        }
+        
+    }
+
+    
+
 }
 game();
 

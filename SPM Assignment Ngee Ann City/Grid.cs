@@ -13,7 +13,6 @@ namespace SPM_Assignment_Ngee_Ann_City
         public int Number { get; set; } 
 
         private char[,] grid;
-        //public List<Building> Buildings;
         private List<Building> Buildings;
 
         public Grid(int number)

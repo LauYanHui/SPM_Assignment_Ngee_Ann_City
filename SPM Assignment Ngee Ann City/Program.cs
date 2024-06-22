@@ -350,7 +350,7 @@ void Arcademode()
     int coins = 16;
     int points = 0;
     bool requestExit = false;
-    while (coins > 0 || !requestExit || AGrid.Buildings.Count > 400 )
+    while (coins > 0 && !requestExit)
     {
         arcadeModeMenu();
         Console.Write("Enter option: ");

@@ -15,15 +15,13 @@ namespace SPM_Assignment_Ngee_Ann_City
 
 
         private char[,] grid;
-        private List<Building> Buildings;
+        public List<Building> Buildings;
 
-        private char[,] grid; 
-        private  List<Building> Buildings;
 
 
         public Grid(int number)
         {
-            coins = 16;
+            coins = 2;
             Number = number;
             grid = new char[number, number]; // Initialize the grid
             Buildings = new List<Building>();

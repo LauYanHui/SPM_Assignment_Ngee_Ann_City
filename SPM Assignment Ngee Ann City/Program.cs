@@ -214,38 +214,50 @@ void AddBuilding(Grid newGrid)
 {
     Building building1 = GetRandomBuilding();
     Building building2 = GetRandomBuilding();
+    bool buildingAdded = false;
 
-    Console.WriteLine("Choose a building to construct:");
-    Console.WriteLine($"[1] {building1.type}");
-    Console.WriteLine($"[2] {building2.type}");
-    Console.Write("Enter the building option: ");
-    int option = Convert.ToInt32(Console.ReadLine());
+    while (!buildingAdded)
+    {
+        Console.WriteLine("Choose a building to construct:");
+        Console.WriteLine($"[1] {building1.type}");
+        Console.WriteLine($"[2] {building2.type}");
+        Console.Write("Enter the building option: ");
+        int option = Convert.ToInt32(Console.ReadLine());
 
-    Building selectedBuilding;
-    if (option == 1)
-    {
-        selectedBuilding = building1;
-    }
-    else if (option == 2)
-    {
-        selectedBuilding = building2;
-    }
-    else
-    {
-        Console.WriteLine("Invalid input.");
-        return;
-    }
-    newGrid.PrintGrid();
-    Console.Write("Enter row coordinate: ");
-    char rowLetter = char.ToUpper(Console.ReadLine()[0]);
-    Console.Write("Enter column coordinate: ");
-    int col = Convert.ToInt32(Console.ReadLine()) - 1;
+        Building selectedBuilding;
+        if (option == 1)
+        {
+            selectedBuilding = building1;
+        }
+        else if (option == 2)
+        {
+            selectedBuilding = building2;
+        }
+        else
+        {
+            Console.WriteLine("Invalid input.");
+            continue; // Go back to the start of the loop to ask again
+        }
 
-    selectedBuilding.row = rowLetter;
-    selectedBuilding.col = col;
-    newGrid.AddBuilding(selectedBuilding.type, rowLetter, col,false);
+        newGrid.PrintGrid();
+        Console.Write("Enter row coordinate: ");
+        char rowLetter = char.ToUpper(Console.ReadLine()[0]);
+        Console.Write("Enter column coordinate: ");
+        int col = Convert.ToInt32(Console.ReadLine()) - 1;
+
+        selectedBuilding.row = rowLetter;
+        selectedBuilding.col = col;
+
+        buildingAdded = newGrid.AddBuilding(selectedBuilding.type, rowLetter, col, false);
+        if (!buildingAdded)
+        {
+            Console.WriteLine("Failed to add building. Please try again.");
+        }
+    }
+
     newGrid.PrintGrid();
 }
+
 void removeBuilding(Grid newgrid)
 {
     Console.Write("Enter row: ");

@@ -96,7 +96,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             }
 
 
-            if (!IsConnectedToExistingBuilding(row, col,true))
+            if (!IsConnectedToExistingBuilding(row, col,import))
             {
                 Console.WriteLine("Error: Building must be placed adjacent to an existing building.");
                 return false;

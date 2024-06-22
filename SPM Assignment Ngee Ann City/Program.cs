@@ -2,6 +2,8 @@
 using SPM_Assignment_Ngee_Ann_City;
 using System;
 using System.Drawing;
+using System.Net.Sockets;
+using System.Reflection.Metadata.Ecma335;
 
 //grid creation
 Grid createGrid()
@@ -224,28 +226,44 @@ void AddBuilding(Grid newGrid)
         Console.WriteLine($"[1] {building1.type}");
         Console.WriteLine($"[2] {building2.type}");
         Console.Write("Enter the building option: ");
-        int option = Convert.ToInt32(Console.ReadLine());
+        if (!int.TryParse(Console.ReadLine(), out int option) || (option != 1 && option != 2))
+        {
+            Console.WriteLine("Invalid input. Please enter 1 or 2.");
+            continue;
+        }
 
-        Building selectedBuilding;
-        if (option == 1)
-        {
-            selectedBuilding = building1;
-        }
-        else if (option == 2)
-        {
-            selectedBuilding = building2;
-        }
-        else
-        {
-            Console.WriteLine("Invalid input.");
-            continue; // Go back to the start of the loop to ask again
-        }
+        Building selectedBuilding = (option == 1) ? building1 : building2;
 
         newGrid.PrintGrid();
-        Console.Write("Enter row coordinate: ");
-        char rowLetter = char.ToUpper(Console.ReadLine()[0]);
-        Console.Write("Enter column coordinate: ");
-        int col = Convert.ToInt32(Console.ReadLine()) - 1;
+
+        char rowLetter;
+        while (true)
+        {
+            Console.Write("Enter row coordinate (A-T): ");
+            if (!char.TryParse(Console.ReadLine()?.ToUpper(), out rowLetter) || rowLetter < 'A' || rowLetter > 'T')
+            {
+                Console.WriteLine("Invalid input. Please enter a letter from A to T.");
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        int col = -1;
+        while (col < 0 || col >= newGrid.Number)
+        {
+            Console.Write("Enter column coordinate (1-20): ");
+            if (!int.TryParse(Console.ReadLine(), out col) || col < 1 || col > 20)
+            {
+                Console.WriteLine("Invalid input. Please enter a number from 1 to 20.");
+                col = -1; // Reset col to force re-entry in the next iteration
+            }
+            else
+            {
+                col--; // Convert 1-based index to 0-based index
+            }
+        }
 
         selectedBuilding.row = rowLetter;
         selectedBuilding.col = col;
@@ -256,16 +274,54 @@ void AddBuilding(Grid newGrid)
             Console.WriteLine("Failed to add building. Please try again.");
         }
     }
-
     newGrid.PrintGrid();
 }
 
+
 void removeBuilding(Grid newgrid)
 {
-    Console.Write("Enter row: ");
-    char row = Convert.ToChar(Console.ReadLine().ToUpper());
-    Console.Write("Enter column: ");
-    int col = Convert.ToInt32(Console.ReadLine()) - 1;
+    List<Building> Blist = newgrid.getlist();
+    if (Blist.Count == 0)
+    {
+        Console.WriteLine("There are no buildings.");
+        return;
+    }
+
+    char row;
+    int col;
+
+    while (true)
+    {
+        Console.Write("Enter row (A to T): ");
+        string inputRow = Console.ReadLine()?.ToUpper();
+
+        // Validate row input
+        if (inputRow == null || inputRow.Length != 1 || inputRow[0] < 'A' || inputRow[0] > 'T')
+        {
+            Console.WriteLine("Invalid input. Please enter a letter from A to T.");
+            continue;
+        }
+
+        row = inputRow[0];
+        break;
+    }
+
+    while (true)
+    {
+        Console.Write("Enter column (1 to 20): ");
+        string inputCol = Console.ReadLine();
+
+        // Validate column input
+        if (!int.TryParse(inputCol, out col) || col < 1 || col > 20)
+        {
+            Console.WriteLine("Invalid input. Please enter a number from 1 to 20.");
+            continue;
+        }
+
+        col--; // Adjust column to zero-based index
+        break;
+    }
+
     newgrid.RemoveBuilding(row, col);
     newgrid.PrintGrid();
 }
@@ -276,49 +332,74 @@ void Arcademode()
     Console.WriteLine("START ARCADE MODE\n");
     displayrulesArcade();
     int coins = 16;
-    int points;
+    int points = 0;
     Grid AGrid = new Grid(20);
     while (coins > 0)
     {
         arcadeModeMenu();
         Console.Write("Enter option: ");
-        int option = Convert.ToInt32(Console.ReadLine());
-        switch (option)
+        while (true)
         {
-            case 1:
-                AddBuilding(AGrid);
-                break;
-            case 2:
-                removeBuilding(AGrid);
-                break;
-            case 0:
-                AGrid.ExportGridToCSV();
-                break;
-            default:
-                Console.WriteLine("ERROR OPTION");
-                break;
+            int option = Convert.ToInt32(Console.ReadLine());
+            if (option != 1 && option != 2)
+            {
+                Console.WriteLine("Invalid option. Please try again");
+                continue;
+            }
+            switch (option)
+            {
+                case 1:
+                    AddBuilding(AGrid);
+                    break;
+                case 2:
+                    
+                    removeBuilding(AGrid);
+                    break;
+                case 0:
+                    AGrid.ExportGridToCSV();
+                    break;
+                default:
+                    Console.WriteLine("ERROR OPTION");
+                    break;
+            }
+            break;
         }
         //AGrid.GenerateCoins(); // Update coins from buildings
         points = AGrid.calculateAllPoints();
         //AGrid.PrintGrid();
         Console.WriteLine("POINTS: "+ points);
+        coins = AGrid.GetCoins();
         //int totalcoins = coins + AGrid.GetCoins();
         Console.WriteLine("COINS: "+ AGrid.GetCoins());
     }
+    if (coins == 0)
+    {
+        Console.WriteLine("GAME ENDED");
+        Console.WriteLine("Points: " + points);
+    }
+    
 }
 void game()
 {
     displayMenu();
-    Console.Write("Enter a option: ");
-    int option = Convert.ToInt32(Console.ReadLine());
-    switch (option)
+    while (true)
     {
-        case 1:
-            Arcademode();
-            break;
-        default:
-            Console.WriteLine("ERROR OPTION");
-            break;
+        Console.Write("Enter a option: ");
+        int option = Convert.ToInt32(Console.ReadLine());
+        if (option > 5 || option < 0)
+        {
+            Console.WriteLine("Invalid option. Please try again");
+            continue;
+        }
+        switch (option)
+        {
+            case 1:
+                Arcademode();
+                break;
+            default:
+                Console.WriteLine("ERROR OPTION");
+                break;
+        }
     }
 }
 game();

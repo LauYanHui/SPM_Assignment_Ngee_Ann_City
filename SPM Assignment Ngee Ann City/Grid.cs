@@ -14,7 +14,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         public int Number { get; set; } 
 
         private char[,] grid; 
-        private List<Building> Buildings;
+        private  List<Building> Buildings;
 
         public Grid(int number)
         {
@@ -143,9 +143,18 @@ namespace SPM_Assignment_Ngee_Ann_City
         public void RemoveBuilding(char rowLetter, int col)
         {
             int row = rowLetter - 'A';
+
+            // Check if there is a building at the specified location
+            if (grid[col, row] == ' ')
+            {
+                Console.WriteLine("There is no building at this location.");
+                return;
+            }
+
             grid[col, row] = ' ';
             Buildings.RemoveAll(r => r.row == rowLetter && r.col == col);
-
+            coins--;
+            Console.WriteLine("Building removed successfully.");
         }
 
         private void InitializeGrid()
@@ -288,6 +297,10 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                 }
             }
+        }
+        public List<Building> getlist()
+        {
+            return Buildings;
         }
     }
 }

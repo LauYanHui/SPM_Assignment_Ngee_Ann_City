@@ -1,4 +1,5 @@
 ﻿//SPM Assignment
+using Microsoft.VisualBasic.FileIO;
 using SPM_Assignment_Ngee_Ann_City;
 using System;
 using System.Drawing;
@@ -110,7 +111,7 @@ void ImportSavedGameArcade(Grid grid)
             if (data != " ")
             {
                 char[] dataChar = data.ToCharArray();
-                grid.AddBuilding(dataChar[0], letters[j], i);
+                grid.AddBuilding(dataChar[0], letters[j], i,false);
                 Console.WriteLine(String.Format("{0}    {1}    {2}", data, i.ToString(), j.ToString()));
             }
         }
@@ -228,45 +229,22 @@ List<User> ReadLeaderboardCSV()
     }
         return user_list;
 }
-void DisplayLeaderboard()
+void DisplayLeaderboard(List<User> user_list)
 {
-    Console.WriteLine("Leaderboard" + "\n");
-
-    SortedDictionary<User, int> userDict = new SortedDictionary<User, int>();
-    User user0 = new User("test12120", 0);
-    User user1 = new User("test1", 20);
-    User user2 = new User("test2", 90);
-    User user3 = new User("test3", 100);
-    User user4 = new User("test4", 50);
-    User user5 = new User("test5", 60);
-    User user6 = new User("test6", 70);
-    User user7 = new User("test7", 75);
-    User user8 = new User("test8", 10);
-    User user9 = new User("test9", 30);
-
-
-
-    userDict.Add(user0, user0.Points);
-    userDict.Add(user1, user1.Points);
-    userDict.Add(user2, user2.Points);
-    userDict.Add(user3, user3.Points);
-    userDict.Add(user4, user4.Points);
-    userDict.Add(user5, user5.Points);
-    userDict.Add(user6, user6.Points);
-    userDict.Add(user7, user7.Points);
-    userDict.Add(user8, user8.Points);
-    userDict.Add(user9, user9.Points);
+    Console.WriteLine();
+    Console.WriteLine("Leaderboard" );
 
     Console.WriteLine("--------------------------------");
     Console.WriteLine("\tName" + "           Points");
     Console.WriteLine("--------------------------------");
     int count = 1;
-    foreach (KeyValuePair<User, int> kvp in userDict)
+    foreach (User user in user_list)
     {
-        Console.WriteLine(String.Format("{0}:\t{1,-15}{2}", count, kvp.Key.Name, kvp.Value));
+        Console.WriteLine(String.Format("{0}:\t{1,-15}{2}", count, user.Name, user.Points));
         count++;
     }
     Console.WriteLine("--------------------------------");
+    Console.WriteLine();
 }
 
 Building GetRandomBuilding()
@@ -426,11 +404,15 @@ void Arcademode(bool import)
     while (coins > 0 && !requestExit)
     {
         arcadeModeMenu();
-        Console.Write("Enter option: ");
         while (true)
         {
-            int option = Convert.ToInt32(Console.ReadLine());
-            if (option != 1 && option != 2 && option != 0)
+            int option;
+            try
+            {
+                Console.Write("Enter option: ");
+                option = Convert.ToInt32(Console.ReadLine());
+            }
+            catch(FormatException)
             {
                 Console.WriteLine("Invalid option. Please try again");
                 continue;
@@ -473,6 +455,55 @@ void Arcademode(bool import)
     {
         Console.WriteLine("GAME ENDED");
         Console.WriteLine("Points: " + points);
+        if (AGrid.GetCoins() <= 0 || AGrid.Buildings.Count >= 400)
+        {
+            List<User> user_list = ReadLeaderboardCSV();
+            user_list.Sort();
+            if (user_list.Count < 10)
+            {
+                Console.WriteLine("You have made it to the top 10.");
+                string name;
+                while (true)
+                {
+                    Console.Write("Please enter your name to enter: ");
+                    name = Console.ReadLine();
+                    if (!(string.IsNullOrEmpty(name)))
+                    {
+                        break;
+                    }
+                    Console.WriteLine("Please enter a name" + "\n");
+                }
+                User new_user = new User(name, points);
+                user_list.Add(new_user);
+                user_list.Sort();
+                AddToLeaderboardCSV(user_list);
+            }
+            else // user_list.count >= 11
+            {
+                if (user_list[9].Points < points)
+                {
+                    Console.WriteLine("You have made it to the top 10.");
+                    string name;
+                    while(true)
+                    {
+                        Console.Write("Please enter your name to enter: ");
+                        name = Console.ReadLine();
+                        if (!(string.IsNullOrEmpty(name)))
+                        {
+                            break;
+                        }
+                        Console.WriteLine("Please enter a name" + "\n");
+                    }
+                    
+                    User new_user = new User(name, points);
+                    user_list.Add(new_user);
+                    user_list.Sort();
+                    user_list.RemoveAt(10);
+                    AddToLeaderboardCSV(user_list);
+                }
+            }
+
+        }
     }
 
 }
@@ -482,11 +513,17 @@ void game()
     while (!exit)
     {
         displayMenu();
+        int option; ;
         Console.Write("Enter a option: ");
-        int option = Convert.ToInt32(Console.ReadLine());
-        if (option > 5 || option < 0)
+        try
+        {
+            option = Convert.ToInt32(Console.ReadLine());
+            
+        }
+        catch(FormatException)
         {
             Console.WriteLine("Invalid option. Please try again");
+            Console.WriteLine();
             continue;
         }
         switch (option)
@@ -497,6 +534,10 @@ void game()
             case 3:
                 Arcademode(true);
                 break;
+            case 5:
+                List<User> user_list = ReadLeaderboardCSV();
+                DisplayLeaderboard(user_list);
+                break;
             case 0:
                 exit = true;
                 break;
@@ -505,43 +546,6 @@ void game()
                 break;
         }
     }
-
-    if (AGrid.GetCoins() <= 0 || AGrid.Buildings.Count >= 400)
-    {
-        List<User> user_list = ReadLeaderboardCSV();
-        user_list.Sort();
-        if(user_list.Count <10)
-        {
-            if (user_list[user_list.Count - 1].Points < points)
-            {
-                Console.WriteLine("You have made it to the top 10.");
-                Console.Write("Please enter your name to enter: ");
-                string name = Console.ReadLine();
-                User new_user = new User(name, points);
-                user_list.Add(new_user);
-                user_list.Sort();
-                AddToLeaderboardCSV(user_list);
-            }
-        }
-        else // user_list.count >= 11
-        {
-            if (user_list[9].Points < points)
-            {
-                Console.WriteLine("You have made it to the top 10.");
-                Console.Write("Please enter your name to enter: ");
-                string name = Console.ReadLine();
-                User new_user = new User(name, points);
-                user_list.Add(new_user);
-                user_list.Sort();
-                user_list.RemoveAt(10);
-                AddToLeaderboardCSV(user_list);
-            }
-        }
-        
-    }
-
-    
-
 }
 game();
 

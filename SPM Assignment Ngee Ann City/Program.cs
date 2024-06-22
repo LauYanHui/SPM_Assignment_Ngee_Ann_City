@@ -86,7 +86,7 @@ grid.AddBuilding('*', 'A', 5);
 grid.AddBuilding('*', 'A', 6);
 grid.AddBuilding('*', 'A', 7);*/
 //grid.calculateAllPoints();
-grid.PrintGrid();
+//grid.PrintGrid();
 
 //newGrid.ExportGridToCSV();
 /* To remove Building
@@ -101,8 +101,9 @@ void displayMenu()// display menu
 {
     Console.WriteLine("[1] Start New Arcade Mode");
     Console.WriteLine("[2] Start New Free Play Mode");
-    Console.WriteLine("[3] Load Saved Game");
-    Console.WriteLine("[4] Display High Score");
+    Console.WriteLine("[3] Load Saved Arcade Game");
+    Console.WriteLine("[4] Load Saved Free Play Game");
+    Console.WriteLine("[5] Display High Score");
     Console.WriteLine("[0] Exit Game");
 }
 
@@ -144,6 +145,7 @@ void arcadeModeMenu()
 {
     Console.WriteLine("[1] Add Building. ");
     Console.WriteLine("[2] Remove Building. ");
+    Console.WriteLine("[0] Save and leave game.");
 }
 
 void DisplayLeaderboard()
@@ -289,9 +291,8 @@ void Arcademode()
             case 2:
                 removeBuilding(AGrid);
                 break;
-            case 3:
+            case 0:
                 AGrid.ExportGridToCSV();
-                AGrid.ImportSavedGameArcade(AGrid);
                 break;
             default:
                 Console.WriteLine("ERROR OPTION");
@@ -305,4 +306,20 @@ void Arcademode()
         Console.WriteLine("COINS: "+ AGrid.GetCoins());
     }
 }
-Arcademode();
+void game()
+{
+    displayMenu();
+    Console.Write("Enter a option: ");
+    int option = Convert.ToInt32(Console.ReadLine());
+    switch (option)
+    {
+        case 1:
+            Arcademode();
+            break;
+        default:
+            Console.WriteLine("ERROR OPTION");
+            break;
+    }
+}
+game();
+

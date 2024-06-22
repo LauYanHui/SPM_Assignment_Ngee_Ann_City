@@ -2,6 +2,9 @@
 using SPM_Assignment_Ngee_Ann_City;
 using System;
 using System.Drawing;
+using System.Net.Sockets;
+using System.Reflection.Metadata.Ecma335;
+using System.Xml.Serialization;
 
 //grid creation
 Grid createGrid()
@@ -86,7 +89,7 @@ grid.AddBuilding('*', 'A', 5);
 grid.AddBuilding('*', 'A', 6);
 grid.AddBuilding('*', 'A', 7);*/
 //grid.calculateAllPoints();
-grid.PrintGrid();
+//grid.PrintGrid();
 
 //newGrid.ExportGridToCSV();
 /* To remove Building
@@ -101,8 +104,9 @@ void displayMenu()// display menu
 {
     Console.WriteLine("[1] Start New Arcade Mode");
     Console.WriteLine("[2] Start New Free Play Mode");
-    Console.WriteLine("[3] Load Saved Game");
-    Console.WriteLine("[4] Display High Score");
+    Console.WriteLine("[3] Load Saved Arcade Game");
+    Console.WriteLine("[4] Load Saved Free Play Game");
+    Console.WriteLine("[5] Display High Score");
     Console.WriteLine("[0] Exit Game");
 }
 
@@ -144,6 +148,7 @@ void arcadeModeMenu()
 {
     Console.WriteLine("[1] Add Building. ");
     Console.WriteLine("[2] Remove Building. ");
+    Console.WriteLine("[0] Save and leave game.");
 }
 
 void DisplayLeaderboard()
@@ -214,83 +219,216 @@ void AddBuilding(Grid newGrid)
 {
     Building building1 = GetRandomBuilding();
     Building building2 = GetRandomBuilding();
+    bool buildingAdded = false;
 
-    Console.WriteLine("Choose a building to construct:");
-    Console.WriteLine($"[1] {building1.type}");
-    Console.WriteLine($"[2] {building2.type}");
-    Console.Write("Enter the building option: ");
-    int option = Convert.ToInt32(Console.ReadLine());
+    while (!buildingAdded)
+    {
+        Console.WriteLine("Choose a building to construct:");
+        Console.WriteLine($"[1] {building1.type}");
+        Console.WriteLine($"[2] {building2.type}");
+        Console.Write("Enter the building option: ");
+        if (!int.TryParse(Console.ReadLine(), out int option) || (option != 1 && option != 2))
+        {
+            Console.WriteLine("Invalid input. Please enter 1 or 2.");
+            continue;
+        }
 
-    Building selectedBuilding;
-    if (option == 1)
-    {
-        selectedBuilding = building1;
-    }
-    else if (option == 2)
-    {
-        selectedBuilding = building2;
-    }
-    else
-    {
-        Console.WriteLine("Invalid input.");
-        return;
-    }
-    newGrid.PrintGrid();
-    Console.Write("Enter row coordinate: ");
-    char rowLetter = char.ToUpper(Console.ReadLine()[0]);
-    Console.Write("Enter column coordinate: ");
-    int col = Convert.ToInt32(Console.ReadLine()) - 1;
+        Building selectedBuilding = (option == 1) ? building1 : building2;
 
-    selectedBuilding.row = rowLetter;
-    selectedBuilding.col = col;
-    newGrid.AddBuilding(selectedBuilding.type, rowLetter, col,false);
+        newGrid.PrintGrid();
+
+        char rowLetter;
+        while (true)
+        {
+            Console.Write("Enter row coordinate (A-T): ");
+            if (!char.TryParse(Console.ReadLine()?.ToUpper(), out rowLetter) || rowLetter < 'A' || rowLetter > 'T')
+            {
+                Console.WriteLine("Invalid input. Please enter a letter from A to T.");
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        int col = -1;
+        while (col < 0 || col >= newGrid.Number)
+        {
+            Console.Write("Enter column coordinate (1-20): ");
+            if (!int.TryParse(Console.ReadLine(), out col) || col < 1 || col > 20)
+            {
+                Console.WriteLine("Invalid input. Please enter a number from 1 to 20.");
+                col = -1; // Reset col to force re-entry in the next iteration
+            }
+            else
+            {
+                col--; // Convert 1-based index to 0-based index
+            }
+        }
+
+        selectedBuilding.row = rowLetter;
+        selectedBuilding.col = col;
+
+        buildingAdded = newGrid.AddBuilding(selectedBuilding.type, rowLetter, col, false);
+        if (!buildingAdded)
+        {
+            Console.WriteLine("Failed to add building. Please try again.");
+        }
+    }
     newGrid.PrintGrid();
 }
+
+
 void removeBuilding(Grid newgrid)
 {
-    Console.Write("Enter row: ");
-    char row = Convert.ToChar(Console.ReadLine().ToUpper());
-    Console.Write("Enter column: ");
-    int col = Convert.ToInt32(Console.ReadLine()) - 1;
+    List<Building> Blist = newgrid.getlist();
+    if (Blist.Count == 0)
+    {
+        Console.WriteLine("There are no buildings.");
+        return;
+    }
+
+    char row;
+    int col;
+
+    while (true)
+    {
+        Console.Write("Enter row (A to T): ");
+        string inputRow = Console.ReadLine()?.ToUpper();
+
+        // Validate row input
+        if (inputRow == null || inputRow.Length != 1 || inputRow[0] < 'A' || inputRow[0] > 'T')
+        {
+            Console.WriteLine("Invalid input. Please enter a letter from A to T.");
+            continue;
+        }
+
+        row = inputRow[0];
+        break;
+    }
+
+    while (true)
+    {
+        Console.Write("Enter column (1 to 20): ");
+        string inputCol = Console.ReadLine();
+
+        // Validate column input
+        if (!int.TryParse(inputCol, out col) || col < 1 || col > 20)
+        {
+            Console.WriteLine("Invalid input. Please enter a number from 1 to 20.");
+            continue;
+        }
+
+        col--; // Adjust column to zero-based index
+        break;
+    }
+
     newgrid.RemoveBuilding(row, col);
     newgrid.PrintGrid();
 }
 
 
-void Arcademode()
+void Arcademode(bool import)
 {
     Console.WriteLine("START ARCADE MODE\n");
     displayrulesArcade();
+    Grid AGrid;
+    if (import == true)
+    {
+        AGrid = new Grid(20);
+        AGrid.ImportSavedGameArcade(AGrid);
+        AGrid.PrintGrid();
+    }
+    else
+    {
+        AGrid = new Grid(20);
+    }
+   
     int coins = 16;
-    int points;
-    Grid AGrid = new Grid(20);
-    while (coins > 0)
+    int points = 0;
+    bool requestExit = false;
+    while (coins > 0 && !requestExit)
     {
         arcadeModeMenu();
         Console.Write("Enter option: ");
+        while (true)
+        {
+            int option = Convert.ToInt32(Console.ReadLine());
+            if (option != 1 && option != 2 && option != 0)
+            {
+                Console.WriteLine("Invalid option. Please try again");
+                continue;
+            }
+            switch (option)
+            {
+                case 1:
+                    AddBuilding(AGrid);
+                    break;
+                case 2:
+                    removeBuilding(AGrid);
+                    break;
+                case 0:
+                    AGrid.ExportGridToCSV();
+                    requestExit = true;
+                    break;
+                default:
+                    Console.WriteLine("ERROR OPTION");
+                    break;
+            }
+            break;
+        }
+        if (!requestExit)
+        {
+            //AGrid.GenerateCoins(); // Update coins from buildings
+            points = AGrid.calculateAllPoints();
+            //AGrid.PrintGrid();
+            Console.WriteLine("POINTS: " + points);
+            coins = AGrid.GetCoins();
+            //int totalcoins = coins + AGrid.GetCoins();
+            Console.WriteLine("COINS: " + AGrid.GetCoins());
+        }
+    }
+    if (requestExit)
+    {
+        Console.WriteLine("GAME SAVED AND EXITED");
+        return;
+    }
+    else
+    {
+        Console.WriteLine("GAME ENDED");
+        Console.WriteLine("Points: " + points);
+    }
+
+}
+void game()
+{
+    bool exit = false;
+    while (!exit)
+    {
+        displayMenu();
+        Console.Write("Enter a option: ");
         int option = Convert.ToInt32(Console.ReadLine());
+        if (option > 5 || option < 0)
+        {
+            Console.WriteLine("Invalid option. Please try again");
+            continue;
+        }
         switch (option)
         {
             case 1:
-                AddBuilding(AGrid);
-                break;
-            case 2:
-                removeBuilding(AGrid);
+                Arcademode(false);
                 break;
             case 3:
-                AGrid.ExportGridToCSV();
-                AGrid.ImportSavedGameArcade(AGrid);
+                Arcademode(true);
+                break;
+            case 0:
+                exit = true;
                 break;
             default:
                 Console.WriteLine("ERROR OPTION");
                 break;
         }
-        //AGrid.GenerateCoins(); // Update coins from buildings
-        points = AGrid.calculateAllPoints();
-        //AGrid.PrintGrid();
-        Console.WriteLine("POINTS: "+ points);
-        //int totalcoins = coins + AGrid.GetCoins();
-        Console.WriteLine("COINS: "+ AGrid.GetCoins());
     }
 }
-Arcademode();
+game();
+

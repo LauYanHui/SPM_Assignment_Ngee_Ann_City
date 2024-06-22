@@ -14,7 +14,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         public int Number { get; set; } 
 
         private char[,] grid; 
-        private List<Building> Buildings;
+        private  List<Building> Buildings;
 
         public Grid(int number)
         {
@@ -96,7 +96,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             }
 
 
-            if (!IsConnectedToExistingBuilding(row, col,true))
+            if (!IsConnectedToExistingBuilding(row, col,import))
             {
                 Console.WriteLine("Error: Building must be placed adjacent to an existing building.");
                 return false;
@@ -143,9 +143,18 @@ namespace SPM_Assignment_Ngee_Ann_City
         public void RemoveBuilding(char rowLetter, int col)
         {
             int row = rowLetter - 'A';
+
+            // Check if there is a building at the specified location
+            if (grid[col, row] == ' ')
+            {
+                Console.WriteLine("There is no building at this location.");
+                return;
+            }
+
             grid[col, row] = ' ';
             Buildings.RemoveAll(r => r.row == rowLetter && r.col == col);
-
+            coins--;
+            Console.WriteLine("Building removed successfully.");
         }
 
         private void InitializeGrid()
@@ -239,7 +248,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 coins += building.calculateCoins();
             }
         }
-        public void ImportSavedGameArcade(Grid grid)
+        public Grid ImportSavedGameArcade(Grid grid)
         {
             char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
             List<string> game_temp = new List<string>();
@@ -288,6 +297,11 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                 }
             }
+            return grid;
+        }
+        public List<Building> getlist()
+        {
+            return Buildings;
         }
     }
 }

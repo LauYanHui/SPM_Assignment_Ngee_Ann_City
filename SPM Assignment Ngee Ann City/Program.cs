@@ -350,9 +350,9 @@ void Arcademode(bool import)
     while (coins > 0 && !requestExit)
     {
         arcadeModeMenu();
-        Console.Write("Enter option: ");
         while (true)
         {
+            Console.Write("Enter option: ");
             int option = Convert.ToInt32(Console.ReadLine());
             if (option != 1 && option != 2 && option != 0)
             {

@@ -21,7 +21,7 @@ namespace SPM_Assignment_Ngee_Ann_City
 
         public Grid(int number)
         {
-            coins = 2;
+            coins = 16;
             Number = number;
             grid = new char[number, number]; // Initialize the grid
             Buildings = new List<Building>();

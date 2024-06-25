@@ -13,8 +13,11 @@ namespace SPM_Assignment_Ngee_Ann_City
         public int coins { get; set; }
         public int Number { get; set; } 
 
-        private char[,] grid; 
-        private  List<Building> Buildings;
+
+        private char[,] grid;
+        public List<Building> Buildings;
+
+
 
         public Grid(int number)
         {
@@ -87,8 +90,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         public bool AddBuilding(char buildingType, char rowLetter, int col, bool import)
         {
             int row = rowLetter - 'A';
-            
-           
+
             if (grid[col, row] != ' ' && import == false)
             {
                 Console.WriteLine("Error: Building already exists at this location.");

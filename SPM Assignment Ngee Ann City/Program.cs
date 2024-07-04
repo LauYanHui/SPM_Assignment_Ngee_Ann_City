@@ -547,5 +547,22 @@ void game()
         }
     }
 }
-game();
+void testAddnewBuilding(Grid grid)
+{
+    char buildingtype = 'R';
+    Console.Write("Enter letter");
+    string row = Console.ReadLine();
+    Console.Write("Enter number");
+    int col = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine(grid.ConvertToNumber(row));
+    grid.TestAddBuilding(buildingtype, grid.ConvertToNumber(row), col-1, false);
+    grid.PrintGrid();
+}
+Grid newgrid = new Grid(20);
+//game();
+testAddnewBuilding(newgrid);
+
+
+
+
 

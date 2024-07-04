@@ -9,7 +9,7 @@ namespace SPM_Assignment_Ngee_Ann_City
     class Road : Building
     {
         public Road() { }
-        public Road(char row, int col, Grid grid) : base('*', row, col, grid)
+        public Road(int row, int col, Grid grid) : base('*', row, col, grid)
         {
 
         }

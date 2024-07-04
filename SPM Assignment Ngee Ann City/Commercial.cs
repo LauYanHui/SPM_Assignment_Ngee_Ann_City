@@ -9,7 +9,7 @@ namespace SPM_Assignment_Ngee_Ann_City
     class Commercial : Building
     {
         public Commercial() { }
-        public Commercial(char row, int col, Grid grid) : base('C', row, col, grid)
+        public Commercial(int row, int col, Grid grid) : base('C', row, col, grid)
         {
 
         }

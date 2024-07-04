@@ -320,13 +320,13 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             
             // Check if the coordinates are within the grid bounds (optional but recommended)
-            /*
+            
             if (row < 0 || row >= grid.GetLength(1) || col < 0 || col >= grid.GetLength(0))
             {
                 Console.WriteLine("Error: Coordinates are out of bounds.");
                 return false;
             }
-            */
+            
             if (grid[col, row] != ' ' && !import)
             {
                 Console.WriteLine("Error: Building already exists at this location.");
@@ -374,6 +374,23 @@ namespace SPM_Assignment_Ngee_Ann_City
             {
                 return false; // Error in building type
             }
+        }
+        public void TestRemoveBuilding(int row, int col)
+        {
+            //int row = rowLetter - 'A';
+            
+
+            // Check if there is a building at the specified location
+            if (grid[col, row] == ' ')
+            {
+                Console.WriteLine("There is no building at this location.");
+                return;
+            }
+
+            grid[col, row] = ' ';
+            Buildings.RemoveAll(r => r.row == row && r.col == col);
+            coins--;
+            Console.WriteLine("Building removed successfully.");
         }
 
     }

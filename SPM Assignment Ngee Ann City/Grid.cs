@@ -21,14 +21,14 @@ namespace SPM_Assignment_Ngee_Ann_City
 
         public Grid(int number)
         {
-            coins = 16;
+            coins = 5;
             Number = number;
             grid = new char[number, number]; // Initialize the grid
             Buildings = new List<Building>();
             InitializeGrid(); // Initialize grid with empty spaces
         }
 
-        public void PrintGrid()
+        public virtual void PrintGrid()
         {
             char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
             Console.Write(" ");
@@ -304,6 +304,10 @@ namespace SPM_Assignment_Ngee_Ann_City
         public List<Building> getlist()
         {
             return Buildings;
+        }
+        public char[,] getGrid()
+        {
+            return grid;
         }
     }
 }

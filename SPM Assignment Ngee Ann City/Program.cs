@@ -202,8 +202,20 @@ void arcadeModeMenu()
 {
     Console.WriteLine("[1] Add Building. ");
     Console.WriteLine("[2] Remove Building. ");
-    Console.WriteLine("[0] Save and leave game.");
+    Console.WriteLine("[3] Save");
+    Console.WriteLine("[4] Exit");
 }
+
+void freeplayControls(FreeplayGrid FPGrid)
+{
+    while(true)
+    {
+        Console.Write("Please move (WASD): ");
+        String movement = Console.ReadLine();
+        FPGrid.MoveGridView(movement);
+    }
+}
+
 void AddToLeaderboardCSV(List<User> user_array)
 {
     using (StreamWriter sw = new StreamWriter("leaderboard.csv", false))
@@ -425,8 +437,11 @@ void Arcademode(bool import)
                 case 2:
                     removeBuilding(AGrid);
                     break;
-                case 0:
+                case 3:
                     AGrid.ExportGridToCSV();
+                    //requestExit = true;
+                    break;
+                case 4:
                     requestExit = true;
                     break;
                 default:
@@ -453,6 +468,7 @@ void Arcademode(bool import)
     }
     else
     {
+        //Leaderboard
         Console.WriteLine("GAME ENDED");
         Console.WriteLine("Points: " + points);
         if (AGrid.GetCoins() <= 0 || AGrid.Buildings.Count >= 400)
@@ -507,6 +523,33 @@ void Arcademode(bool import)
     }
 
 }
+
+void FreeplayMode()
+{
+    Console.WriteLine("START FREEPLAY MODE\n");
+    FreeplayGrid FPGrid = new FreeplayGrid(5);
+    //AddBuilding(FPGrid);
+    //while(true)
+    //{
+    //    Console.Write("Please enter option");
+    //    int option = Convert.ToInt32(Console.ReadLine());
+    //    if(option == 1)
+    //    {
+    //        break;
+    //    }
+    //    else
+    //    {
+    //        FPGrid.ExpandGrid();
+    //    }
+        
+    //}
+    //freeplayControls(FPGrid);
+
+    //FPGrid.PrintGrid();
+    //FPGrid.ExportGameDetails();
+}
+
+
 void game()
 {
     bool exit = false;
@@ -530,6 +573,9 @@ void game()
         {
             case 1:
                 Arcademode(false);
+                break;
+            case 2:
+                FreeplayMode();
                 break;
             case 3:
                 Arcademode(true);

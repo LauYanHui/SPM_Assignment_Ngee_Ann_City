@@ -21,14 +21,14 @@ namespace SPM_Assignment_Ngee_Ann_City
 
         public Grid(int number)
         {
-            coins = 16;
+            coins = 5;
             Number = number;
             grid = new char[number, number]; // Initialize the grid
             Buildings = new List<Building>();
             InitializeGrid(); // Initialize grid with empty spaces
         }
 
-        public void PrintGrid()
+        public virtual void PrintGrid()
         {
             char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
             Console.Write(" ");
@@ -316,17 +316,22 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             return Buildings;
         }
+
+        public char[,] getGrid()
+        {
+            return grid;
+        }
+
         public bool TestAddBuilding(char buildingType, int row, int col, bool import)
         {
-            
+
             // Check if the coordinates are within the grid bounds (optional but recommended)
-            
             if (row < 0 || row >= grid.GetLength(1) || col < 0 || col >= grid.GetLength(0))
             {
                 Console.WriteLine("Error: Coordinates are out of bounds.");
                 return false;
             }
-            
+
             if (grid[col, row] != ' ' && !import)
             {
                 Console.WriteLine("Error: Building already exists at this location.");
@@ -378,7 +383,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         public void TestRemoveBuilding(int row, int col)
         {
             //int row = rowLetter - 'A';
-            
+
 
             // Check if there is a building at the specified location
             if (grid[col, row] == ' ')

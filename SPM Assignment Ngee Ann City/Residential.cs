@@ -9,7 +9,7 @@ namespace SPM_Assignment_Ngee_Ann_City
     class Residential : Building
     {
         public Residential() { }
-        public Residential(char row,int col, Grid grid) : base('R', row,col, grid)
+        public Residential(int row,int col, Grid grid) : base('R', row,col, grid)
         {
         }
         public override int calculateCoins()

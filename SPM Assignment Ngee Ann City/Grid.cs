@@ -301,10 +301,22 @@ namespace SPM_Assignment_Ngee_Ann_City
             }
             return grid;
         }
+        public int ConvertToNumber(string input)
+        {
+            int result = 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                result *= 26;
+                result += (input[i] - 'A');
+            }
+            return result;
+        }
+
         public List<Building> getlist()
         {
             return Buildings;
         }
+
         public char[,] getGrid()
         {
             return grid;
@@ -314,7 +326,6 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
 
             // Check if the coordinates are within the grid bounds (optional but recommended)
-
             if (row < 0 || row >= grid.GetLength(1) || col < 0 || col >= grid.GetLength(0))
             {
                 Console.WriteLine("Error: Coordinates are out of bounds.");
@@ -386,5 +397,6 @@ namespace SPM_Assignment_Ngee_Ann_City
             coins--;
             Console.WriteLine("Building removed successfully.");
         }
+
     }
 }

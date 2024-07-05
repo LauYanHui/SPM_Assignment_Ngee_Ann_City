@@ -9,7 +9,7 @@ namespace SPM_Assignment_Ngee_Ann_City
     class Industry : Building
     {
         public Industry() { }
-        public Industry(char row, int col, Grid grid) : base('I', row, col, grid)
+        public Industry(int row, int col, Grid grid) : base('I', row, col, grid)
         {
 
         }

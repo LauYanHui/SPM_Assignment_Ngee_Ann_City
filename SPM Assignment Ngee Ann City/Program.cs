@@ -593,5 +593,66 @@ void game()
         }
     }
 }
-game();
+void testAddnewBuilding(Grid grid)
+{
+    displayBuildingTypes();
+    Console.Write("Enter building type: ");
+    int option = Convert.ToInt32(Console.ReadLine());
+    //char buildingtype = 'R';
+    Console.Write("Enter letter: ");
+    string row = Console.ReadLine().ToUpper();
+    Console.Write("Enter number: ");
+    int col = Convert.ToInt32(Console.ReadLine());
+    char buildingType = 'i';
+    int rowNumbr = grid.ConvertToNumber(row);
+    switch (option)
+    {
+        case 1:
+            buildingType = 'R';
+            break;
+        case 2:
+            buildingType = 'I';
+            
+            break;
+        case 3:
+            buildingType = 'C';
+            break;
+        case 4:
+            buildingType = 'P';
+            break;
+        case 5:
+            buildingType = '*';
+            break;
+        default:
+            Console.WriteLine("Wrong Option");
+            break;
+    }
+        
+    Console.WriteLine(grid.ConvertToNumber(row));
+    grid.TestAddBuilding(buildingType, grid.ConvertToNumber(row), col-1, false);
+    grid.PrintGrid();
+}
+void testRemoveBuilding(Grid grid)
+{
+    grid.PrintGrid();
+    Console.Write("Enter letter: ");// row 
+    string row = Console.ReadLine().ToUpper();
+    Console.Write("Enter number: ");// col
+    int col = Convert.ToInt32(Console.ReadLine());
+    int rowNumber = grid.ConvertToNumber(row);
+    Console.WriteLine("row number: " + rowNumber);
+    Console.WriteLine("col number: " );
+    Console.WriteLine(col - 1);
+    grid.TestRemoveBuilding(rowNumber,col-1);
+    grid.PrintGrid();
+
+}
+Grid newgrid = new Grid(20);
+//game();
+testAddnewBuilding(newgrid);
+testRemoveBuilding(newgrid);
+
+
+
+
 

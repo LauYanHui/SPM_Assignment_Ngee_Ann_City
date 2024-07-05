@@ -16,81 +16,104 @@ namespace SPM_Assignment_Ngee_Ann_City
         private int d = 0;
         private List<int> X_range;
         private List<int> Y_range;
+        private char[,] grid;
         public FreeplayGrid(int number) : base(number)
         {
             FPnumber = number;
             X_range = new List<int>();
             Y_range = new List<int>();
+            grid = new char[FPnumber, FPnumber];
+            InitializeGrid();
+           
         }
 
-        private void PrintGridMoreThan26()
+        private void InitializeGrid()
         {
-            char[,] grid = base.getGrid();
-            char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-            double MinCountLetters = Math.Ceiling(Convert.ToDouble(FPnumber) / letters.Length);
-            int counter0 = 0;
-            Console.Write("   ");
-            for (int i = 0; i < MinCountLetters; i++)
+            for (int i = 0; i < FPnumber; i++)
             {
-                for (int j0 = 0; j0 < letters.Length; j0++)
+                for (int j = 0; j < FPnumber; j++)
                 {
-                    Console.Write("  " + letters[i] + " ");
-                    counter0++;
-                    if (counter0 == FPnumber)
-                    {
-                        break;
-                    }
+                    grid[i, j] = ' '; // Initialize each cell with an empty space
                 }
             }
-
-            Console.WriteLine();
-            Console.Write("   ");
-            int count = 0;
-            int counter = 0;
-            while (true)
-            {
-                for (int j1 = 0; j1 < letters.Length; j1++)
-                {
-                    Console.Write("  " + letters[j1] + " ");
-                    counter++;
-                    if (counter == FPnumber)
-                    {
-                        break;
-                    }
-                }
-                count++;
-                if (count >= MinCountLetters)
-                {
-                    break;
-                }
-            }
-            //Console.WriteLine();
-            //Console.Write(" ");
-            //Console.WriteLine("  +" + new string('-', 4 * FPnumber) + "+");
-
-            //for (int i = 0; i < FPnumber; i++)
-            //{
-            //    Console.Write($"{i + 1,2} |"); // Print the row number and vertical bar
-            //    for (int j = 0; j < FPnumber; j++)
-            //    {
-            //        Console.Write($" {grid[i, j]} |"); // Print the content of each cell
-            //    }
-            //    Console.WriteLine();
-            //    Console.Write(" ");
-            //    Console.WriteLine("  +" + new string('-', 4 * FPnumber) + "+");
-            //}
         }
+        //private void PrintGridMoreThan26()
+        //{
+        //    char[,] grid = base.getGrid();
+        //    char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        //    double MinCountLetters = Math.Ceiling(Convert.ToDouble(FPnumber) / letters.Length);
+        //    int counter0 = 0;
+        //    Console.Write("   ");
+        //    for (int i = 0; i < MinCountLetters; i++)
+        //    {
+        //        for (int j0 = 0; j0 < letters.Length; j0++)
+        //        {
+        //            Console.Write("  " + letters[i] + " ");
+        //            counter0++;
+        //            if (counter0 == FPnumber)
+        //            {
+        //                break;
+        //            }
+        //        }
+        //    }
 
-        public void PrintGridFP()
+        //    Console.WriteLine();
+        //    Console.Write("   ");
+        //    int count = 0;
+        //    int counter = 0;
+        //    while (true)
+        //    {
+        //        for (int j1 = 0; j1 < letters.Length; j1++)
+        //        {
+        //            Console.Write("  " + letters[j1] + " ");
+        //            counter++;
+        //            if (counter == FPnumber)
+        //            {
+        //                break;
+        //            }
+        //        }
+        //        count++;
+        //        if (count >= MinCountLetters)
+        //        {
+        //            break;
+        //        }
+        //    }
+        //    //Console.WriteLine();
+        //    //Console.Write(" ");
+        //    //Console.WriteLine("  +" + new string('-', 4 * FPnumber) + "+");
+
+        //    //for (int i = 0; i < FPnumber; i++)
+        //    //{
+        //    //    Console.Write($"{i + 1,2} |"); // Print the row number and vertical bar
+        //    //    for (int j = 0; j < FPnumber; j++)
+        //    //    {
+        //    //        Console.Write($" {grid[i, j]} |"); // Print the content of each cell
+        //    //    }
+        //    //    Console.WriteLine();
+        //    //    Console.Write(" ");
+        //    //    Console.WriteLine("  +" + new string('-', 4 * FPnumber) + "+");
+        //    //}
+        //}
+
+        public override void PrintGrid()
         {
-            char[,] grid = base.getGrid();
             char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
             int defaultViewNum = 25;
+            if ( FPnumber<15) //Starting grid at 5
+            {
+                defaultViewNum = 5;
+            }
+            else if(FPnumber == 15) //Grid size == 15
+            {
+                defaultViewNum = 15;
+            }
+
+            
             double MinCountLetters = Math.Ceiling(Convert.ToDouble(FPnumber) / letters.Length);
             int y_top = 1;
-            int y_bottom = 25;
+            int y_bottom = defaultViewNum;
             int x_left = 1;
-            int x_right = 25;
+            int x_right = defaultViewNum;
             if (Y_range.Count !=0)
             {
                 y_top = Y_range[0];
@@ -102,9 +125,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 x_right = X_range[1];
             }
 
-
             Console.WriteLine("Grid size : " + FPnumber);
-            Console.WriteLine(X_range.Count);
             //For moving X value
 
 
@@ -186,9 +207,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             
 
         }
-        //since terminal support size grid without expanding or zooming out is ard 25~30, we make it move out at 25 so...
-        //grid increases from 5x5 to 15x15 to 25x25 : pattern => increasing by 10
-        //
+
         public void MoveGridView(String movement)
         {
             //Default view port 25x25
@@ -226,15 +245,6 @@ namespace SPM_Assignment_Ngee_Ann_City
                 new_bottom = original_bottom + Y_Coordinate;
                 Y_range.Add(new_top);
                 Y_range.Add(new_bottom);
-                //Array = original +10 x original
-                //Let original = 35 last row
-                //After w, should be 1-25 instead of 11-35
-                //Moving up = Y coordinate minus
-
-
-                //displaying coordinates from 11-35 instead of 1-25
-
-
             }
             else if ((movement.ToLower()).Equals("a")) //LEFT
             {
@@ -276,13 +286,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                     Y_range.Clear();
                 }
-                //else
-                //{
-                //    Y_range.Add(1);
-                //    Y_range.Add(25);
-                //    PrintGridFP();
-                //    return;
-                //}
+
                 w++;
                 int Y_Coordinate = w * -10;
                 int original_top = 1;
@@ -304,13 +308,6 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                     X_range.Clear();
                 }
-                //else
-                //{
-                //    X_range.Add(1);
-                //    X_range.Add(25);
-                //    PrintGridFP();
-                //    return;
-                //}
                 d++;
                 int X_Coorindata = d * 10;
                 int original_left = 1;
@@ -322,7 +319,7 @@ namespace SPM_Assignment_Ngee_Ann_City
 
             }
             //Console.WriteLine(Y_Range[0] + "\t" + Y_Range[1]);
-            PrintGridFP();
+            PrintGrid();
         }
         public void ExportGameDetails()
         {
@@ -337,6 +334,15 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
                 Console.WriteLine();
             }*/
+        }
+        public void ExpandGrid()
+        {
+            FPnumber += 10;
+            char[,] tempgrid = new char[FPnumber, FPnumber];
+            grid = tempgrid;
+            InitializeGrid();
+            
+            PrintGrid();
         }
 
     }

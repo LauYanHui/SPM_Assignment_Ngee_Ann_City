@@ -527,12 +527,25 @@ void Arcademode(bool import)
 void FreeplayMode()
 {
     Console.WriteLine("START FREEPLAY MODE\n");
-    FreeplayGrid FPGrid = new FreeplayGrid(55);
-    freeplayControls(FPGrid);
-    AddBuilding(FPGrid);
-    
-    
-    //FPGrid.testing();
+    FreeplayGrid FPGrid = new FreeplayGrid(5);
+    //AddBuilding(FPGrid);
+    //while(true)
+    //{
+    //    Console.Write("Please enter option");
+    //    int option = Convert.ToInt32(Console.ReadLine());
+    //    if(option == 1)
+    //    {
+    //        break;
+    //    }
+    //    else
+    //    {
+    //        FPGrid.ExpandGrid();
+    //    }
+        
+    //}
+    //freeplayControls(FPGrid);
+
+    //FPGrid.PrintGrid();
     //FPGrid.ExportGameDetails();
 }
 

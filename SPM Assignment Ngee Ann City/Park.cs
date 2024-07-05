@@ -9,7 +9,7 @@ namespace SPM_Assignment_Ngee_Ann_City
     class Park : Building
     {
         public Park() { }
-        public Park(char row, int col, Grid grid) : base('O', row, col,grid)
+        public Park(int row, int col, Grid grid) : base('O', row, col,grid)
         {
 
         }

@@ -9,10 +9,10 @@ namespace SPM_Assignment_Ngee_Ann_City
     abstract class Building
     {
         public char type { get; set; }
-        public char row { get; set; }
+        public int row { get; set; }
         public int col { get; set; }
         protected Grid grid { get; set; }   
-        public Building(char type,char row, int col, Grid grid)
+        public Building(char type,int row, int col, Grid grid)
         {
             this.type = type;
             this.row = row;

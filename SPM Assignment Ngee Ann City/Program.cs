@@ -206,6 +206,8 @@ void arcadeModeMenu()
     Console.WriteLine("[4] Exit");
 }
 
+
+
 void freeplayControls(FreeplayGrid FPGrid)
 {
     while(true)
@@ -528,12 +530,41 @@ void FreeplayMode()
 {
     Console.WriteLine("START FREEPLAY MODE\n");
     FreeplayGrid FPGrid = new FreeplayGrid(5);
+    bool exit = false;
+    while(!exit)
+    {
+        arcadeModeMenu();
+        Console.Write("Please enter option: ");
+        int option = Convert.ToInt32(Console.ReadLine());
+        switch (option)
+        {
+            case 1: //Add building
+                testAddnewBuilding(FPGrid);
+                break;
+            case 2: //Remove building
+                testRemoveBuilding(FPGrid);
+                break;
+            case 3: //Save
+
+                break;
+            case 4: //Exit
+                exit = true;
+                break;
+            case 5: //Expand (test)
+                FPGrid.ExpandGrid();
+                break;
+
+        }
+    }
+    
+    
+
     //AddBuilding(FPGrid);
-    //while(true)
+    //while (true)
     //{
     //    Console.Write("Please enter option");
     //    int option = Convert.ToInt32(Console.ReadLine());
-    //    if(option == 1)
+    //    if (option == 1)
     //    {
     //        break;
     //    }
@@ -541,7 +572,7 @@ void FreeplayMode()
     //    {
     //        FPGrid.ExpandGrid();
     //    }
-        
+
     //}
     //freeplayControls(FPGrid);
 
@@ -593,7 +624,7 @@ void game()
         }
     }
 }
-void testAddnewBuilding(Grid grid)
+void testAddnewBuilding(FreeplayGrid grid)
 {
     displayBuildingTypes();
     Console.Write("Enter building type: ");
@@ -627,12 +658,12 @@ void testAddnewBuilding(Grid grid)
             Console.WriteLine("Wrong Option");
             break;
     }
-        
-    Console.WriteLine(grid.ConvertToNumber(row));
+
+    //Console.WriteLine(grid.ConvertToNumber(row));
     grid.TestAddBuilding(buildingType, grid.ConvertToNumber(row), col-1, false);
     grid.PrintGrid();
 }
-void testRemoveBuilding(Grid grid)
+void testRemoveBuilding(FreeplayGrid grid)
 {
     grid.PrintGrid();
     Console.Write("Enter letter: ");// row 
@@ -647,10 +678,8 @@ void testRemoveBuilding(Grid grid)
     grid.PrintGrid();
 
 }
-Grid newgrid = new Grid(20);
-//game();
-testAddnewBuilding(newgrid);
-testRemoveBuilding(newgrid);
+//Grid newgrid = new Grid(20);
+game();
 
 
 

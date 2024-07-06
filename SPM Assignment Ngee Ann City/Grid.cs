@@ -392,6 +392,13 @@ namespace SPM_Assignment_Ngee_Ann_City
             coins--;
             Console.WriteLine("Building removed successfully.");
         }
+        public void calculateCoinsFP()
+        {
+            foreach(Building B in Buildings)
+            {
+                coins += B.Income();
+                coins -= B.Upkeep();
 
-    }
+            }
+        }
 }

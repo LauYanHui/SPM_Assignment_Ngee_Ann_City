@@ -507,6 +507,19 @@ void Arcademode(bool import)
     }
 
 }
+void FreePlayMode(bool import)
+{
+    Grid newGrid = new Grid(5);
+    newGrid.PrintGrid();
+    testAddnewBuilding(newGrid);
+    newGrid.ExportGridToCSV();
+    Grid expendedGrid = new Grid(15);
+    expendedGrid.ImportSavedGameArcade(expendedGrid);
+    expendedGrid.PrintGrid();
+    testRemoveBuilding(expendedGrid);
+    expendedGrid.PrintGrid();
+        
+}
 void game()
 {
     bool exit = false;
@@ -530,6 +543,9 @@ void game()
         {
             case 1:
                 Arcademode(false);
+                break;
+            case 2:
+                FreePlayMode(false);
                 break;
             case 3:
                 Arcademode(true);
@@ -602,9 +618,14 @@ void testRemoveBuilding(Grid grid)
 
 }
 Grid newgrid = new Grid(20);
-//game();
-testAddnewBuilding(newgrid);
-testRemoveBuilding(newgrid);
+
+game();
+//testAddnewBuilding(newgrid);
+//testRemoveBuilding(newgrid);
+//Console.WriteLine("Press any key:");
+//ConsoleKeyInfo keyInfo = Console.ReadKey();
+//Console.WriteLine($"\nYou pressed: {keyInfo.Key}");
+
 
 
 

@@ -206,13 +206,20 @@ void arcadeModeMenu()
     Console.WriteLine("[4] Exit");
 }
 
+
+
 void freeplayControls(FreeplayGrid FPGrid)
 {
     while(true)
     {
-        Console.Write("Please move (WASD): ");
+        Console.Write("Please move (WASD) (0 to exit): ");
         String movement = Console.ReadLine();
+        if(movement == "0")
+        {
+            return;
+        }
         FPGrid.MoveGridView(movement);
+
     }
 }
 
@@ -524,6 +531,66 @@ void Arcademode(bool import)
 
 }
 
+void FreeplayMode()
+{
+    Console.WriteLine("START FREEPLAY MODE\n");
+    FreeplayGrid FPGrid = new FreeplayGrid(5);
+    bool exit = false;
+    while(!exit)
+    {
+        arcadeModeMenu();
+        Console.Write("Please enter option: ");
+        int option = Convert.ToInt32(Console.ReadLine());
+        switch (option)
+        {
+            case 1: //Add building
+                testAddnewBuilding(FPGrid);
+                break;
+            case 2: //Remove building
+                testRemoveBuilding(FPGrid);
+                break;
+            case 3: //Save
+
+                break;
+            case 4: //Exit
+                exit = true;
+                break;
+            case 5: //Expand (test)
+                FPGrid.ExpandGrid();
+                break;
+            case 6:
+                freeplayControls(FPGrid);
+                break;
+              
+
+        }
+    }
+    
+    
+
+    //AddBuilding(FPGrid);
+    //while (true)
+    //{
+    //    Console.Write("Please enter option");
+    //    int option = Convert.ToInt32(Console.ReadLine());
+    //    if (option == 1)
+    //    {
+    //        break;
+    //    }
+    //    else
+    //    {
+    //        FPGrid.ExpandGrid();
+    //    }
+
+    //}
+    //freeplayControls(FPGrid);
+
+    //FPGrid.PrintGrid();
+    //FPGrid.ExportGameDetails();
+}
+
+
+
 void game()
 {
     bool exit = false;
@@ -567,7 +634,7 @@ void game()
         }
     }
 }
-void testAddnewBuilding(Grid grid)
+void testAddnewBuilding(FreeplayGrid grid)
 {
     displayBuildingTypes();
     Console.Write("Enter building type: ");
@@ -601,12 +668,12 @@ void testAddnewBuilding(Grid grid)
             Console.WriteLine("Wrong Option");
             break;
     }
-        
-    Console.WriteLine(grid.ConvertToNumber(row));
+
+    //Console.WriteLine(grid.ConvertToNumber(row));
     grid.TestAddBuilding(buildingType, grid.ConvertToNumber(row), col-1, false);
     grid.PrintGrid();
 }
-void testRemoveBuilding(Grid grid)
+void testRemoveBuilding(FreeplayGrid grid)
 {
     grid.PrintGrid();
     Console.Write("Enter letter: ");// row 
@@ -621,6 +688,9 @@ void testRemoveBuilding(Grid grid)
     grid.PrintGrid();
 
 }
+
+//Grid newgrid = new Grid(20);
+
 Grid newgrid = new Grid(20);
 
 game();
@@ -629,6 +699,7 @@ game();
 //Console.WriteLine("Press any key:");
 //ConsoleKeyInfo keyInfo = Console.ReadKey();
 //Console.WriteLine($"\nYou pressed: {keyInfo.Key}");
+
 
 
 

@@ -53,13 +53,12 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             return grid[row, col];
         }
-        private bool IsConnectedToExistingBuilding(int row, int col,bool import)
+        public virtual bool IsConnectedToExistingBuilding(int row, int col,bool import)
         {
             if (Buildings.Count == 0 || import)
             {
                 return true; // First building can be placed anywhere
             }
-
             // Define all eight directions
             int[][] directions = new int[][]
             {
@@ -82,6 +81,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 {
                     return true; // Found adjacent existing building
                 }
+
             }
 
             return false; // No adjacent existing building
@@ -321,6 +321,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             return grid;
         }
+
 
         public bool TestAddBuilding(char buildingType, int row, int col, bool import)
         {

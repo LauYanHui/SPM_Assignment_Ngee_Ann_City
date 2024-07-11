@@ -202,8 +202,20 @@ void arcadeModeMenu()
 {
     Console.WriteLine("[1] Add Building. ");
     Console.WriteLine("[2] Remove Building. ");
-    Console.WriteLine("[0] Save and leave game.");
+    Console.WriteLine("[3] Save");
+    Console.WriteLine("[4] Exit");
 }
+
+void freeplayControls(FreeplayGrid FPGrid)
+{
+    while(true)
+    {
+        Console.Write("Please move (WASD): ");
+        String movement = Console.ReadLine();
+        FPGrid.MoveGridView(movement);
+    }
+}
+
 void AddToLeaderboardCSV(List<User> user_array)
 {
     using (StreamWriter sw = new StreamWriter("leaderboard.csv", false))
@@ -425,8 +437,11 @@ void Arcademode(bool import)
                 case 2:
                     removeBuilding(AGrid);
                     break;
-                case 0:
+                case 3:
                     AGrid.ExportGridToCSV();
+                    //requestExit = true;
+                    break;
+                case 4:
                     requestExit = true;
                     break;
                 default:
@@ -453,6 +468,7 @@ void Arcademode(bool import)
     }
     else
     {
+        //Leaderboard
         Console.WriteLine("GAME ENDED");
         Console.WriteLine("Points: " + points);
         if (AGrid.GetCoins() <= 0 || AGrid.Buildings.Count >= 400)
@@ -507,19 +523,7 @@ void Arcademode(bool import)
     }
 
 }
-void FreePlayMode(bool import)
-{
-    Grid newGrid = new Grid(5);
-    newGrid.PrintGrid();
-    testAddnewBuilding(newGrid);
-    newGrid.ExportGridToCSV();
-    Grid expendedGrid = new Grid(15);
-    expendedGrid.ImportSavedGameArcade(expendedGrid);
-    expendedGrid.PrintGrid();
-    testRemoveBuilding(expendedGrid);
-    expendedGrid.PrintGrid();
-        
-}
+
 void game()
 {
     bool exit = false;
@@ -545,7 +549,7 @@ void game()
                 Arcademode(false);
                 break;
             case 2:
-                FreePlayMode(false);
+
                 break;
             case 3:
                 Arcademode(true);

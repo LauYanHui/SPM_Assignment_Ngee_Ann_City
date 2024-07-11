@@ -212,9 +212,14 @@ void freeplayControls(FreeplayGrid FPGrid)
 {
     while(true)
     {
-        Console.Write("Please move (WASD): ");
+        Console.Write("Please move (WASD) (0 to exit): ");
         String movement = Console.ReadLine();
+        if(movement == "0")
+        {
+            return;
+        }
         FPGrid.MoveGridView(movement);
+
     }
 }
 
@@ -553,6 +558,10 @@ void FreeplayMode()
             case 5: //Expand (test)
                 FPGrid.ExpandGrid();
                 break;
+            case 6:
+                freeplayControls(FPGrid);
+                break;
+              
 
         }
     }

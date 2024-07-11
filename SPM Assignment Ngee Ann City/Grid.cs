@@ -11,7 +11,7 @@ namespace SPM_Assignment_Ngee_Ann_City
     class Grid
     {
         public int coins { get; set; }
-        public int Number { get; set; } 
+        public int Number { get; set; }
 
 
         private char[,] grid;
@@ -53,7 +53,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             return grid[row, col];
         }
-        private bool IsConnectedToExistingBuilding(int row, int col,bool import)
+        private bool IsConnectedToExistingBuilding(int row, int col, bool import)
         {
             if (Buildings.Count == 0 || import)
             {
@@ -98,7 +98,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             }
 
 
-            if (!IsConnectedToExistingBuilding(row, col,import))
+            if (!IsConnectedToExistingBuilding(row, col, import))
             {
                 Console.WriteLine("Error: Building must be placed adjacent to an existing building.");
                 return false;
@@ -139,7 +139,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             {
                 return false; // Error in building type
             }
-            
+
         }
 
         public void RemoveBuilding(char rowLetter, int col)
@@ -187,7 +187,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
 
             }
-                
+
         }
         public int calculateAllPoints()
         {
@@ -196,13 +196,13 @@ namespace SPM_Assignment_Ngee_Ann_City
             int points = 0;
             foreach (var building in Buildings)
             {
-                
+
                 if (building is Industry)
                 {
                     industryCount++;
-                }    
+                }
             }
-            foreach(var building in Buildings)
+            foreach (var building in Buildings)
             {
                 if (building is Residential residential)
                 {
@@ -294,7 +294,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                     if (data != " ")
                     {
                         char[] dataChar = data.ToCharArray();
-                        grid.AddBuilding(dataChar[0], letters[j], i,true);
+                        grid.AddBuilding(dataChar[0], letters[j], i, true);
                         //Console.WriteLine(String.Format("{0}    {1}    {2}", data, i.ToString(), j.ToString()));
                     }
                 }
@@ -318,15 +318,15 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public bool TestAddBuilding(char buildingType, int row, int col, bool import)
         {
-            
+
             // Check if the coordinates are within the grid bounds (optional but recommended)
-            
+
             if (row < 0 || row >= grid.GetLength(1) || col < 0 || col >= grid.GetLength(0))
             {
                 Console.WriteLine("Error: Coordinates are out of bounds.");
                 return false;
             }
-            
+
             if (grid[col, row] != ' ' && !import)
             {
                 Console.WriteLine("Error: Building already exists at this location.");
@@ -366,8 +366,8 @@ namespace SPM_Assignment_Ngee_Ann_City
             if (newBuilding != null)
             {
                 Buildings.Add(newBuilding);
-                coins--; // Deduct one coin for placing a building
-                coins += newBuilding.calculateCoins();
+                //coins--; // Deduct one coin for placing a building
+                //coins += newBuilding.calculateCoins();
                 return true; // Building added successfully
             }
             else
@@ -378,7 +378,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         public void TestRemoveBuilding(int row, int col)
         {
             //int row = rowLetter - 'A';
-            
+
 
             // Check if there is a building at the specified location
             if (grid[col, row] == ' ')
@@ -394,11 +394,14 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public void calculateCoinsFP()
         {
-            foreach(Building B in Buildings)
+            Console.WriteLine("test");
+            foreach (Building B in Buildings)
             {
                 coins += B.Income();
+                Console.WriteLine("Coins is " + coins);
                 coins -= B.Upkeep();
-
+                Console.WriteLine("Coins is " + coins);
             }
         }
+    }
 }

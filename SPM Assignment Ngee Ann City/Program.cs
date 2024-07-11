@@ -17,21 +17,6 @@ Grid createGrid()
     return newGrid;
 }
 
-/* Loop to add building
-for (int i = 0; i < 1; i++)
-{
-    Console.Write("Enter type of building: ");
-    char buildingType = char.Parse(Console.ReadLine());
-    Console.Write("Enter row coordinate: ");
-    char rowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
-    Console.Write("Enter column coordinate: ");
-    int col = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
-
-    newGrid.AddBuilding(buildingType, rowLetter, col);
-    
-    newGrid.PrintGrid();
-}
-*/
 // introduce classes to the grid
 void addBuilding(Grid newGrid)
 {
@@ -122,38 +107,8 @@ void ImportSavedGameArcade(Grid grid)
 
 
 
-Grid grid = new Grid(20);
-//ImportSavedGameArcade(grid);
-//Grid grid = createGrid();
-//addBuilding(newGrid);
-/*
-grid.AddBuilding('R', 'A', 0);
-grid.AddBuilding('I', 'B', 1);
-grid.AddBuilding('R', 'C', 2);
-grid.AddBuilding('I', 'D', 3);
-grid.AddBuilding('R', 'E', 4);
-grid.AddBuilding('C', 'A', 1);
-grid.AddBuilding('C', 'A', 2);
-grid.AddBuilding('C', 'A', 3);
-grid.AddBuilding('O', 'B', 0);
-grid.AddBuilding('O', 'B', 2);
-grid.AddBuilding('O', 'B', 3);
-grid.AddBuilding('*', 'A', 4);
-grid.AddBuilding('*', 'A', 5);
-grid.AddBuilding('*', 'A', 6);
-grid.AddBuilding('*', 'A', 7);*/
-//grid.calculateAllPoints();
-//grid.PrintGrid();
+//Grid grid = new Grid(20);
 
-//newGrid.ExportGridToCSV();
-/* To remove Building
-Console.Write("Enter row coordinate: ");
-char DrowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
-Console.Write("Enter column coordinate: ");
-int Dcol = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
-newGrid.RemoveBuilding(DrowLetter,Dcol);
-newGrid.PrintGrid();
-*/
 void displayMenu()// display menu
 {
     Console.WriteLine("[1] Start New Arcade Mode");
@@ -617,17 +572,44 @@ void testRemoveBuilding(Grid grid)
     grid.PrintGrid();
 
 }
-Grid newgrid = new Grid(20);
+//Grid newgrid = new Grid(20);
 
-game();
+//game();
 //testAddnewBuilding(newgrid);
 //testRemoveBuilding(newgrid);
-//Console.WriteLine("Press any key:");
-//ConsoleKeyInfo keyInfo = Console.ReadKey();
-//Console.WriteLine($"\nYou pressed: {keyInfo.Key}");
-
-
-
-
-
-
+/*
+Console.WriteLine("Press any key:");
+ConsoleKeyInfo keyInfo = Console.ReadKey();
+Console.WriteLine($"\nYou pressed: {keyInfo.Key}");*/
+void FreeplayMode()
+{
+    Grid newGrid = new Grid(5);
+    Console.WriteLine("number of Coins: " + newGrid.coins);
+    while (true)
+    {
+        arcadeModeMenu();
+        Console.WriteLine();
+        Console.Write("Enter an option: ");
+        int option = Convert.ToInt32(Console.ReadLine());
+        switch (option)
+        {
+            case 1:
+                testAddnewBuilding(newGrid);
+                break;
+            case 2:
+                testRemoveBuilding(newGrid);
+                break;
+            case 3:
+                newGrid.ExportGridToCSV();
+                break;
+            default:
+                Console.WriteLine("Invalid option!");
+                break;
+        }
+        newGrid.calculateCoinsFP();
+        int coins = newGrid.GetCoins();
+        Console.WriteLine("Coins is " + coins);
+    }
+}
+FreeplayMode();
+//game();

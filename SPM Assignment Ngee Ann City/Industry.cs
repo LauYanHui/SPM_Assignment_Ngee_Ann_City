@@ -56,9 +56,13 @@ namespace SPM_Assignment_Ngee_Ann_City
             return points;
             //Console.WriteLine($"Industry building at {this.row}{this.col+1} has {points} points based on total industry buildings.");
         }
-        public override void calculateCointsFP()
+        public override int Income()
         {
-            throw new NotImplementedException();
+            return 2;
+        }
+        public override int Upkeep()
+        {
+            return 1;
         }
     }
 }

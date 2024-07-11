@@ -23,7 +23,8 @@ namespace SPM_Assignment_Ngee_Ann_City
         
         public abstract int calculatePoints(int buildings);
         public abstract int calculateCoins();
-        public abstract void calculateCointsFP();
+        public abstract int Upkeep();
+        public abstract int Income();
         public virtual int generateCoins()
         {
             return 0;

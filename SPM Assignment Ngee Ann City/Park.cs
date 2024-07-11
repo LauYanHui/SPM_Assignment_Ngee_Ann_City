@@ -54,9 +54,13 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             return 0;
         }
-        public override void calculateCointsFP()
+        public override int Income()
         {
-            throw new NotImplementedException();
+            return 0;
+        }
+        public override int Upkeep()
+        {
+            return 1;
         }
     }
 }

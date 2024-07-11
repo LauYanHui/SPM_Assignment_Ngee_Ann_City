@@ -42,10 +42,36 @@ namespace SPM_Assignment_Ngee_Ann_City
             return points;
             //Console.WriteLine($"Road at {this.row}{this.col+1} has {points} points based on connected roads in the same row.");
         }
-        public override void calculateCointsFP()
+        public override int Income()
         {
-            throw new NotImplementedException();
+            return 0;
         }
+        public override int Upkeep()
+        {
+            return CalculateUpkeepCost();
+        }
+        private int CalculateUpkeepCost()
+        {
+            // Upkeep cost for a road segment is 1 coin if it is not connected to any other road segments
+            int rowIndex = this.row - 'A';
+            int colIndex = this.col;
 
+            bool connected = false;
+
+            // Check left
+            if (colIndex > 0 && grid.GetCell(rowIndex, colIndex - 1) == '*')
+            {
+                connected = true;
+            }
+
+            // Check right
+            if (colIndex < grid.Number - 1 && grid.GetCell(rowIndex, colIndex + 1) == '*')
+            {
+                connected = true;
+            }
+
+            // If not connected to any road segment, upkeep cost is 1 coin
+            return connected ? 0 : 1;
+        }
     }
 }

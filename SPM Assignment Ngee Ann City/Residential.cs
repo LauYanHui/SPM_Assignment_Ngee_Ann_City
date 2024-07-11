@@ -134,11 +134,70 @@ namespace SPM_Assignment_Ngee_Ann_City
             return points;
             //Console.WriteLine($"Residential building at {this.row}{this.col+1} has {points} points based on adjacent buildings.");
         }
-        public override void calculateCointsFP()
+        public override int Income()
         {
-            throw new NotImplementedException();
+            return 1;
+        }
+        public override int Upkeep()
+        {
+            return CalculateUpkeepCost();
+        }
+        private int CalculateUpkeepCost()
+        {
+            bool[,] visited = new bool[grid.Number, grid.Number];
+            int clusterCount = 0;
+
+            int[][] directions = new int[][]
+            {
+                new int[] {-1, 0},  // up
+                new int[] {1, 0},   // down
+                new int[] {0, -1},  // left
+                new int[] {0, 1},   // right
+                new int[] {-1, -1}, // up-left
+                new int[] {-1, 1},  // up-right
+                new int[] {1, -1},  // down-left
+                new int[] {1, 1}    // down-right
+            };
+
+            for (int i = 0; i < grid.Number; i++)
+            {
+                for (int j = 0; j < grid.Number; j++)
+                {
+                    if (grid.GetCell(i, j) == 'R' && !visited[i, j])
+                    {
+                        // Found an unvisited residential building, start a new cluster
+                        clusterCount++;
+                        BFS(i, j, visited, directions);
+                    }
+                }
+            }
+
+            return clusterCount; // Each cluster requires 1 coin per turn
         }
 
+        private void BFS(int startRow, int startCol, bool[,] visited, int[][] directions)
+        {
+            Queue<(int, int)> queue = new Queue<(int, int)>();
+            queue.Enqueue((startRow, startCol));
+            visited[startRow, startCol] = true;
 
+            while (queue.Count > 0)
+            {
+                (int row, int col) = queue.Dequeue();
+
+                foreach (var dir in directions)
+                {
+                    int newRow = row + dir[0];
+                    int newCol = col + dir[1];
+
+                    if (newRow >= 0 && newRow < grid.Number && newCol >= 0 && newCol < grid.Number
+                        && grid.GetCell(newRow, newCol) == 'R' && !visited[newRow, newCol])
+                    {
+                        visited[newRow, newCol] = true;
+                        queue.Enqueue((newRow, newCol));
+                    }
+                }
+            }
+        }
     }
 }

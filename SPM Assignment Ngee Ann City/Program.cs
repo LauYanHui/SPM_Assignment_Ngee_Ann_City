@@ -524,32 +524,6 @@ void Arcademode(bool import)
 
 }
 
-void FreeplayMode()
-{
-    Console.WriteLine("START FREEPLAY MODE\n");
-    FreeplayGrid FPGrid = new FreeplayGrid(5);
-    //AddBuilding(FPGrid);
-    //while(true)
-    //{
-    //    Console.Write("Please enter option");
-    //    int option = Convert.ToInt32(Console.ReadLine());
-    //    if(option == 1)
-    //    {
-    //        break;
-    //    }
-    //    else
-    //    {
-    //        FPGrid.ExpandGrid();
-    //    }
-        
-    //}
-    //freeplayControls(FPGrid);
-
-    //FPGrid.PrintGrid();
-    //FPGrid.ExportGameDetails();
-}
-
-
 void game()
 {
     bool exit = false;
@@ -575,7 +549,7 @@ void game()
                 Arcademode(false);
                 break;
             case 2:
-                FreeplayMode();
+
                 break;
             case 3:
                 Arcademode(true);
@@ -648,9 +622,14 @@ void testRemoveBuilding(Grid grid)
 
 }
 Grid newgrid = new Grid(20);
-//game();
-testAddnewBuilding(newgrid);
-testRemoveBuilding(newgrid);
+
+game();
+//testAddnewBuilding(newgrid);
+//testRemoveBuilding(newgrid);
+//Console.WriteLine("Press any key:");
+//ConsoleKeyInfo keyInfo = Console.ReadKey();
+//Console.WriteLine($"\nYou pressed: {keyInfo.Key}");
+
 
 
 

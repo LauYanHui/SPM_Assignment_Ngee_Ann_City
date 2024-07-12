@@ -363,8 +363,10 @@ void Arcademode(bool import)
     Grid AGrid;
     if (import == true)
     {
+        Console.Write("input file name: ");
+        string filename= Console.ReadLine();
         AGrid = new Grid(20);
-        AGrid.ImportSavedGameArcade(AGrid);
+        AGrid.ImportSavedGameArcade(AGrid,filename);
         AGrid.PrintGrid();
     }
     else

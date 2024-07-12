@@ -172,7 +172,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         public void ExportGridToCSV(string filename )
         {
             Console.WriteLine();
-            using (StreamWriter sw = new StreamWriter("saved_game_data_arcade.csv", false))
+            using (StreamWriter sw = new StreamWriter(filename, false))
             {
                 for (int i = 0; i < Number; i++)
                 {
@@ -250,12 +250,12 @@ namespace SPM_Assignment_Ngee_Ann_City
                 coins += building.calculateCoins();
             }
         }
-        public Grid ImportSavedGameArcade(Grid grid)
+        public Grid ImportSavedGameArcade(Grid grid, string filename)
         {
             char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
             List<string> game_temp = new List<string>();
             List<List<String>> game_dataFinal = new List<List<String>>();
-            using (StreamReader sr = new StreamReader("saved_game_data_arcade.csv"))
+            using (StreamReader sr = new StreamReader(filename))
             {
                 string? s = sr.ReadLine();
                 if (s != null)

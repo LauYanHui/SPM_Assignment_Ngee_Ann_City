@@ -514,6 +514,20 @@ void FreeplayMode(bool import)
     int previousCoins = FPGrid.coins; 
     while (!exit)
     {
+        if (FPGrid.coins < previousCoins) // Losing coins
+        {
+            losingTurns++;
+            if (losingTurns >= turnToLose) // Check if losingTurns has reached the threshold
+            {
+                Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
+                exit = true;
+
+            }
+        }
+        else // Not losing coins
+        {
+            losingTurns = 0; // Reset losingTurns counter
+        }
         arcadeModeMenu();
         Console.Write("Please enter option: ");
         int option = Convert.ToInt32(Console.ReadLine());
@@ -521,6 +535,7 @@ void FreeplayMode(bool import)
         {
             case 1: //Add building
                 testAddnewBuilding(FPGrid);
+
                 break;
             case 2: //Remove building
                 testRemoveBuilding(FPGrid);
@@ -543,24 +558,26 @@ void FreeplayMode(bool import)
                 break;
 
         }
-        
+        FPGrid.calculateCoinsFP();
+
         points = FPGrid.calculateAllPoints();
+
         Console.WriteLine("Points: " + points);
         
-        if (FPGrid.coins < previousCoins) // Losing coins
-        {
-            losingTurns++;
-            if (losingTurns >= turnToLose) // Check if losingTurns has reached the threshold
-            {
-                Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
-                exit = true;
+        //if (FPGrid.coins < previousCoins) // Losing coins
+        //{
+        //    losingTurns++;
+        //    if (losingTurns >= turnToLose) // Check if losingTurns has reached the threshold
+        //    {
+        //        Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
+        //        exit = true;
 
-            }
-        }
-        else // Not losing coins
-        {
-            losingTurns = 0; // Reset losingTurns counter
-        }
+        //    }
+        //}
+        //else // Not losing coins
+        //{
+        //    losingTurns = 0; // Reset losingTurns counter
+        //}
         previousCoins = FPGrid.coins; // Update previousCoins for the next turn
     }
 }
@@ -638,7 +655,7 @@ void testAddnewBuilding(FreeplayGrid grid)
             buildingType = 'C';
             break;
         case 4:
-            buildingType = 'P';
+            buildingType = 'O';
             break;
         case 5:
             buildingType = '*';
@@ -649,6 +666,7 @@ void testAddnewBuilding(FreeplayGrid grid)
     }
 
     //Console.WriteLine(grid.ConvertToNumber(row));
+
     grid.TestAddBuilding(buildingType, grid.ConvertToNumber(row), col-1, false);
     grid.PrintGrid();
 }
@@ -669,6 +687,8 @@ void testRemoveBuilding(FreeplayGrid grid)
 }
 
 //Grid newgrid = new Grid(20);
+
+//FreeplayMode(false);
 
 game();
 

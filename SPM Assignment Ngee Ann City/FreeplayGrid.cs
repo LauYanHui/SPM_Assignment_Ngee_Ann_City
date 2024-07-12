@@ -10,14 +10,14 @@ namespace SPM_Assignment_Ngee_Ann_City
 {
     class FreeplayGrid : Grid
     {
-        private int FPnumber;
+        public int FPnumber;
         private int w = 0;
         private int a = 0;
         private int s = 0;
         private int d = 0;
         private List<int> X_range;
         private List<int> Y_range;
-        private char[,] grid;
+        public char[,] grid;
         public FreeplayGrid(int number) : base(number)
         {
             FPnumber = number;
@@ -103,6 +103,12 @@ namespace SPM_Assignment_Ngee_Ann_City
         //    //    Console.WriteLine("  +" + new string('-', 4 * FPnumber) + "+");
         //    //}
         //}
+
+        public override char GetCell(int row, int col)
+        {
+            return grid[row, col];
+        }
+
         public override void ExportGridToCSV(ref string filename)
         {
             Console.WriteLine();
@@ -676,14 +682,29 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public void calculateCoinsFP()
         {
-            Console.WriteLine("test");
+            int income = 0;
+            int upkeep = 0;
+            int RUpKeep = 0;
+            //Console.WriteLine("test");
             foreach (Building B in Buildings)
             {
                 coins += B.Income();
-                Console.WriteLine("Coins is " + coins);
+                income += B.Income();
+                //Console.WriteLine("Coins is " + coins);
                 coins -= B.Upkeep();
-                Console.WriteLine("Coins is " + coins);
+                if(B.type != 'R')
+                {
+                    upkeep += B.Upkeep();
+                }
+                else
+                {
+                    RUpKeep = B.Upkeep();
+                }
+                //Console.WriteLine("Coins is " + coins);
             }
+            upkeep += RUpKeep;
+            Console.WriteLine("Income: " + income);
+            Console.WriteLine("Upkeep: "+ upkeep);
         }
     }
 }

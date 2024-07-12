@@ -21,7 +21,7 @@ namespace SPM_Assignment_Ngee_Ann_City
 
         public Grid(int number)
         {
-            coins = 5;
+            coins = 16;
             Number = number;
             grid = new char[number, number]; // Initialize the grid
             Buildings = new List<Building>();
@@ -49,7 +49,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             }
         }
 
-        public char GetCell(int col, int row)
+        public virtual char GetCell(int col, int row)
         {
             return grid[row, col];
         }
@@ -213,10 +213,11 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public int calculateAllPoints()
         {
+            //Console.WriteLine("test");
             int industryCount = 0;
             int test = 0;
             int points = 0;
-            foreach (var building in Buildings)
+            foreach (Building building in Buildings)
             {
 
                 if (building is Industry)
@@ -224,15 +225,12 @@ namespace SPM_Assignment_Ngee_Ann_City
                     industryCount++;
                 }
             }
+            points += industryCount;
             foreach (var building in Buildings)
             {
                 if (building is Residential residential)
                 {
                     points += residential.calculatePoints(test);
-                }
-                else if (building is Industry industry)
-                {
-                    points += industry.calculatePoints(industryCount);
                 }
                 else if (building is Commercial commercial)
                 {

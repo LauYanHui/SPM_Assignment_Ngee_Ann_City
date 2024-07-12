@@ -508,7 +508,8 @@ void FreeplayMode(bool import)
         FPGrid = new FreeplayGrid(5);
     }
     bool exit = false;
-    const int turnToLose = 5;
+    int points = 0;
+    const int turnToLose = 20;
     int losingTurns = 0;
     int previousCoins = FPGrid.coins; 
     while (!exit)
@@ -542,6 +543,10 @@ void FreeplayMode(bool import)
                 break;
 
         }
+        
+        points = FPGrid.calculateAllPoints();
+        Console.WriteLine("Points: " + points);
+        
         if (FPGrid.coins < previousCoins) // Losing coins
         {
             losingTurns++;
@@ -549,6 +554,7 @@ void FreeplayMode(bool import)
             {
                 Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
                 exit = true;
+
             }
         }
         else // Not losing coins

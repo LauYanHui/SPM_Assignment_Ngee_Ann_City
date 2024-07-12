@@ -616,7 +616,7 @@ void game()
                 Arcademode(false);
                 break;
             case 2:
-
+                FreeplayMode();
                 break;
             case 3:
                 Arcademode(true);
@@ -691,7 +691,7 @@ void testRemoveBuilding(FreeplayGrid grid)
 
 //Grid newgrid = new Grid(20);
 
-Grid newgrid = new Grid(20);
+//Grid newgrid = new Grid(20);
 
 game();
 //testAddnewBuilding(newgrid);

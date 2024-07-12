@@ -11,7 +11,7 @@ namespace SPM_Assignment_Ngee_Ann_City
     class Grid
     {
         public int coins { get; set; }
-        public int Number { get; set; } 
+        public int Number { get; set; }
 
 
         private char[,] grid;
@@ -53,7 +53,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             return grid[row, col];
         }
-        public virtual bool IsConnectedToExistingBuilding(int row, int col,bool import)
+        public virtual bool IsConnectedToExistingBuilding(int row, int col, bool import)
         {
             if (Buildings.Count == 0 || import)
             {
@@ -98,7 +98,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             }
 
 
-            if (!IsConnectedToExistingBuilding(row, col,import))
+            if (!IsConnectedToExistingBuilding(row, col, import))
             {
                 Console.WriteLine("Error: Building must be placed adjacent to an existing building.");
                 return false;
@@ -139,7 +139,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             {
                 return false; // Error in building type
             }
-            
+
         }
 
         public void RemoveBuilding(char rowLetter, int col)
@@ -187,7 +187,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
 
             }
-                
+
         }
         public int calculateAllPoints()
         {
@@ -196,13 +196,13 @@ namespace SPM_Assignment_Ngee_Ann_City
             int points = 0;
             foreach (var building in Buildings)
             {
-                
+
                 if (building is Industry)
                 {
                     industryCount++;
-                }    
+                }
             }
-            foreach(var building in Buildings)
+            foreach (var building in Buildings)
             {
                 if (building is Residential residential)
                 {
@@ -294,7 +294,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                     if (data != " ")
                     {
                         char[] dataChar = data.ToCharArray();
-                        grid.AddBuilding(dataChar[0], letters[j], i,true);
+                        grid.AddBuilding(dataChar[0], letters[j], i, true);
                         //Console.WriteLine(String.Format("{0}    {1}    {2}", data, i.ToString(), j.ToString()));
                     }
                 }
@@ -400,11 +400,12 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public void calculateCoinsFP()
         {
-            foreach(Building B in Buildings)
+            foreach (Building B in Buildings)
             {
                 coins += B.Income();
                 coins -= B.Upkeep();
 
             }
         }
+    }
 }

@@ -157,8 +157,27 @@ void arcadeModeMenu()
 {
     Console.WriteLine("[1] Add Building. ");
     Console.WriteLine("[2] Remove Building. ");
-    Console.WriteLine("[0] Save and leave game.");
+    Console.WriteLine("[3] Save");
+    Console.WriteLine("[4] Exit");
 }
+
+
+
+void freeplayControls(FreeplayGrid FPGrid)
+{
+    while(true)
+    {
+        Console.Write("Please move (WASD) (0 to exit): ");
+        String movement = Console.ReadLine();
+        if(movement == "0")
+        {
+            return;
+        }
+        FPGrid.MoveGridView(movement);
+
+    }
+}
+
 void AddToLeaderboardCSV(List<User> user_array)
 {
     using (StreamWriter sw = new StreamWriter("leaderboard.csv", false))
@@ -380,8 +399,11 @@ void Arcademode(bool import)
                 case 2:
                     removeBuilding(AGrid);
                     break;
-                case 0:
+                case 3:
                     AGrid.ExportGridToCSV();
+                    //requestExit = true;
+                    break;
+                case 4:
                     requestExit = true;
                     break;
                 default:
@@ -408,6 +430,7 @@ void Arcademode(bool import)
     }
     else
     {
+        //Leaderboard
         Console.WriteLine("GAME ENDED");
         Console.WriteLine("Points: " + points);
         if (AGrid.GetCoins() <= 0 || AGrid.Buildings.Count >= 400)
@@ -462,19 +485,67 @@ void Arcademode(bool import)
     }
 
 }
-void FreePlayMode(bool import)
+
+void FreeplayMode()
 {
-    Grid newGrid = new Grid(5);
-    newGrid.PrintGrid();
-    testAddnewBuilding(newGrid);
-    newGrid.ExportGridToCSV();
-    Grid expendedGrid = new Grid(15);
-    expendedGrid.ImportSavedGameArcade(expendedGrid);
-    expendedGrid.PrintGrid();
-    testRemoveBuilding(expendedGrid);
-    expendedGrid.PrintGrid();
-        
+    Console.WriteLine("START FREEPLAY MODE\n");
+    FreeplayGrid FPGrid = new FreeplayGrid(5);
+    bool exit = false;
+    while(!exit)
+    {
+        arcadeModeMenu();
+        Console.Write("Please enter option: ");
+        int option = Convert.ToInt32(Console.ReadLine());
+        switch (option)
+        {
+            case 1: //Add building
+                testAddnewBuilding(FPGrid);
+                break;
+            case 2: //Remove building
+                testRemoveBuilding(FPGrid);
+                break;
+            case 3: //Save
+
+                break;
+            case 4: //Exit
+                exit = true;
+                break;
+            case 5: //Expand (test)
+                FPGrid.ExpandGrid();
+                break;
+            case 6:
+                freeplayControls(FPGrid);
+                break;
+              
+
+        }
+    }
+    
+    
+
+    //AddBuilding(FPGrid);
+    //while (true)
+    //{
+    //    Console.Write("Please enter option");
+    //    int option = Convert.ToInt32(Console.ReadLine());
+    //    if (option == 1)
+    //    {
+    //        break;
+    //    }
+    //    else
+    //    {
+    //        FPGrid.ExpandGrid();
+    //    }
+
+    //}
+    //freeplayControls(FPGrid);
+
+    //FPGrid.PrintGrid();
+    //FPGrid.ExportGameDetails();
 }
+
+
+
 void game()
 {
     bool exit = false;
@@ -500,7 +571,7 @@ void game()
                 Arcademode(false);
                 break;
             case 2:
-                FreePlayMode(false);
+
                 break;
             case 3:
                 Arcademode(true);
@@ -518,7 +589,7 @@ void game()
         }
     }
 }
-void testAddnewBuilding(Grid grid)
+void testAddnewBuilding(FreeplayGrid grid)
 {
     displayBuildingTypes();
     Console.Write("Enter building type: ");
@@ -552,12 +623,12 @@ void testAddnewBuilding(Grid grid)
             Console.WriteLine("Wrong Option");
             break;
     }
-        
-    Console.WriteLine(grid.ConvertToNumber(row));
+
+    //Console.WriteLine(grid.ConvertToNumber(row));
     grid.TestAddBuilding(buildingType, grid.ConvertToNumber(row), col-1, false);
     grid.PrintGrid();
 }
-void testRemoveBuilding(Grid grid)
+void testRemoveBuilding(FreeplayGrid grid)
 {
     grid.PrintGrid();
     Console.Write("Enter letter: ");// row 
@@ -572,44 +643,20 @@ void testRemoveBuilding(Grid grid)
     grid.PrintGrid();
 
 }
+
 //Grid newgrid = new Grid(20);
+
+Grid newgrid = new Grid(20);
 
 //game();
 //testAddnewBuilding(newgrid);
 //testRemoveBuilding(newgrid);
-/*
-Console.WriteLine("Press any key:");
-ConsoleKeyInfo keyInfo = Console.ReadKey();
-Console.WriteLine($"\nYou pressed: {keyInfo.Key}");*/
-void FreeplayMode()
-{
-    Grid newGrid = new Grid(5);
-    Console.WriteLine("number of Coins: " + newGrid.coins);
-    while (true)
-    {
-        arcadeModeMenu();
-        Console.WriteLine();
-        Console.Write("Enter an option: ");
-        int option = Convert.ToInt32(Console.ReadLine());
-        switch (option)
-        {
-            case 1:
-                testAddnewBuilding(newGrid);
-                break;
-            case 2:
-                testRemoveBuilding(newGrid);
-                break;
-            case 3:
-                newGrid.ExportGridToCSV();
-                break;
-            default:
-                Console.WriteLine("Invalid option!");
-                break;
-        }
-        newGrid.calculateCoinsFP();
-        int coins = newGrid.GetCoins();
-        Console.WriteLine("Coins is " + coins);
-    }
-}
-FreeplayMode();
-//game();
+//Console.WriteLine("Press any key:");
+//ConsoleKeyInfo keyInfo = Console.ReadKey();
+//Console.WriteLine($"\nYou pressed: {keyInfo.Key}");
+
+
+
+
+
+

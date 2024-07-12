@@ -17,21 +17,6 @@ Grid createGrid()
     return newGrid;
 }
 
-/* Loop to add building
-for (int i = 0; i < 1; i++)
-{
-    Console.Write("Enter type of building: ");
-    char buildingType = char.Parse(Console.ReadLine());
-    Console.Write("Enter row coordinate: ");
-    char rowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
-    Console.Write("Enter column coordinate: ");
-    int col = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
-
-    newGrid.AddBuilding(buildingType, rowLetter, col);
-    
-    newGrid.PrintGrid();
-}
-*/
 // introduce classes to the grid
 void addBuilding(Grid newGrid)
 {
@@ -122,38 +107,8 @@ void ImportSavedGameArcade(Grid grid)
 
 
 
-Grid grid = new Grid(20);
-//ImportSavedGameArcade(grid);
-//Grid grid = createGrid();
-//addBuilding(newGrid);
-/*
-grid.AddBuilding('R', 'A', 0);
-grid.AddBuilding('I', 'B', 1);
-grid.AddBuilding('R', 'C', 2);
-grid.AddBuilding('I', 'D', 3);
-grid.AddBuilding('R', 'E', 4);
-grid.AddBuilding('C', 'A', 1);
-grid.AddBuilding('C', 'A', 2);
-grid.AddBuilding('C', 'A', 3);
-grid.AddBuilding('O', 'B', 0);
-grid.AddBuilding('O', 'B', 2);
-grid.AddBuilding('O', 'B', 3);
-grid.AddBuilding('*', 'A', 4);
-grid.AddBuilding('*', 'A', 5);
-grid.AddBuilding('*', 'A', 6);
-grid.AddBuilding('*', 'A', 7);*/
-//grid.calculateAllPoints();
-//grid.PrintGrid();
+//Grid grid = new Grid(20);
 
-//newGrid.ExportGridToCSV();
-/* To remove Building
-Console.Write("Enter row coordinate: ");
-char DrowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
-Console.Write("Enter column coordinate: ");
-int Dcol = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
-newGrid.RemoveBuilding(DrowLetter,Dcol);
-newGrid.PrintGrid();
-*/
 void displayMenu()// display menu
 {
     Console.WriteLine("[1] Start New Arcade Mode");
@@ -536,7 +491,10 @@ void FreeplayMode()
     Console.WriteLine("START FREEPLAY MODE\n");
     FreeplayGrid FPGrid = new FreeplayGrid(5);
     bool exit = false;
-    while(!exit)
+    const int turnToLose = 5;
+    int losingTurns = 0;
+    int previousCoins = FPGrid.coins; 
+    while (!exit)
     {
         arcadeModeMenu();
         Console.Write("Please enter option: ");
@@ -561,32 +519,23 @@ void FreeplayMode()
             case 6:
                 freeplayControls(FPGrid);
                 break;
-              
 
         }
+        if (FPGrid.coins < previousCoins) // Losing coins
+        {
+            losingTurns++;
+            if (losingTurns >= turnToLose) // Check if losingTurns has reached the threshold
+            {
+                Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
+                exit = true;
+            }
+        }
+        else // Not losing coins
+        {
+            losingTurns = 0; // Reset losingTurns counter
+        }
+        previousCoins = FPGrid.coins; // Update previousCoins for the next turn
     }
-    
-    
-
-    //AddBuilding(FPGrid);
-    //while (true)
-    //{
-    //    Console.Write("Please enter option");
-    //    int option = Convert.ToInt32(Console.ReadLine());
-    //    if (option == 1)
-    //    {
-    //        break;
-    //    }
-    //    else
-    //    {
-    //        FPGrid.ExpandGrid();
-    //    }
-
-    //}
-    //freeplayControls(FPGrid);
-
-    //FPGrid.PrintGrid();
-    //FPGrid.ExportGameDetails();
 }
 
 
@@ -597,7 +546,7 @@ void game()
     while (!exit)
     {
         displayMenu();
-        int option; ;
+        int option;
         Console.Write("Enter a option: ");
         try
         {
@@ -616,7 +565,7 @@ void game()
                 Arcademode(false);
                 break;
             case 2:
-
+                FreeplayMode();
                 break;
             case 3:
                 Arcademode(true);
@@ -691,15 +640,14 @@ void testRemoveBuilding(FreeplayGrid grid)
 
 //Grid newgrid = new Grid(20);
 
-Grid newgrid = new Grid(20);
-
 game();
+
+//game();
 //testAddnewBuilding(newgrid);
 //testRemoveBuilding(newgrid);
 //Console.WriteLine("Press any key:");
 //ConsoleKeyInfo keyInfo = Console.ReadKey();
 //Console.WriteLine($"\nYou pressed: {keyInfo.Key}");
-
 
 
 

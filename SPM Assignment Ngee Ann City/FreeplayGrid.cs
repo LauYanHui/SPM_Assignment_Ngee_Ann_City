@@ -358,6 +358,7 @@ namespace SPM_Assignment_Ngee_Ann_City
 
 
 
+        
         public override bool IsConnectedToExistingBuilding(int col, int row, bool import) //Reversed col and row cuz it is wrong at first
         {
             return true;
@@ -494,7 +495,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             //return false;
         }
 
-
+        
 
 
         public bool TestAddBuilding(char buildingType, int row, int col, bool import)
@@ -571,6 +572,17 @@ namespace SPM_Assignment_Ngee_Ann_City
             Buildings.RemoveAll(r => r.row == row && r.col == col);
             coins--;
             Console.WriteLine("Building removed successfully.");
+        }
+        public void calculateCoinsFP()
+        {
+            Console.WriteLine("test");
+            foreach (Building B in Buildings)
+            {
+                coins += B.Income();
+                Console.WriteLine("Coins is " + coins);
+                coins -= B.Upkeep();
+                Console.WriteLine("Coins is " + coins);
+            }
         }
     }
 }

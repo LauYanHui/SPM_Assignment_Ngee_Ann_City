@@ -169,9 +169,31 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
             }
         }
-        public void ExportGridToCSV(string filename )
+        public void ExportGridToCSV(ref string filename )
         {
             Console.WriteLine();
+            while (File.Exists(filename))
+            {
+                Console.WriteLine("A file with this name already exists. Please enter a different filename:");
+                filename = Console.ReadLine();
+            }
+            if (!filename.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
+            {
+                filename += ".csv";
+            }
+
+            // Check for spaces in the filename
+            while (filename.Contains(" ") || File.Exists(filename))
+            {
+                Console.WriteLine("Invalid filename. Please enter a different filename (no spaces):");
+                filename = Console.ReadLine();
+
+                // Ensure it still ends with .csv
+                if (!filename.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
+                {
+                    filename += ".csv";
+                }
+            }
             using (StreamWriter sw = new StreamWriter(filename, false))
             {
                 for (int i = 0; i < Number; i++)

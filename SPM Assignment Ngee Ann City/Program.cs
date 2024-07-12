@@ -404,7 +404,7 @@ void Arcademode(bool import)
                 case 3:
                     Console.Write("Enter save filename: ");
                     string saveFilename = Console.ReadLine();
-                    AGrid.ExportGridToCSV(saveFilename);
+                    AGrid.ExportGridToCSV(ref saveFilename);
                     Console.WriteLine("Game saved.");
                     break;
 
@@ -515,7 +515,7 @@ void FreeplayMode()
             case 3: //save
                 Console.Write("Enter save filename: ");
                 string saveFilename = Console.ReadLine();
-                FPGrid.ExportGridToCSV(saveFilename);
+                FPGrid.ExportGridToCSV(ref saveFilename);
                 Console.WriteLine("Game saved.");
                 break;
 

@@ -169,10 +169,32 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
             }
         }
-        public void ExportGridToCSV()
+        public virtual void ExportGridToCSV(ref string filename )
         {
             Console.WriteLine();
-            using (StreamWriter sw = new StreamWriter("saved_game_data_arcade.csv", false))
+            while (File.Exists(filename))
+            {
+                Console.WriteLine("A file with this name already exists. Please enter a different filename:");
+                filename = Console.ReadLine();
+            }
+            if (!filename.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
+            {
+                filename += ".csv";
+            }
+
+            // Check for spaces in the filename
+            while (filename.Contains(" ") || File.Exists(filename))
+            {
+                Console.WriteLine("Invalid filename. Please enter a different filename (no spaces):");
+                filename = Console.ReadLine();
+
+                // Ensure it still ends with .csv
+                if (!filename.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
+                {
+                    filename += ".csv";
+                }
+            }
+            using (StreamWriter sw = new StreamWriter(filename, false))
             {
                 for (int i = 0; i < Number; i++)
                 {
@@ -250,12 +272,12 @@ namespace SPM_Assignment_Ngee_Ann_City
                 coins += building.calculateCoins();
             }
         }
-        public Grid ImportSavedGameArcade(Grid grid)
+        public  Grid ImportSavedGameArcade(Grid grid, string filename)
         {
             char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
             List<string> game_temp = new List<string>();
             List<List<String>> game_dataFinal = new List<List<String>>();
-            using (StreamReader sr = new StreamReader("saved_game_data_arcade.csv"))
+            using (StreamReader sr = new StreamReader(filename))
             {
                 string? s = sr.ReadLine();
                 if (s != null)

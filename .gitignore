@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/ProjectEvaluation/spm assignment ngee ann city.metadata.v7.bin
+/.vs/ProjectEvaluation/spm assignment ngee ann city.projects.v7.bin
+/.vs/SPM Assignment Ngee Ann City/DesignTimeBuild/.dtbcache.v2
+/.vs/SPM Assignment Ngee Ann City/FileContentIndex/7e795c37-abf7-47df-b7e0-7c42c9799a29.vsidx
+/.vs/SPM Assignment Ngee Ann City/FileContentIndex/bd56c2d1-35f7-4531-9e40-7084ba8f49ff.vsidx
+/.vs/SPM Assignment Ngee Ann City/v17/.futdcache.v2

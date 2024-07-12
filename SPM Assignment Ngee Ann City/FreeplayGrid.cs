@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -102,7 +103,108 @@ namespace SPM_Assignment_Ngee_Ann_City
         //    //    Console.WriteLine("  +" + new string('-', 4 * FPnumber) + "+");
         //    //}
         //}
+        public override void ExportGridToCSV(ref string filename)
+        {
+            Console.WriteLine();
+            while (File.Exists(filename))
+            {
+                Console.WriteLine("A file with this name already exists. Please enter a different filename:");
+                filename = Console.ReadLine();
+            }
+            if (!filename.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
+            {
+                filename += ".csv";
+            }
 
+            // Check for spaces in the filename
+            while (filename.Contains(" ") || File.Exists(filename))
+            {
+                Console.WriteLine("Invalid filename. Please enter a different filename (no spaces):");
+                filename = Console.ReadLine();
+
+                // Ensure it still ends with .csv
+                if (!filename.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
+                {
+                    filename += ".csv";
+                }
+            }
+            using (StreamWriter sw = new StreamWriter(filename, false))
+            {
+                sw.WriteLine(FPnumber.ToString());
+                for (int i = 0; i < FPnumber; i++)
+                {
+                    //Console.Write((i + 1) + ",");
+                    for (int j = 0; j < FPnumber; j++)
+                    {
+                        Console.Write(grid[i, j] + (j < FPnumber - 1 ? "," : ""));
+                        sw.Write(grid[i, j] + (j < FPnumber - 1 ? "," : ""));
+                    }
+                    Console.WriteLine();
+                    sw.WriteLine();
+                }
+
+            }
+
+        }
+        public  FreeplayGrid ImportSavedGameFP( FreeplayGrid grid,string filename)
+        {
+            char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+            List<string> game_temp = new List<string>();
+            List<List<String>> game_dataFinal = new List<List<String>>();
+            int GridSize;
+            using (StreamReader sr = new StreamReader(filename))
+            {
+                GridSize = Convert.ToInt32(sr.ReadLine());
+                Console.WriteLine(GridSize);
+                //grid= new FreeplayGrid(GridSize);
+                grid.FPnumber = GridSize;
+                grid.grid = new char[grid.FPnumber, grid.FPnumber];
+                InitializeGrid();
+                string? s = sr.ReadLine();
+                if (s != null)
+                {
+                    //Console.
+                    //WriteLine(s);
+                    game_temp.Add(s);
+                }
+                while ((s = sr.ReadLine()) != null)
+                {
+                    //Console.WriteLine(s);
+                    game_temp.Add(s);
+                }
+            }
+
+            foreach (string s in game_temp)
+            {
+                List<string> game_data = new List<string>();
+                string[] temp = new string[] { };
+                temp = s.Split(",");
+                int count = 0;
+                foreach (string s1 in temp)
+                {
+                    game_data.Add(s1);
+                    //Console.WriteLine(s1);
+                }
+                game_dataFinal.Add(game_data);
+            }
+            //Console.WriteLine(game_dataFinal[19].Count);
+
+            for (int i = 0; i < game_dataFinal.Count; i++)
+            {
+                for (int j = 0; j < game_dataFinal[i].Count; j++)
+                {
+                    string data = game_dataFinal[i][j];
+                    //Console.WriteLine(game_dataFinal[i][j]);
+                    if (data != " ")
+                    {
+                        char[] dataChar = data.ToCharArray();
+                        grid.TestAddBuilding(dataChar[0], j, i, true);
+                        //Console.WriteLine(String.Format("{0}    {1}    {2}", data, i.ToString(), j.ToString()));
+                    }
+                }
+            }
+            return grid;
+        }
         public override void PrintGrid()
         {
             char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
@@ -116,7 +218,6 @@ namespace SPM_Assignment_Ngee_Ann_City
                 defaultViewNum = 15;
             }
 
-            
             double MinCountLetters = Math.Ceiling(Convert.ToDouble(FPnumber) / letters.Length);
             int y_top = 1;
             int y_bottom = defaultViewNum;
@@ -193,10 +294,10 @@ namespace SPM_Assignment_Ngee_Ann_City
                 counter1++;
             }
             Console.WriteLine();
-
             Console.WriteLine("   +" + new string('-', 4 * defaultViewNum) + "+");
             for (int i = y_top - 1; i < y_bottom; i++)
             {
+
                 Console.Write($"{i + 1,2} |"); // Print the row number and vertical bar
                 for (int j = 0; j < defaultViewNum; j++)
                 {

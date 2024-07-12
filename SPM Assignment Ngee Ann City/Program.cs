@@ -512,9 +512,13 @@ void FreeplayMode()
             case 2: //Remove building
                 testRemoveBuilding(FPGrid);
                 break;
-            case 3: //Save
-
+            case 3: //save
+                Console.Write("Enter save filename: ");
+                string saveFilename = Console.ReadLine();
+                FPGrid.ExportGridToCSV(saveFilename);
+                Console.WriteLine("Game saved.");
                 break;
+
             case 4: //Exit
                 exit = true;
                 break;

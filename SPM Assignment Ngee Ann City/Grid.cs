@@ -225,7 +225,9 @@ namespace SPM_Assignment_Ngee_Ann_City
                     industryCount++;
                 }
             }
+
             points += industryCount;
+
             foreach (var building in Buildings)
             {
                 if (building is Residential residential)
@@ -421,7 +423,8 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public void calculateCoinsFP()
         {
-            Console.WriteLine("test");
+
+
             foreach (Building B in Buildings)
             {
                 coins += B.Income();

@@ -656,6 +656,18 @@ namespace SPM_Assignment_Ngee_Ann_City
                 Buildings.Add(newBuilding);
                 coins--; // Deduct one coin for placing a building
                 coins += newBuilding.calculateCoins();
+
+
+                Console.WriteLine("Col: " + col + " Row: " + row);
+                if(row == 0)
+                {
+                    ExpandGrid();
+                }
+                else if(col == 0)
+                {
+                    ExpandGrid();
+                }
+
                 return true; // Building added successfully
             }
             else

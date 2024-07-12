@@ -21,7 +21,7 @@ namespace SPM_Assignment_Ngee_Ann_City
 
         public Grid(int number)
         {
-            coins = 5;
+            coins = 16;
             Number = number;
             grid = new char[number, number]; // Initialize the grid
             Buildings = new List<Building>();
@@ -49,7 +49,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             }
         }
 
-        public char GetCell(int col, int row)
+        public virtual char GetCell(int col, int row)
         {
             return grid[row, col];
         }
@@ -169,10 +169,32 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
             }
         }
-        public void ExportGridToCSV()
+        public virtual void ExportGridToCSV(ref string filename )
         {
             Console.WriteLine();
-            using (StreamWriter sw = new StreamWriter("saved_game_data_arcade.csv", false))
+            while (File.Exists(filename))
+            {
+                Console.WriteLine("A file with this name already exists. Please enter a different filename:");
+                filename = Console.ReadLine();
+            }
+            if (!filename.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
+            {
+                filename += ".csv";
+            }
+
+            // Check for spaces in the filename
+            while (filename.Contains(" ") || File.Exists(filename))
+            {
+                Console.WriteLine("Invalid filename. Please enter a different filename (no spaces):");
+                filename = Console.ReadLine();
+
+                // Ensure it still ends with .csv
+                if (!filename.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
+                {
+                    filename += ".csv";
+                }
+            }
+            using (StreamWriter sw = new StreamWriter(filename, false))
             {
                 for (int i = 0; i < Number; i++)
                 {
@@ -191,10 +213,11 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public int calculateAllPoints()
         {
+            //Console.WriteLine("test");
             int industryCount = 0;
             int test = 0;
             int points = 0;
-            foreach (var building in Buildings)
+            foreach (Building building in Buildings)
             {
 
                 if (building is Industry)
@@ -202,15 +225,14 @@ namespace SPM_Assignment_Ngee_Ann_City
                     industryCount++;
                 }
             }
+
+            points += industryCount;
+
             foreach (var building in Buildings)
             {
                 if (building is Residential residential)
                 {
                     points += residential.calculatePoints(test);
-                }
-                else if (building is Industry industry)
-                {
-                    points += industry.calculatePoints(industryCount);
                 }
                 else if (building is Commercial commercial)
                 {
@@ -250,12 +272,12 @@ namespace SPM_Assignment_Ngee_Ann_City
                 coins += building.calculateCoins();
             }
         }
-        public Grid ImportSavedGameArcade(Grid grid)
+        public  Grid ImportSavedGameArcade(Grid grid, string filename)
         {
             char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
             List<string> game_temp = new List<string>();
             List<List<String>> game_dataFinal = new List<List<String>>();
-            using (StreamReader sr = new StreamReader("saved_game_data_arcade.csv"))
+            using (StreamReader sr = new StreamReader(filename))
             {
                 string? s = sr.ReadLine();
                 if (s != null)
@@ -327,6 +349,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
 
             // Check if the coordinates are within the grid bounds (optional but recommended)
+            
             if (row < 0 || row >= grid.GetLength(1) || col < 0 || col >= grid.GetLength(0))
             {
                 Console.WriteLine("Error: Coordinates are out of bounds.");
@@ -372,8 +395,8 @@ namespace SPM_Assignment_Ngee_Ann_City
             if (newBuilding != null)
             {
                 Buildings.Add(newBuilding);
-                coins--; // Deduct one coin for placing a building
-                coins += newBuilding.calculateCoins();
+                //coins--; // Deduct one coin for placing a building
+                //coins += newBuilding.calculateCoins();
                 return true; // Building added successfully
             }
             else
@@ -400,11 +423,14 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public void calculateCoinsFP()
         {
+
+
             foreach (Building B in Buildings)
             {
                 coins += B.Income();
+                Console.WriteLine("Coins is " + coins);
                 coins -= B.Upkeep();
-
+                Console.WriteLine("Coins is " + coins);
             }
         }
     }

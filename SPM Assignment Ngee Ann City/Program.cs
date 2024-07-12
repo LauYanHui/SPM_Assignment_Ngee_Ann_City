@@ -17,21 +17,6 @@ Grid createGrid()
     return newGrid;
 }
 
-/* Loop to add building
-for (int i = 0; i < 1; i++)
-{
-    Console.Write("Enter type of building: ");
-    char buildingType = char.Parse(Console.ReadLine());
-    Console.Write("Enter row coordinate: ");
-    char rowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
-    Console.Write("Enter column coordinate: ");
-    int col = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
-
-    newGrid.AddBuilding(buildingType, rowLetter, col);
-    
-    newGrid.PrintGrid();
-}
-*/
 // introduce classes to the grid
 void addBuilding(Grid newGrid)
 {
@@ -67,12 +52,12 @@ void addBuilding(Grid newGrid)
     newGrid.AddBuilding(building.type, rowLetter, col,false);
     newGrid.PrintGrid();
 }
-void ImportSavedGameArcade(Grid grid)
+void ImportSavedGameArcade(Grid grid, string filename)
 {
     char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
     List<string> game_temp = new List<string>();
     List<List<String>> game_dataFinal = new List<List<String>>();
-    using (StreamReader sr = new StreamReader("saved_game_data_arcade.csv"))
+    using (StreamReader sr = new StreamReader(filename))
     {
         string? s = sr.ReadLine();
         if (s != null)
@@ -122,38 +107,8 @@ void ImportSavedGameArcade(Grid grid)
 
 
 
-Grid grid = new Grid(20);
-//ImportSavedGameArcade(grid);
-//Grid grid = createGrid();
-//addBuilding(newGrid);
-/*
-grid.AddBuilding('R', 'A', 0);
-grid.AddBuilding('I', 'B', 1);
-grid.AddBuilding('R', 'C', 2);
-grid.AddBuilding('I', 'D', 3);
-grid.AddBuilding('R', 'E', 4);
-grid.AddBuilding('C', 'A', 1);
-grid.AddBuilding('C', 'A', 2);
-grid.AddBuilding('C', 'A', 3);
-grid.AddBuilding('O', 'B', 0);
-grid.AddBuilding('O', 'B', 2);
-grid.AddBuilding('O', 'B', 3);
-grid.AddBuilding('*', 'A', 4);
-grid.AddBuilding('*', 'A', 5);
-grid.AddBuilding('*', 'A', 6);
-grid.AddBuilding('*', 'A', 7);*/
-//grid.calculateAllPoints();
-//grid.PrintGrid();
+//Grid grid = new Grid(20);
 
-//newGrid.ExportGridToCSV();
-/* To remove Building
-Console.Write("Enter row coordinate: ");
-char DrowLetter = char.ToUpper(Console.ReadLine()[0]); // Adjust to 0-based indexing
-Console.Write("Enter column coordinate: ");
-int Dcol = int.Parse(Console.ReadLine()) - 1; // Adjust to 0-based indexing
-newGrid.RemoveBuilding(DrowLetter,Dcol);
-newGrid.PrintGrid();
-*/
 void displayMenu()// display menu
 {
     Console.WriteLine("[1] Start New Arcade Mode");
@@ -231,9 +186,9 @@ void freeplayControls(FreeplayGrid FPGrid)
     }
 }
 
-void AddToLeaderboardCSV(List<User> user_array)
+void AddToLeaderboardCSV(List<User> user_array,string filename)
 {
-    using (StreamWriter sw = new StreamWriter("leaderboard.csv", false))
+    using (StreamWriter sw = new StreamWriter(filename, false))
     {
         foreach(User user in user_array)
         {
@@ -241,10 +196,10 @@ void AddToLeaderboardCSV(List<User> user_array)
         }
     }
 }
-List<User> ReadLeaderboardCSV()
+List<User> ReadLeaderboardCSV(string filename)
 {
     List<User> user_list =new List<User>();
-    using (StreamReader sr = new StreamReader("leaderboard.csv"))
+    using (StreamReader sr = new StreamReader(filename))
     {
         string? s;
         while((s = sr.ReadLine())!= null)
@@ -416,8 +371,10 @@ void Arcademode(bool import)
     Grid AGrid;
     if (import == true)
     {
+        Console.Write("input file name: ");
+        string filename= Console.ReadLine();
         AGrid = new Grid(20);
-        AGrid.ImportSavedGameArcade(AGrid);
+        AGrid.ImportSavedGameArcade(AGrid,filename);
         AGrid.PrintGrid();
     }
     else
@@ -453,9 +410,12 @@ void Arcademode(bool import)
                     removeBuilding(AGrid);
                     break;
                 case 3:
-                    AGrid.ExportGridToCSV();
-                    //requestExit = true;
+                    Console.Write("Enter save filename: ");
+                    string saveFilename = Console.ReadLine();
+                    AGrid.ExportGridToCSV(ref saveFilename);
+                    Console.WriteLine("Game saved.");
                     break;
+
                 case 4:
                     requestExit = true;
                     break;
@@ -488,7 +448,7 @@ void Arcademode(bool import)
         Console.WriteLine("Points: " + points);
         if (AGrid.GetCoins() <= 0 || AGrid.Buildings.Count >= 400)
         {
-            List<User> user_list = ReadLeaderboardCSV();
+            List<User> user_list = ReadLeaderboardCSV("Aleaderboard.csv");
             user_list.Sort();
             if (user_list.Count < 10)
             {
@@ -507,7 +467,7 @@ void Arcademode(bool import)
                 User new_user = new User(name, points);
                 user_list.Add(new_user);
                 user_list.Sort();
-                AddToLeaderboardCSV(user_list);
+                AddToLeaderboardCSV(user_list,"Aleaderboard.csv");
             }
             else // user_list.count >= 11
             {
@@ -530,7 +490,7 @@ void Arcademode(bool import)
                     user_list.Add(new_user);
                     user_list.Sort();
                     user_list.RemoveAt(10);
-                    AddToLeaderboardCSV(user_list);
+                    AddToLeaderboardCSV(user_list,"Aleaderboard.csv");
                 }
             }
 
@@ -539,15 +499,48 @@ void Arcademode(bool import)
 
 }
 
-void FreeplayMode()
+void FreeplayMode(bool import)
 {
+    FreeplayGrid FPGrid=new FreeplayGrid(5);
+
     Console.WriteLine("START FREEPLAY MODE\n");
-    FreeplayGrid FPGrid = new FreeplayGrid(5);
-    bool exit = false;
-    while(!exit)
+    if (import == true)
     {
+        Console.Write("input file name: ");
+        string filename = Console.ReadLine();
+        FPGrid.ImportSavedGameFP(FPGrid, filename);
+        FPGrid.PrintGrid();
+    }
+    else
+    {
+        FPGrid = new FreeplayGrid(5);
+    }
+    bool exit = false;
+    int points = 0;
+    const int turnToLose = 20;
+    int losingTurns = 0;
+    int previousCoins = FPGrid.coins; 
+    while (!exit)
+    {
+
         FreeplayModeMenu();
         
+        if (FPGrid.coins < previousCoins) // Losing coins
+        {
+            losingTurns++;
+            if (losingTurns >= turnToLose) // Check if losingTurns has reached the threshold
+            {
+                Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
+                exit = true;
+
+            }
+        }
+        else // Not losing coins
+        {
+            losingTurns = 0; // Reset losingTurns counter
+        }
+        arcadeModeMenu();
+
         Console.Write("Please enter option: ");
         int option = Convert.ToInt32(Console.ReadLine());
         switch (option)
@@ -557,50 +550,53 @@ void FreeplayMode()
                 break;
             case 1: //Add building
                 testAddnewBuilding(FPGrid);
+
                 break;
             case 2: //Remove building
                 testRemoveBuilding(FPGrid);
                 break;
-            case 3: //Save
-
+            case 3: //save
+                Console.Write("Enter save filename: ");
+                string saveFilename = Console.ReadLine();
+                FPGrid.ExportGridToCSV(ref saveFilename);
+                Console.WriteLine("Game saved.");
                 break;
+
             case 4:
                 if(FPGrid.FPnumber <=25 )
                 {
                     Console.WriteLine("Only able to move grid when size is more than 25");
+                    freeplayControls(FPGrid);
                     break;
                 }
-                freeplayControls(FPGrid);
-                break;
-              
+
 
         }
+        FPGrid.calculateCoinsFP();
+
+        points = FPGrid.calculateAllPoints();
+
+        Console.WriteLine("Points: " + points);
+        
+        //if (FPGrid.coins < previousCoins) // Losing coins
+        //{
+        //    losingTurns++;
+        //    if (losingTurns >= turnToLose) // Check if losingTurns has reached the threshold
+        //    {
+        //        Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
+        //        exit = true;
+
+        //    }
+        //}
+        //else // Not losing coins
+        //{
+        //    losingTurns = 0; // Reset losingTurns counter
+        //}
+        previousCoins = FPGrid.coins; // Update previousCoins for the next turn
     }
-    
-    
-
-    //AddBuilding(FPGrid);
-    //while (true)
-    //{
-    //    Console.Write("Please enter option");
-    //    int option = Convert.ToInt32(Console.ReadLine());
-    //    if (option == 1)
-    //    {
-    //        break;
-    //    }
-    //    else
-    //    {
-    //        FPGrid.ExpandGrid();
-    //    }
-
-    //}
-    //freeplayControls(FPGrid);
-
-    //FPGrid.PrintGrid();
-    //FPGrid.ExportGameDetails();
 }
 
-
+//
 
 void game()
 {
@@ -608,7 +604,7 @@ void game()
     while (!exit)
     {
         displayMenu();
-        int option; ;
+        int option;
         Console.Write("Enter a option: ");
         try
         {
@@ -627,13 +623,17 @@ void game()
                 Arcademode(false);
                 break;
             case 2:
-                FreeplayMode();
+
+                FreeplayMode(false);
                 break;
             case 3:
                 Arcademode(true);
                 break;
+            case 4:
+                FreeplayMode(true);
+                break;
             case 5:
-                List<User> user_list = ReadLeaderboardCSV();
+                List<User> user_list = ReadLeaderboardCSV("Aleaderboard.csv");
                 DisplayLeaderboard(user_list);
                 break;
             case 0:
@@ -670,7 +670,7 @@ void testAddnewBuilding(FreeplayGrid grid)
             buildingType = 'C';
             break;
         case 4:
-            buildingType = 'P';
+            buildingType = 'O';
             break;
         case 5:
             buildingType = '*';
@@ -681,6 +681,7 @@ void testAddnewBuilding(FreeplayGrid grid)
     }
 
     //Console.WriteLine(grid.ConvertToNumber(row));
+
     grid.TestAddBuilding(buildingType, grid.ConvertToNumber(row), col-1, false);
     grid.PrintGrid();
 }
@@ -702,15 +703,15 @@ void testRemoveBuilding(FreeplayGrid grid)
 
 //Grid newgrid = new Grid(20);
 
-//Grid newgrid = new Grid(20);
 
 game();
+
+//game();
 //testAddnewBuilding(newgrid);
 //testRemoveBuilding(newgrid);
 //Console.WriteLine("Press any key:");
 //ConsoleKeyInfo keyInfo = Console.ReadKey();
 //Console.WriteLine($"\nYou pressed: {keyInfo.Key}");
-
 
 
 

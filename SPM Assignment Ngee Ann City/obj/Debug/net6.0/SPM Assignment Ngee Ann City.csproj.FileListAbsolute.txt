@@ -26,3 +26,18 @@ D:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment 
 D:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.pdb
 D:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.genruntimeconfig.cache
 D:\School\Y2S1\SPM\Assignment FINAL\SPM Assignment Ngee Ann City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\ref\SPM Assignment Ngee Ann City.dll
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\saved_game_data_arcade.csv
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.exe
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.deps.json
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.runtimeconfig.json
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.dll
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\bin\Debug\net6.0\SPM Assignment Ngee Ann City.pdb
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.AssemblyInfoInputs.cache
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.AssemblyInfo.cs
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.csproj.CoreCompileInputs.cache
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.dll
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\refint\SPM Assignment Ngee Ann City.dll
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.pdb
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\SPM Assignment Ngee Ann City.genruntimeconfig.cache
+C:\Users\baoxu\source\repos\SPM_Assignment_Ngee_Ann_City\SPM Assignment Ngee Ann City\obj\Debug\net6.0\ref\SPM Assignment Ngee Ann City.dll

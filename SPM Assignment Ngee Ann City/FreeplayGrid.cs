@@ -676,14 +676,20 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public void calculateCoinsFP()
         {
-            Console.WriteLine("test");
+            int income = 0;
+            int upkeep = 0;
+            //Console.WriteLine("test");
             foreach (Building B in Buildings)
             {
                 coins += B.Income();
-                Console.WriteLine("Coins is " + coins);
+                income += B.Income();
+                //Console.WriteLine("Coins is " + coins);
                 coins -= B.Upkeep();
-                Console.WriteLine("Coins is " + coins);
+                upkeep += B.Upkeep();
+                //Console.WriteLine("Coins is " + coins);
             }
+            Console.WriteLine("Income: " + income);
+            Console.WriteLine("Upkeep: "+ upkeep);
         }
     }
 }

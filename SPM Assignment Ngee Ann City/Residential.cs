@@ -66,9 +66,10 @@ namespace SPM_Assignment_Ngee_Ann_City
         public override int calculatePoints(int buildings)
         {
             // Convert row letter to index
-            int rowIndex = this.row - 'A';
+            int rowIndex = this.row;
             int colIndex = this.col;
-
+            //Console.WriteLine("row " + rowIndex);
+            //Console.WriteLine("col " + colIndex);
             int points = 0;
             bool isNextToIndustry = false;
 
@@ -84,7 +85,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 new int[] {1, -1},  // down-left
                 new int[] {1, 1}    // down-right
             };
-
+            //Console.WriteLine(grid.Number);
             // Check each adjacent cell
             foreach (var dir in directions)
             {
@@ -95,7 +96,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 if (newRow >= 0 && newRow < grid.Number && newCol >= 0 && newCol < grid.Number)
                 {
                     char adjacentCell = grid.GetCell(newRow, newCol);
-
+                    //char adjacentCell = grid.GetCell(newCol, newRow);
                     if (adjacentCell == 'I')
                     {
                         isNextToIndustry = true;
@@ -114,12 +115,13 @@ namespace SPM_Assignment_Ngee_Ann_City
                 {
                     int newRow = rowIndex + dir[0];
                     int newCol = colIndex + dir[1];
-
+                    
                     // Ensure the new position is within grid bounds
                     if (newRow >= 0 && newRow < grid.Number && newCol >= 0 && newCol < grid.Number)
                     {
+                        //Console.WriteLine("asd");
                         char adjacentCell = grid.GetCell(newRow, newCol);
-
+                        Console.WriteLine("asd" + adjacentCell);
                         if (adjacentCell == 'R' || adjacentCell == 'C')
                         {
                             points += 1;
@@ -199,5 +201,6 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
             }
         }
+
     }
 }

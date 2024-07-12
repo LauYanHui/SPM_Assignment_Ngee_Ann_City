@@ -543,7 +543,7 @@ void FreeplayMode(bool import)
                 break;
 
         }
-        
+        FPGrid.calculateCoinsFP();
         points = FPGrid.calculateAllPoints();
         Console.WriteLine("Points: " + points);
         

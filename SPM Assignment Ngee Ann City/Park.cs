@@ -15,7 +15,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public override int calculatePoints(int buildings)
         {
-            int rowIndex = this.row - 'A';
+            int rowIndex = this.row;
             int colIndex = this.col;
 
             int points = 0;

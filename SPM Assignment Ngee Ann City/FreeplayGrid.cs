@@ -9,7 +9,7 @@ namespace SPM_Assignment_Ngee_Ann_City
 {
     class FreeplayGrid : Grid
     {
-        private int FPnumber;
+        public int FPnumber;
         private int w = 0;
         private int a = 0;
         private int s = 0;

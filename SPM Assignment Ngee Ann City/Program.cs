@@ -206,6 +206,14 @@ void arcadeModeMenu()
     Console.WriteLine("[4] Exit");
 }
 
+void FreeplayModeMenu()
+{
+    Console.WriteLine("[0] Exit");
+    Console.WriteLine("[1] Add Building. ");
+    Console.WriteLine("[2] Remove Building. ");
+    Console.WriteLine("[3] Save");
+    Console.WriteLine("[4] Move grid");
+}
 
 
 void freeplayControls(FreeplayGrid FPGrid)
@@ -538,11 +546,15 @@ void FreeplayMode()
     bool exit = false;
     while(!exit)
     {
-        arcadeModeMenu();
+        FreeplayModeMenu();
+        
         Console.Write("Please enter option: ");
         int option = Convert.ToInt32(Console.ReadLine());
         switch (option)
         {
+            case 0: //Exit
+                exit = true;
+                break;
             case 1: //Add building
                 testAddnewBuilding(FPGrid);
                 break;
@@ -552,13 +564,12 @@ void FreeplayMode()
             case 3: //Save
 
                 break;
-            case 4: //Exit
-                exit = true;
-                break;
-            case 5: //Expand (test)
-                FPGrid.ExpandGrid();
-                break;
-            case 6:
+            case 4:
+                if(FPGrid.FPnumber <=25 )
+                {
+                    Console.WriteLine("Only able to move grid when size is more than 25");
+                    break;
+                }
                 freeplayControls(FPGrid);
                 break;
               

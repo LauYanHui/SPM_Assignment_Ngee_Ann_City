@@ -53,7 +53,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         {
             return grid[row, col];
         }
-        private bool IsConnectedToExistingBuilding(int row, int col, bool import)
+        public virtual bool IsConnectedToExistingBuilding(int row, int col, bool import)
         {
             if (Buildings.Count == 0 || import)
             {

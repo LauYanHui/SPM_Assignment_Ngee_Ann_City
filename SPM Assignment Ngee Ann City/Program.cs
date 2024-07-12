@@ -491,7 +491,10 @@ void FreeplayMode()
     Console.WriteLine("START FREEPLAY MODE\n");
     FreeplayGrid FPGrid = new FreeplayGrid(5);
     bool exit = false;
-    while(!exit)
+    const int turnToLose = 5;
+    int losingTurns = 0;
+    int previousCoins = FPGrid.coins; 
+    while (!exit)
     {
         arcadeModeMenu();
         Console.Write("Please enter option: ");
@@ -516,32 +519,23 @@ void FreeplayMode()
             case 6:
                 freeplayControls(FPGrid);
                 break;
-              
 
         }
+        if (FPGrid.coins < previousCoins) // Losing coins
+        {
+            losingTurns++;
+            if (losingTurns >= turnToLose) // Check if losingTurns has reached the threshold
+            {
+                Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
+                exit = true;
+            }
+        }
+        else // Not losing coins
+        {
+            losingTurns = 0; // Reset losingTurns counter
+        }
+        previousCoins = FPGrid.coins; // Update previousCoins for the next turn
     }
-    
-    
-
-    //AddBuilding(FPGrid);
-    //while (true)
-    //{
-    //    Console.Write("Please enter option");
-    //    int option = Convert.ToInt32(Console.ReadLine());
-    //    if (option == 1)
-    //    {
-    //        break;
-    //    }
-    //    else
-    //    {
-    //        FPGrid.ExpandGrid();
-    //    }
-
-    //}
-    //freeplayControls(FPGrid);
-
-    //FPGrid.PrintGrid();
-    //FPGrid.ExportGameDetails();
 }
 
 
@@ -552,7 +546,7 @@ void game()
     while (!exit)
     {
         displayMenu();
-        int option; ;
+        int option;
         Console.Write("Enter a option: ");
         try
         {
@@ -571,7 +565,7 @@ void game()
                 Arcademode(false);
                 break;
             case 2:
-
+                FreeplayMode();
                 break;
             case 3:
                 Arcademode(true);
@@ -646,7 +640,7 @@ void testRemoveBuilding(FreeplayGrid grid)
 
 //Grid newgrid = new Grid(20);
 
-Grid newgrid = new Grid(20);
+game();
 
 //game();
 //testAddnewBuilding(newgrid);

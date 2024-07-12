@@ -169,7 +169,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
             }
         }
-        public void ExportGridToCSV(ref string filename )
+        public virtual void ExportGridToCSV(ref string filename )
         {
             Console.WriteLine();
             while (File.Exists(filename))
@@ -272,7 +272,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 coins += building.calculateCoins();
             }
         }
-        public Grid ImportSavedGameArcade(Grid grid, string filename)
+        public  Grid ImportSavedGameArcade(Grid grid, string filename)
         {
             char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
             List<string> game_temp = new List<string>();

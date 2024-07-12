@@ -178,9 +178,9 @@ void freeplayControls(FreeplayGrid FPGrid)
     }
 }
 
-void AddToLeaderboardCSV(List<User> user_array)
+void AddToLeaderboardCSV(List<User> user_array,string filename)
 {
-    using (StreamWriter sw = new StreamWriter("leaderboard.csv", false))
+    using (StreamWriter sw = new StreamWriter(filename, false))
     {
         foreach(User user in user_array)
         {
@@ -188,10 +188,10 @@ void AddToLeaderboardCSV(List<User> user_array)
         }
     }
 }
-List<User> ReadLeaderboardCSV()
+List<User> ReadLeaderboardCSV(string filename)
 {
     List<User> user_list =new List<User>();
-    using (StreamReader sr = new StreamReader("leaderboard.csv"))
+    using (StreamReader sr = new StreamReader(filename))
     {
         string? s;
         while((s = sr.ReadLine())!= null)
@@ -440,7 +440,7 @@ void Arcademode(bool import)
         Console.WriteLine("Points: " + points);
         if (AGrid.GetCoins() <= 0 || AGrid.Buildings.Count >= 400)
         {
-            List<User> user_list = ReadLeaderboardCSV();
+            List<User> user_list = ReadLeaderboardCSV("Aleaderboard.csv");
             user_list.Sort();
             if (user_list.Count < 10)
             {
@@ -459,7 +459,7 @@ void Arcademode(bool import)
                 User new_user = new User(name, points);
                 user_list.Add(new_user);
                 user_list.Sort();
-                AddToLeaderboardCSV(user_list);
+                AddToLeaderboardCSV(user_list,"Aleaderboard.csv");
             }
             else // user_list.count >= 11
             {
@@ -482,7 +482,7 @@ void Arcademode(bool import)
                     user_list.Add(new_user);
                     user_list.Sort();
                     user_list.RemoveAt(10);
-                    AddToLeaderboardCSV(user_list);
+                    AddToLeaderboardCSV(user_list,"Aleaderboard.csv");
                 }
             }
 
@@ -491,10 +491,22 @@ void Arcademode(bool import)
 
 }
 
-void FreeplayMode()
+void FreeplayMode(bool import)
 {
+    FreeplayGrid FPGrid=new FreeplayGrid(5);
+
     Console.WriteLine("START FREEPLAY MODE\n");
-    FreeplayGrid FPGrid = new FreeplayGrid(5);
+    if (import == true)
+    {
+        Console.Write("input file name: ");
+        string filename = Console.ReadLine();
+        FPGrid.ImportSavedGameFP(FPGrid, filename);
+        FPGrid.PrintGrid();
+    }
+    else
+    {
+        FPGrid = new FreeplayGrid(5);
+    }
     bool exit = false;
     const int turnToLose = 5;
     int losingTurns = 0;
@@ -574,13 +586,16 @@ void game()
                 Arcademode(false);
                 break;
             case 2:
-                FreeplayMode();
+                FreeplayMode(false);
                 break;
             case 3:
                 Arcademode(true);
                 break;
+            case 4:
+                FreeplayMode(true);
+                break;
             case 5:
-                List<User> user_list = ReadLeaderboardCSV();
+                List<User> user_list = ReadLeaderboardCSV("Aleaderboard.csv");
                 DisplayLeaderboard(user_list);
                 break;
             case 0:

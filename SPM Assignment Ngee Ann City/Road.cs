@@ -19,8 +19,20 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public override int calculatePoints(int buildings)
         {
-            int rowIndex = this.row - 'A';
-            int colIndex = this.col;
+            int rowIndex;
+            int colIndex;
+            if (grid is FreeplayGrid)
+            {
+                rowIndex = this.col;
+                colIndex = this.row;
+            }
+            else //Grid
+            {
+                rowIndex = this.row - 'A';
+                colIndex = this.col;
+            }
+
+
 
             int points = 0;
 
@@ -53,8 +65,18 @@ namespace SPM_Assignment_Ngee_Ann_City
         private int CalculateUpkeepCost()
         {
             // Upkeep cost for a road segment is 1 coin if it is not connected to any other road segments
-            int rowIndex = this.row - 'A';
-            int colIndex = this.col;
+            int rowIndex;
+            int colIndex;
+            if (grid is FreeplayGrid)
+            {
+                rowIndex = this.col;
+                colIndex = this.row;
+            }
+            else //Grid
+            {
+                rowIndex = this.row - 'A';
+                colIndex = this.col;
+            }
 
             bool connected = false;
 

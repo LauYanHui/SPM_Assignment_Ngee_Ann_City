@@ -15,8 +15,21 @@ namespace SPM_Assignment_Ngee_Ann_City
         }
         public override int calculatePoints(int buildings)
         {
-            int rowIndex = this.row;
-            int colIndex = this.col;
+            //int rowIndex = this.row - 'A';
+            //int colIndex = this.col;
+
+            int rowIndex;
+            int colIndex;
+            if (grid is FreeplayGrid)
+            {
+                rowIndex = this.col;
+                colIndex = this.row;
+            }
+            else //Grid
+            {
+                rowIndex = this.row - 'A';
+                colIndex = this.col;
+            }
 
             int points = 0;
 

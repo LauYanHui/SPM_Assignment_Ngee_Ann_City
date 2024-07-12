@@ -66,13 +66,23 @@ namespace SPM_Assignment_Ngee_Ann_City
         public override int calculatePoints(int buildings)
         {
             // Convert row letter to index
-            int rowIndex = this.row;
-            int colIndex = this.col;
-            //Console.WriteLine("row " + rowIndex);
-            //Console.WriteLine("col " + colIndex);
+            int rowIndex;
+            int colIndex;
+            if (grid is FreeplayGrid)
+            {
+                rowIndex = this.col;
+                colIndex = this.row;
+            }
+            else //Grid
+            {
+                rowIndex = this.row - 'A';
+                colIndex = this.col;
+            }
+            
+
+
             int points = 0;
             bool isNextToIndustry = false;
-
             // Define the relative positions for all adjacent cells, including diagonals
             int[][] directions = new int[][]
             {
@@ -85,18 +95,24 @@ namespace SPM_Assignment_Ngee_Ann_City
                 new int[] {1, -1},  // down-left
                 new int[] {1, 1}    // down-right
             };
-            //Console.WriteLine(grid.Number);
+            FreeplayGrid fpGrid = new FreeplayGrid(5);
+            if(grid is FreeplayGrid)
+            {
+                fpGrid = (FreeplayGrid)grid;
+                //Console.WriteLine(fpGrid.FPnumber);
+            }
+            //Console.WriteLine("test: " + grid.GetCell(1,0));
             // Check each adjacent cell
             foreach (var dir in directions)
             {
                 int newRow = rowIndex + dir[0];
                 int newCol = colIndex + dir[1];
-
                 // Ensure the new position is within grid bounds
                 if (newRow >= 0 && newRow < grid.Number && newCol >= 0 && newCol < grid.Number)
                 {
-                    char adjacentCell = grid.GetCell(newRow, newCol);
-                    //char adjacentCell = grid.GetCell(newCol, newRow);
+                    //char adjacentCell = fpGrid.GetCell(newRow, newCol);
+
+                    char adjacentCell = grid.GetCell(newCol, newRow);
                     if (adjacentCell == 'I')
                     {
                         isNextToIndustry = true;
@@ -115,13 +131,11 @@ namespace SPM_Assignment_Ngee_Ann_City
                 {
                     int newRow = rowIndex + dir[0];
                     int newCol = colIndex + dir[1];
-                    
+
                     // Ensure the new position is within grid bounds
                     if (newRow >= 0 && newRow < grid.Number && newCol >= 0 && newCol < grid.Number)
                     {
-                        //Console.WriteLine("asd");
                         char adjacentCell = grid.GetCell(newRow, newCol);
-                        Console.WriteLine("asd" + adjacentCell);
                         if (adjacentCell == 'R' || adjacentCell == 'C')
                         {
                             points += 1;
@@ -173,6 +187,8 @@ namespace SPM_Assignment_Ngee_Ann_City
                     }
                 }
             }
+
+
 
             return clusterCount; // Each cluster requires 1 coin per turn
         }

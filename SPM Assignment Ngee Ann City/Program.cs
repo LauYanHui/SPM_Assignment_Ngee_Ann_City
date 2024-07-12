@@ -52,12 +52,12 @@ void addBuilding(Grid newGrid)
     newGrid.AddBuilding(building.type, rowLetter, col,false);
     newGrid.PrintGrid();
 }
-void ImportSavedGameArcade(Grid grid)
+void ImportSavedGameArcade(Grid grid, string filename)
 {
     char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
     List<string> game_temp = new List<string>();
     List<List<String>> game_dataFinal = new List<List<String>>();
-    using (StreamReader sr = new StreamReader("saved_game_data_arcade.csv"))
+    using (StreamReader sr = new StreamReader(filename))
     {
         string? s = sr.ReadLine();
         if (s != null)
@@ -400,9 +400,12 @@ void Arcademode(bool import)
                     removeBuilding(AGrid);
                     break;
                 case 3:
-                    AGrid.ExportGridToCSV();
-                    //requestExit = true;
+                    Console.Write("Enter save filename: ");
+                    string saveFilename = Console.ReadLine();
+                    AGrid.ExportGridToCSV(saveFilename);
+                    Console.WriteLine("Game saved.");
                     break;
+
                 case 4:
                     requestExit = true;
                     break;

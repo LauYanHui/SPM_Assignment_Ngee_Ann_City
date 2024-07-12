@@ -169,7 +169,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
             }
         }
-        public void ExportGridToCSV()
+        public void ExportGridToCSV(string filename )
         {
             Console.WriteLine();
             using (StreamWriter sw = new StreamWriter("saved_game_data_arcade.csv", false))

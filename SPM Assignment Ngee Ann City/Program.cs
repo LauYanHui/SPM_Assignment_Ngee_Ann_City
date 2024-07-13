@@ -532,6 +532,58 @@ void FreeplayMode(bool import)
             {
                 Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
                 exit = true;
+                // Leaderboard
+        Console.WriteLine("GAME ENDED");
+                Console.WriteLine("Points: " + points);
+                if (FPGrid.GetCoins() <= 0 || FPGrid.Buildings.Count >= 400)
+                {
+                    List<User> user_list = ReadLeaderboardCSV("FPleaderboard.csv");
+                    user_list.Sort();
+                    if (user_list.Count < 10)
+                    {
+                        Console.WriteLine("You have made it to the top 10.");
+                        string name;
+                        while (true)
+                        {
+                            Console.Write("Please enter your name to enter: ");
+                            name = Console.ReadLine();
+                            if (!(string.IsNullOrEmpty(name)))
+                            {
+                                break;
+                            }
+                            Console.WriteLine("Please enter a name" + "\n");
+                        }
+                        User new_user = new User(name, points);
+                        user_list.Add(new_user);
+                        user_list.Sort();
+                        AddToLeaderboardCSV(user_list, "FPleaderboard.csv");
+                    }
+                    else // user_list.count >= 11
+                    {
+                        if (user_list[9].Points < points)
+                        {
+                            Console.WriteLine("You have made it to the top 10.");
+                            string name;
+                            while (true)
+                            {
+                                Console.Write("Please enter your name to enter: ");
+                                name = Console.ReadLine();
+                                if (!(string.IsNullOrEmpty(name)))
+                                {
+                                    break;
+                                }
+                                Console.WriteLine("Please enter a name" + "\n");
+                            }
+
+                            User new_user = new User(name, points);
+                            user_list.Add(new_user);
+                            user_list.Sort();
+                            user_list.RemoveAt(10);
+                            AddToLeaderboardCSV(user_list, "FPleaderboard.csv");
+                        }
+                    }
+
+                }
 
             }
         }

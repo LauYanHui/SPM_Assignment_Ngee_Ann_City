@@ -539,45 +539,67 @@ void FreeplayMode(bool import)
         {
             losingTurns = 0; // Reset losingTurns counter
         }
-        arcadeModeMenu();
-
-        Console.Write("Please enter option: ");
-        int option = Convert.ToInt32(Console.ReadLine());
-        switch (option)
+        //arcadeModeMenu();
+        int option = -1;
+        bool error = false; 
+        try
         {
-            case 0: //Exit
-                exit = true;
-                break;
-            case 1: //Add building
-                testAddnewBuilding(FPGrid);
+            Console.Write("Please enter option: ");
+            option = Convert.ToInt32(Console.ReadLine());
 
-                break;
-            case 2: //Remove building
-                testRemoveBuilding(FPGrid);
-                break;
-            case 3: //save
-                Console.Write("Enter save filename: ");
-                string saveFilename = Console.ReadLine();
-                FPGrid.ExportGridToCSV(ref saveFilename);
-                Console.WriteLine("Game saved.");
-                break;
-
-            case 4:
-                if(FPGrid.FPnumber <=25 )
-                {
-                    Console.WriteLine("Only able to move grid when size is more than 25");
-                    freeplayControls(FPGrid);
+            switch (option)
+            {
+                case 0: //Exit
+                    exit = true;
                     break;
-                }
+                case 1: //Add building
+                    testAddnewBuilding(FPGrid);
 
+                    break;
+                case 2: //Remove building
+                    testRemoveBuilding(FPGrid);
+                    break;
+                case 3: //save
+                    Console.Write("Enter save filename: ");
+                    string saveFilename = Console.ReadLine();
+                    FPGrid.ExportGridToCSV(ref saveFilename);
+                    Console.WriteLine("Game saved.");
+                    break;
+
+                case 4:
+                    if (FPGrid.FPnumber <= 25)
+                    {
+                        Console.WriteLine("Only able to move grid when size is more than 25");
+                        break;
+                    }
+                    freeplayControls(FPGrid);
+
+                    break;
+                default:
+                    Console.WriteLine("Error option");
+                    error = true;
+                    break;
+
+            }
+        }
+        catch(FormatException)
+        {
+            Console.WriteLine("Invalid input");
+            continue;
+        }
+       if (!error)
+        {
+            FPGrid.calculateCoinsFP();
+
+            points = FPGrid.calculateAllPoints();
+
+            Console.WriteLine("Points: " + points);
+            previousCoins = FPGrid.coins; // Update previousCoins for the next turn
 
         }
-        FPGrid.calculateCoinsFP();
 
-        points = FPGrid.calculateAllPoints();
 
-        Console.WriteLine("Points: " + points);
-        
+
         //if (FPGrid.coins < previousCoins) // Losing coins
         //{
         //    losingTurns++;
@@ -592,7 +614,6 @@ void FreeplayMode(bool import)
         //{
         //    losingTurns = 0; // Reset losingTurns counter
         //}
-        previousCoins = FPGrid.coins; // Update previousCoins for the next turn
     }
 }
 
@@ -648,56 +669,152 @@ void game()
 void testAddnewBuilding(FreeplayGrid grid)
 {
     displayBuildingTypes();
-    Console.Write("Enter building type: ");
-    int option = Convert.ToInt32(Console.ReadLine());
-    //char buildingtype = 'R';
-    Console.Write("Enter letter: ");
-    string row = Console.ReadLine().ToUpper();
-    Console.Write("Enter number: ");
-    int col = Convert.ToInt32(Console.ReadLine());
-    char buildingType = 'i';
-    int rowNumbr = grid.ConvertToNumber(row);
-    switch (option)
+    while (true)
     {
-        case 1:
-            buildingType = 'R';
-            break;
-        case 2:
-            buildingType = 'I';
+        try
+        {
+            Console.Write("Enter building type: ");
+            int option = Convert.ToInt32(Console.ReadLine());
+            char buildingType = 'i';
+            bool error = false;
+            switch (option)
+            {
+                case 1:
+                    buildingType = 'R';
+                    break;
+                case 2:
+                    buildingType = 'I';
+
+                    break;
+                case 3:
+                    buildingType = 'C';
+                    break;
+                case 4:
+                    buildingType = 'O';
+                    break;
+                case 5:
+                    buildingType = '*';
+                    break;
+                default:
+                    Console.WriteLine("Wrong Option");
+                    error = true;   
+                    break;
+            }
+            if(error)
+            {
+                continue;
+            }
+            //char buildingtype = 'R';
+            string row = "";
+            while(true)
+            {
+                Console.Write("Enter letter: ");
+                row = Console.ReadLine().ToUpper();
+                int rowNumbr = grid.ConvertToNumber(row);
+                if (rowNumbr < 0 || rowNumbr > grid.FPnumber)
+                {
+                    Console.WriteLine("Out of bound");
+                    continue;
+                }
+                break;
+            }
+
+            int col = -1;
+            while(true)
+            {
+                try
+                {
+                    Console.Write("Enter number: ");
+                    col = Convert.ToInt32(Console.ReadLine());
+                    if (col < 0 || col > grid.FPnumber)
+                    {
+                        Console.WriteLine("Out of bound");
+                        continue;
+                    }
+                    break;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input");
+                    continue;
+                }
+
+
+            }
             
+            
+            grid.TestAddBuilding(buildingType, grid.ConvertToNumber(row), col - 1, false);
+            grid.PrintGrid();
             break;
-        case 3:
-            buildingType = 'C';
-            break;
-        case 4:
-            buildingType = 'O';
-            break;
-        case 5:
-            buildingType = '*';
-            break;
-        default:
-            Console.WriteLine("Wrong Option");
-            break;
+
+
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid input");
+            continue;
+        }
     }
+    
+    
+    
 
     //Console.WriteLine(grid.ConvertToNumber(row));
 
-    grid.TestAddBuilding(buildingType, grid.ConvertToNumber(row), col-1, false);
-    grid.PrintGrid();
 }
 void testRemoveBuilding(FreeplayGrid grid)
 {
     grid.PrintGrid();
-    Console.Write("Enter letter: ");// row 
-    string row = Console.ReadLine().ToUpper();
-    Console.Write("Enter number: ");// col
-    int col = Convert.ToInt32(Console.ReadLine());
-    int rowNumber = grid.ConvertToNumber(row);
-    Console.WriteLine("row number: " + rowNumber);
-    Console.WriteLine("col number: " );
-    Console.WriteLine(col - 1);
-    grid.TestRemoveBuilding(rowNumber,col-1);
-    grid.PrintGrid();
+    while(true)
+    {
+        try
+        {
+            Console.Write("Enter letter: ");// row 
+            string row = Console.ReadLine().ToUpper();
+            int rowNumber = grid.ConvertToNumber(row);
+            if(rowNumber > grid.FPnumber || rowNumber < 0)
+            {
+                Console.WriteLine("Out of bound");
+                continue;
+            }
+            int col = -1;
+            while(true)
+            {
+                try
+                {
+                    Console.Write("Enter number: ");// col
+                    col = Convert.ToInt32(Console.ReadLine());
+                    if (col > grid.FPnumber || col < 0)
+                    {
+                        Console.WriteLine("Out of bound");
+                        continue;
+                    }
+                    break;
+                }
+
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input");
+                    continue;
+                }
+            
+                
+            }
+            
+            //Console.WriteLine("row number: " + rowNumber);
+            //Console.WriteLine("col number: ");
+            Console.WriteLine(col - 1);
+            grid.TestRemoveBuilding(rowNumber, col - 1);
+            grid.PrintGrid();
+            break;
+        }
+        catch(FormatException)
+        {
+            Console.WriteLine("Invalid input");
+        }
+        
+    }
+    
 
 }
 

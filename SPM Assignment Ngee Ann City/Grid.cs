@@ -35,16 +35,16 @@ namespace SPM_Assignment_Ngee_Ann_City
                     Console.ForegroundColor = ConsoleColor.Green;
                     break;
                 case 'I':
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     break;
                 case 'C':
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     break;
                 case 'O':
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     break;
                 case '*':
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.White;

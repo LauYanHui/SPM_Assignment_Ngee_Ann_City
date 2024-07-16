@@ -103,7 +103,30 @@ namespace SPM_Assignment_Ngee_Ann_City
         //    //    Console.WriteLine("  +" + new string('-', 4 * FPnumber) + "+");
         //    //}
         //}
-
+        void SetBuildingColor(char buildingType)
+        {
+            switch (buildingType)
+            {
+                case 'R':
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                case 'I':
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    break;
+                case 'C':
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                case 'O':
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    break;
+                case '*':
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+            }
+        }
         public override char GetCell(int row, int col)
         {
             return grid[row, col];
@@ -307,7 +330,12 @@ namespace SPM_Assignment_Ngee_Ann_City
                 Console.Write($"{i + 1,2} |"); // Print the row number and vertical bar
                 for (int j = 0; j < defaultViewNum; j++)
                 {
-                    Console.Write($" {grid[i, x_left-1 + j]} |"); // Print the content of each cell
+                    Console.Write(" "); 
+                    SetBuildingColor(grid[i, j]); // Set color based on building type
+                    Console.Write(grid[i, j]); 
+                    Console.ResetColor(); // Reset color to default
+                    Console.Write(" |"); 
+                    //Console.Write($" {grid[i, x_left-1 + j]} |"); // Print the content of each cell
                 }
                 Console.WriteLine();
                 Console.Write(" ");

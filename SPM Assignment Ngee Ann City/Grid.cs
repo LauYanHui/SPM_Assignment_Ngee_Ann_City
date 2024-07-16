@@ -27,7 +27,30 @@ namespace SPM_Assignment_Ngee_Ann_City
             Buildings = new List<Building>();
             InitializeGrid(); // Initialize grid with empty spaces
         }
-
+        void SetBuildingColor(char buildingType)
+        {
+            switch (buildingType)
+            {
+                case 'R':
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                case 'I':
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    break;
+                case 'C':
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                case 'O':
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    break;
+                case '*':
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+            }
+        }
         public virtual void PrintGrid()
         {
             char[] letters = "ABCDEFGHIJKLMNOPQRST".ToCharArray();
@@ -41,7 +64,11 @@ namespace SPM_Assignment_Ngee_Ann_City
                 Console.Write($"{i + 1,2} |"); // Print the row number and vertical bar
                 for (int j = 0; j < Number; j++)
                 {
-                    Console.Write($" {grid[i, j]} |"); // Print the content of each cell
+                    Console.Write(" "); 
+                    SetBuildingColor(grid[i, j]);
+                    Console.Write(grid[i, j]);
+                    Console.ResetColor(); 
+                    Console.Write(" |"); 
                 }
                 Console.WriteLine();
                 Console.Write(" ");

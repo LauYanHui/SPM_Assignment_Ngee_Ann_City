@@ -870,6 +870,9 @@ void testRemoveBuilding(FreeplayGrid grid)
 
 }
 
+
+
+
 //Grid newgrid = new Grid(20);
 
 

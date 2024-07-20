@@ -46,63 +46,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
             }
         }
-        //private void PrintGridMoreThan26()
-        //{
-        //    char[,] grid = base.getGrid();
-        //    char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-        //    double MinCountLetters = Math.Ceiling(Convert.ToDouble(FPnumber) / letters.Length);
-        //    int counter0 = 0;
-        //    Console.Write("   ");
-        //    for (int i = 0; i < MinCountLetters; i++)
-        //    {
-        //        for (int j0 = 0; j0 < letters.Length; j0++)
-        //        {
-        //            Console.Write("  " + letters[i] + " ");
-        //            counter0++;
-        //            if (counter0 == FPnumber)
-        //            {
-        //                break;
-        //            }
-        //        }
-        //    }
 
-        //    Console.WriteLine();
-        //    Console.Write("   ");
-        //    int count = 0;
-        //    int counter = 0;
-        //    while (true)
-        //    {
-        //        for (int j1 = 0; j1 < letters.Length; j1++)
-        //        {
-        //            Console.Write("  " + letters[j1] + " ");
-        //            counter++;
-        //            if (counter == FPnumber)
-        //            {
-        //                break;
-        //            }
-        //        }
-        //        count++;
-        //        if (count >= MinCountLetters)
-        //        {
-        //            break;
-        //        }
-        //    }
-        //    //Console.WriteLine();
-        //    //Console.Write(" ");
-        //    //Console.WriteLine("  +" + new string('-', 4 * FPnumber) + "+");
-
-        //    //for (int i = 0; i < FPnumber; i++)
-        //    //{
-        //    //    Console.Write($"{i + 1,2} |"); // Print the row number and vertical bar
-        //    //    for (int j = 0; j < FPnumber; j++)
-        //    //    {
-        //    //        Console.Write($" {grid[i, j]} |"); // Print the content of each cell
-        //    //    }
-        //    //    Console.WriteLine();
-        //    //    Console.Write(" ");
-        //    //    Console.WriteLine("  +" + new string('-', 4 * FPnumber) + "+");
-        //    //}
-        //}
 
         public override char GetCell(int row, int col)
         {
@@ -437,20 +381,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             //Console.WriteLine(Y_Range[0] + "\t" + Y_Range[1]);
             PrintGrid();
         }
-        //public void ExportGameDetails()
-        //{
-        //    char[,] grid = base.getGrid();
-        //    Console.WriteLine("test");
-        //    /*for (int i = 0; i < Number; i++)
-        //    {
-        //        //Console.Write((i + 1) + ",");
-        //        for (int j = 0; j < Number; j++)
-        //        {
-        //            Console.Write(grid[i, j] + (j < Number - 1 ? "," : ""));
-        //        }
-        //        Console.WriteLine();
-        //    }*/
-        //}
+
         public void ExpandGrid()
         {
             FPnumber += 10;
@@ -469,137 +400,7 @@ namespace SPM_Assignment_Ngee_Ann_City
         public override bool IsConnectedToExistingBuilding(int col, int row, bool import) //Reversed col and row cuz it is wrong at first
         {
             return true;
-            //if (Buildings.Count == 0 || import)
-            //{
-            //    return true; // First building can be placed anywhere
-            //}
-            //List<bool> adjacent_buildings = new List<bool>(); //If true, means got 1 direction have adjacent building
 
-            //bool edge_left = false;
-            //bool edge_right = false;
-            //bool edge_top = false;
-            //bool edge_bottom = false;
-            
-
-            //if(col-1 < 0) //Edge of the left map
-            //{
-            //    edge_left = true;
-            //}
-            //if(col + 1 >= FPnumber) //Edge of the right map
-            //{
-            //    edge_right = true;
-            //}
-            //if(row-1 < 0) //Edge of the top
-            //{
-            //    edge_top = true;
-            //}
-            //if(row + 1 >= FPnumber)//Edge of the bottom
-            //{
-            //    edge_bottom = true;
-            //}
-            ////Finding left of the new***** building
-            ////left => row same, column -1 of the new,
-            //bool left = false;
-            //if(!edge_left)
-            //{
-            //    left = (grid[row, col - 1] != ' ');
-
-            //}
-
-            ////Find right of the new building
-            ////right => row same, column + 1 of the new
-            //bool right = false;
-            //if(!edge_right)
-            //{
-            //    right = (grid[row, col + 1] != ' ');
-
-            //}
-
-            ////Find up of the new building
-            ////up => col same, row + 1
-            //bool up = false;
-            //if (!edge_top)
-            //{
-                
-            //    up = (grid[row - 1, col] != ' ');
-
-            //}
-
-            ////Finding down of the new building
-            ////down => col same, row - 1
-            //bool down = false;
-            //if(!edge_bottom)
-            //{
-            //    down = (grid[row + 1, col] != ' ');
-            //}
-
-            ////Finding top-left of the new building
-            ////top-left => row - 1 , col -1
-            //bool top_left = false;
-            //if( !edge_top && !edge_left)
-            //{
-            //    top_left = (grid[row - 1, col - 1] != ' ');
-
-            //}
-
-            ////Finding top-right of the new building
-            ////top-right => row -1 ,col +1
-            //bool top_right = false;
-            //if( !edge_top && !edge_right )
-            //{
-            //    top_right = (grid[row - 1, col + 1] != ' ');
-
-            //}
-
-            ////Finding bottom_right of the new building
-            ////bottom-right => row +1 , col +1
-            //bool bottom_right = false;
-            //if(!edge_bottom && !edge_right)
-            //{
-            //    bottom_right = (grid[row + 1, col + 1] != ' ');
-            //}
-
-            ////Finding bottom-left of the new building
-            ////bottom-left => row + 1, col-1
-            //bool bottom_left = false;
-            //if (!edge_bottom && !edge_left)
-            //{
-            //    bottom_left = (grid[row + 1, col - 1] != ' ');
-            //}
-
-            
-            //adjacent_buildings.Add(left);
-            //adjacent_buildings.Add(right);
-            //adjacent_buildings.Add(up);
-            //adjacent_buildings.Add(down);
-            //adjacent_buildings.Add(top_left);
-            //adjacent_buildings.Add(top_right);
-            //adjacent_buildings.Add(bottom_left);
-            //adjacent_buildings.Add(bottom_right);
-
-            //foreach(bool truth in adjacent_buildings)
-            //{
-            //    if (truth) //Adjacent building exists
-            //    {
-                    
-            //        return true;
-            //    }
-            //}
-
-
-
-            ////For debugging
-
-            ////Console.WriteLine("Left: " + left);
-            ////Console.WriteLine("Right: " + right);
-            ////Console.WriteLine("Up: " +  up);
-            ////Console.WriteLine("Down: " + down);
-            ////Console.WriteLine("Top left: " + top_left);
-            ////Console.WriteLine("Top right: " + top_right);
-            ////Console.WriteLine("Bottom left: " + bottom_left);
-            ////Console.WriteLine("Bottom right: " + bottom_right);
-            ////Console.WriteLine("Row: " + row + " Col: " + col); 
-            //return false;
         }
 
         

@@ -598,26 +598,9 @@ void FreeplayMode(bool import)
 
         }
 
-
-
-        //if (FPGrid.coins < previousCoins) // Losing coins
-        //{
-        //    losingTurns++;
-        //    if (losingTurns >= turnToLose) // Check if losingTurns has reached the threshold
-        //    {
-        //        Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
-        //        exit = true;
-
-        //    }
-        //}
-        //else // Not losing coins
-        //{
-        //    losingTurns = 0; // Reset losingTurns counter
-        //}
     }
 }
 
-//
 
 void game()
 {
@@ -821,8 +804,8 @@ void testRemoveBuilding(FreeplayGrid grid)
 //Grid newgrid = new Grid(20);
 
 
-game();
-
+//game();
+FreeplayMode(false);
 //game();
 //testAddnewBuilding(newgrid);
 //testRemoveBuilding(newgrid);

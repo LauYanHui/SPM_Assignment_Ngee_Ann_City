@@ -98,7 +98,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             FreeplayGrid fpGrid = new FreeplayGrid(5);
             if(grid is FreeplayGrid)
             {
-                fpGrid = (FreeplayGrid)grid;
+                grid = (FreeplayGrid)grid;
                 //Console.WriteLine(fpGrid.FPnumber);
             }
             //Console.WriteLine("test: " + grid.GetCell(1,0));

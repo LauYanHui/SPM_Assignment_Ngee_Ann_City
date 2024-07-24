@@ -42,6 +42,8 @@ namespace SPM_Assignment_Ngee_Ann_City
             {
                 foreach(Building build in Buildings)
                 {
+                    build.col += 5;
+                    build.row += 5;
                     grid[build.col, build.row] = build.type;
                 }
             }
@@ -323,7 +325,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 counter1++;
             }
             Console.WriteLine();
-            Console.WriteLine("   +" + new string('-', 4 * defaultViewNum) + "+");
+            Console.WriteLine("   +" + new string('-', 4 * defaultViewNum-1) + "+");
             for (int i = y_top - 1; i < y_bottom; i++)
             {
 
@@ -339,7 +341,7 @@ namespace SPM_Assignment_Ngee_Ann_City
                 }
                 Console.WriteLine();
                 Console.Write(" ");
-                Console.WriteLine("  +" + new string('-', 4 * defaultViewNum) + "+");
+                Console.WriteLine("  +" + new string('-', 4 * defaultViewNum-1) + "+");
             }
 
 
@@ -488,7 +490,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             InitializeGrid();
             //Console.WriteLine("buliding count aft: " + Buildings.Count);
 
-            PrintGrid();
+            //PrintGrid();
         }
 
 
@@ -687,11 +689,7 @@ namespace SPM_Assignment_Ngee_Ann_City
 
 
                 Console.WriteLine("Col: " + col + " Row: " + row);
-                if(row == 0)
-                {
-                    ExpandGrid();
-                }
-                else if(col == 0)
+                if(row == 0 || col == 0 || row == FPnumber-1 || col == FPnumber-1)
                 {
                     ExpandGrid();
                 }
@@ -745,6 +743,37 @@ namespace SPM_Assignment_Ngee_Ann_City
             upkeep += RUpKeep;
             Console.WriteLine("Income: " + income);
             Console.WriteLine("Upkeep: "+ upkeep);
+        }
+        public bool calculateLossFP()
+        {
+            int income = 0;
+            int upkeep = 0;
+            int RUpKeep = 0;
+            //Console.WriteLine("test");
+            foreach (Building B in Buildings)
+            {
+                coins += B.Income();
+                income += B.Income();
+                //Console.WriteLine("Coins is " + coins);
+                coins -= B.Upkeep();
+                if (B.type != 'R')
+                {
+                    upkeep += B.Upkeep();
+                }
+                else
+                {
+                    RUpKeep = B.Upkeep();
+                }
+                //Console.WriteLine("Coins is " + coins);
+            }
+            upkeep += RUpKeep;
+            if(income-upkeep < 0 )
+            {
+                return true;
+            }
+            return false;
+            //Console.WriteLine("Income: " + income);
+            //Console.WriteLine("Upkeep: " + upkeep);
         }
     }
 }

@@ -518,28 +518,52 @@ void FreeplayMode(bool import)
     bool exit = false;
     int points = 0;
     const int turnToLose = 20;
+    //const int turnToLose = 2; //Test
+
     int losingTurns = 0;
     int previousCoins = FPGrid.coins; 
     while (!exit)
     {
 
         FreeplayModeMenu();
-        
-        if (FPGrid.coins < previousCoins) // Losing coins
+        //if (FPGrid.coins < previousCoins) // Losing coins
+        if(FPGrid.calculateLossFP())
         {
             losingTurns++;
+            Console.WriteLine(losingTurns);
+
             if (losingTurns >= turnToLose) // Check if losingTurns has reached the threshold
             {
                 Console.WriteLine("The city has been losing coins for 20 turns. Ending Freeplay Mode...");
                 exit = true;
                 // Leaderboard
-        Console.WriteLine("GAME ENDED");
+                Console.WriteLine("GAME ENDED");
                 Console.WriteLine("Points: " + points);
-                if (FPGrid.GetCoins() <= 0 || FPGrid.Buildings.Count >= 400)
+                
+                List<User> user_list = ReadLeaderboardCSV("FPleaderboard.csv");
+                user_list.Sort();
+                if (user_list.Count < 10)
                 {
-                    List<User> user_list = ReadLeaderboardCSV("FPleaderboard.csv");
+                    Console.WriteLine("You have made it to the top 10.");
+                    string name;
+                    while (true)
+                    {
+                        Console.Write("Please enter your name to enter: ");
+                        name = Console.ReadLine();
+                        if (!(string.IsNullOrEmpty(name)))
+                        {
+                            break;
+                        }
+                        Console.WriteLine("Please enter a name" + "\n");
+                    }
+                    User new_user = new User(name, points);
+                    user_list.Add(new_user);
                     user_list.Sort();
-                    if (user_list.Count < 10)
+                    AddToLeaderboardCSV(user_list, "FPleaderboard.csv");
+                }
+                else // user_list.count >= 11
+                {
+                    if (user_list[9].Points < points)
                     {
                         Console.WriteLine("You have made it to the top 10.");
                         string name;
@@ -553,37 +577,16 @@ void FreeplayMode(bool import)
                             }
                             Console.WriteLine("Please enter a name" + "\n");
                         }
+
                         User new_user = new User(name, points);
                         user_list.Add(new_user);
                         user_list.Sort();
+                        user_list.RemoveAt(10);
                         AddToLeaderboardCSV(user_list, "FPleaderboard.csv");
                     }
-                    else // user_list.count >= 11
-                    {
-                        if (user_list[9].Points < points)
-                        {
-                            Console.WriteLine("You have made it to the top 10.");
-                            string name;
-                            while (true)
-                            {
-                                Console.Write("Please enter your name to enter: ");
-                                name = Console.ReadLine();
-                                if (!(string.IsNullOrEmpty(name)))
-                                {
-                                    break;
-                                }
-                                Console.WriteLine("Please enter a name" + "\n");
-                            }
-
-                            User new_user = new User(name, points);
-                            user_list.Add(new_user);
-                            user_list.Sort();
-                            user_list.RemoveAt(10);
-                            AddToLeaderboardCSV(user_list, "FPleaderboard.csv");
-                        }
-                    }
-
                 }
+                break;
+                
 
             }
         }
@@ -706,8 +709,35 @@ void game()
                 FreeplayMode(true);
                 break;
             case 5:
-                List<User> user_list = ReadLeaderboardCSV("Aleaderboard.csv");
-                DisplayLeaderboard(user_list);
+                while(true)
+                {
+                    Console.WriteLine("[0] Exit");
+                    Console.WriteLine("[1] Arcade");
+                    Console.WriteLine("[2] Freeplay");
+                    Console.Write("Please select a mode for the leaderboard: ");
+
+                    string leaderboardChoice = Console.ReadLine();
+                    if(leaderboardChoice == "0")
+                    {
+                        break;
+                    }
+                    else if (leaderboardChoice == "1")
+                    {
+                        List<User> user_list = ReadLeaderboardCSV("Aleaderboard.csv");
+                        DisplayLeaderboard(user_list);
+                    }
+                    else if (leaderboardChoice == "2")
+                    {
+                        List<User> user_list = ReadLeaderboardCSV("FPleaderboard.csv");
+                        DisplayLeaderboard(user_list);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Input");
+                        continue;
+                    }
+                    break;
+                }
                 break;
             case 0:
                 exit = true;

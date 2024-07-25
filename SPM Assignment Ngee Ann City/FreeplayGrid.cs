@@ -393,33 +393,52 @@ namespace SPM_Assignment_Ngee_Ann_City
             }
             else if ((direction.ToLower()).Equals("left")) //LEFT
             {
-                if (X_range.Count != 0 && X_range[0] <= 1)
+
+                if (X_range.Count != 0)
                 {
+
+                    if (X_range[0] == 1)
+                    {
+                        Console.WriteLine("Already at the edge");
+                        return;
+                    }
+                    X_range.Clear();
+                }
+                else
+                {
+                    X_range.Add(1);
+                    X_range.Add(25);
                     Console.WriteLine("Already at the edge");
                     return;
                 }
-
-                X_range.Clear();
                 d--;
-                int X_Coord = d * 10;
-                new_left = 1 + X_Coord;
-                new_right = 25 + X_Coord;
+                int X_Coorindata = d * 10;
+                int original_left = 1;
+                int original_right = 25;
+                new_left = original_left + X_Coorindata;
+                new_right = original_right + X_Coorindata;
                 X_range.Add(new_left);
                 X_range.Add(new_right);
             }
+            
             else if ((direction.ToLower()).Equals("right")) // RIGHT
             {
-                if (X_range.Count != 0 && X_range[1] >= FPnumber)
+               
+                if (X_range.Count != 0)
                 {
-                    Console.WriteLine("Already at the edge");
-                    return;
+                    if (X_range[1] == FPnumber)
+                    {
+                        Console.WriteLine("Already at the edge");
+                        return;
+                    }
+                    X_range.Clear();
                 }
-
-                X_range.Clear();
                 d++;
-                int X_Coord = d * 10;
-                new_left = 1 + X_Coord;
-                new_right = 25 + X_Coord;
+                int X_Coorindata = d * 10;
+                int original_left = 1;
+                int original_right = 25;
+                new_left = original_left + X_Coorindata;
+                new_right = original_right + X_Coorindata;
                 X_range.Add(new_left);
                 X_range.Add(new_right);
             }

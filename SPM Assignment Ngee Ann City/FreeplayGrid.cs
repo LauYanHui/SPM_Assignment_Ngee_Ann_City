@@ -332,9 +332,12 @@ namespace SPM_Assignment_Ngee_Ann_City
                 Console.Write($"{i + 1,2} |"); // Print the row number and vertical bar
                 for (int j = 0; j < defaultViewNum; j++)
                 {
-                    Console.Write(" "); 
-                    SetBuildingColor(grid[i, j]); // Set color based on building type
-                    Console.Write(grid[i, j]); 
+                    Console.Write(" ");
+                    //SetBuildingColor(grid[i, j]); // Set color based on building type
+                    //Console.Write(grid[i, j]); 
+                    SetBuildingColor(grid[i, x_left - 1 + j]); // Set color based on building type
+                    Console.Write(grid[i, x_left - 1 + j]);
+
                     Console.ResetColor(); // Reset color to default
                     Console.Write(" |"); 
                     //Console.Write($" {grid[i, x_left-1 + j]} |"); // Print the content of each cell
@@ -391,9 +394,9 @@ namespace SPM_Assignment_Ngee_Ann_City
                 Y_range.Add(new_top);
                 Y_range.Add(new_bottom);
             }
-            else if ((direction.ToLower()).Equals("left")) //LEFT
+            else if ((direction.ToLower()) == "left") //LEFT
             {
-
+            
                 if (X_range.Count != 0)
                 {
 
@@ -421,9 +424,8 @@ namespace SPM_Assignment_Ngee_Ann_City
                 X_range.Add(new_right);
             }
             
-            else if ((direction.ToLower()).Equals("right")) // RIGHT
+            else if ((direction.ToLower()) == "right") // RIGHT
             {
-               
                 if (X_range.Count != 0)
                 {
                     if (X_range[1] == FPnumber)

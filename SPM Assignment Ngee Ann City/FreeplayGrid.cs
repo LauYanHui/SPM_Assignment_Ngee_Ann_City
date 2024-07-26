@@ -393,7 +393,7 @@ namespace SPM_Assignment_Ngee_Ann_City
             }
             else if ((direction.ToLower()).Equals("left")) //LEFT
             {
-
+            
                 if (X_range.Count != 0)
                 {
 

@@ -332,9 +332,12 @@ namespace SPM_Assignment_Ngee_Ann_City
                 Console.Write($"{i + 1,2} |"); // Print the row number and vertical bar
                 for (int j = 0; j < defaultViewNum; j++)
                 {
-                    Console.Write(" "); 
-                    SetBuildingColor(grid[i, j]); // Set color based on building type
-                    Console.Write(grid[i, j]); 
+                    Console.Write(" ");
+                    //SetBuildingColor(grid[i, j]); // Set color based on building type
+                    //Console.Write(grid[i, j]); 
+                    SetBuildingColor(grid[i, x_left - 1 + j]); // Set color based on building type
+                    Console.Write(grid[i, x_left - 1 + j]);
+
                     Console.ResetColor(); // Reset color to default
                     Console.Write(" |"); 
                     //Console.Write($" {grid[i, x_left-1 + j]} |"); // Print the content of each cell
@@ -354,35 +357,34 @@ namespace SPM_Assignment_Ngee_Ann_City
 
         }
 
-        public void MoveGridView(String movement)
+        public void MoveGridView(string direction)
         {
-            //Default view port 25x25
             int new_top;
             int new_bottom;
             int new_left;
             int new_right;
-            
-            
-            if ((movement.ToLower()).Equals("w")) //UP
+
+            // Debug output
+            Console.WriteLine($"Moving {direction}. Current w: {w}, d: {d}");
+
+            if (direction.ToLower() == "up") // Move Up
             {
-                
-                if(Y_range.Count != 0)
+                if (Y_range.Count != 0)
                 {
-                    if (Y_range[0] == 1) //At the top
+                    if (Y_range[0] == 1) // Already at the top
                     {
                         Console.WriteLine("Already at the top");
                         return;
                     }
                     Y_range.Clear();
                 }
-                else //For the first input
+                else
                 {
                     Y_range.Add(1);
                     Y_range.Add(25);
                     Console.WriteLine("Already at the top");
                     return;
                 }
-                //Moving up by 10 grid 
                 w--;
                 int Y_Coordinate = w * 10;
                 int original_top = 1;
@@ -392,8 +394,9 @@ namespace SPM_Assignment_Ngee_Ann_City
                 Y_range.Add(new_top);
                 Y_range.Add(new_bottom);
             }
-            else if ((movement.ToLower()).Equals("a")) //LEFT
+            else if ((direction.ToLower()) == "left") //LEFT
             {
+            
                 if (X_range.Count != 0)
                 {
 
@@ -420,31 +423,9 @@ namespace SPM_Assignment_Ngee_Ann_City
                 X_range.Add(new_left);
                 X_range.Add(new_right);
             }
-            else if ((movement.ToLower()).Equals("s")) //DOWN
+            
+            else if ((direction.ToLower()) == "right") // RIGHT
             {
-                
-                if (Y_range.Count != 0)
-                {
-                    if (Y_range[1] == FPnumber) //At the top
-                    {
-                        Console.WriteLine("Already at the bottom");
-                        return;
-                    }
-                    Y_range.Clear();
-                }
-
-                w++;
-                int Y_Coordinate = w * -10;
-                int original_top = 1;
-                int original_bottom = 25;
-                new_top = original_top - Y_Coordinate;
-                new_bottom = original_bottom - Y_Coordinate;
-                Y_range.Add(new_top);
-                Y_range.Add(new_bottom);
-            }
-            else if((movement.ToLower()).Equals("d"))// Movement = D RIGHT
-            {
-                
                 if (X_range.Count != 0)
                 {
                     if (X_range[1] == FPnumber)
@@ -462,11 +443,38 @@ namespace SPM_Assignment_Ngee_Ann_City
                 new_right = original_right + X_Coorindata;
                 X_range.Add(new_left);
                 X_range.Add(new_right);
-
             }
-            //Console.WriteLine(Y_Range[0] + "\t" + Y_Range[1]);
-            PrintGrid();
+
+            else if (direction.ToLower() == "down") // Move Down
+            {
+                if (Y_range.Count != 0)
+                {
+                    if (Y_range[1] == FPnumber) // Already at the bottom
+                    {
+                        Console.WriteLine("Already at the bottom");
+                        return;
+                    }
+                    Y_range.Clear();
+                }
+                w++;
+                int Y_Coordinate = w * -10;
+                int original_top = 1;
+                int original_bottom = 25;
+                new_top = original_top - Y_Coordinate;
+                new_bottom = original_bottom - Y_Coordinate;
+                Y_range.Add(new_top);
+                Y_range.Add(new_bottom);
+            }
+           
+
+            // Debug output for new ranges
+            Console.WriteLine($"New Y_range: {string.Join(", ", Y_range)}");
+            Console.WriteLine($"New X_range: {string.Join(", ", X_range)}");
+
+            PrintGrid(); // Ensure this method correctly visualizes the updated grid
         }
+
+
         //public void ExportGameDetails()
         //{
         //    char[,] grid = base.getGrid();

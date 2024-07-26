@@ -627,8 +627,7 @@ void FreeplayMode(bool import)
                         Console.WriteLine("Only able to move grid when size is more than 25");
                         break;
                     }
-                    freeplayControls(FPGrid);
-
+                    MoveGridWithArrowKeys(FPGrid);
                     break;
                 default:
                     Console.WriteLine("Error option");
@@ -671,7 +670,38 @@ void FreeplayMode(bool import)
         //}
     }
 }
+static void MoveGridWithArrowKeys(FreeplayGrid FPGrid)
+{
+    Console.WriteLine("Use the arrow keys to move the map. Press 'E' to exit.");
 
+    while (true)
+    {
+        ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+        if (keyInfo.Key == ConsoleKey.E)
+        {
+            return;
+        }
+
+        switch (keyInfo.Key)
+        {
+            case ConsoleKey.UpArrow:
+                FPGrid.MoveGridView("Up");
+                break;
+            case ConsoleKey.DownArrow:
+                FPGrid.MoveGridView("Down");
+                break;
+            case ConsoleKey.LeftArrow:
+                FPGrid.MoveGridView("Left");
+                break;
+            case ConsoleKey.RightArrow:
+                FPGrid.MoveGridView("Right");
+                break;
+            default:
+                Console.WriteLine("Invalid input. Use the arrow keys or 'E' to exit.");
+                break;
+        }
+    }
+}
 //
 
 void game()
